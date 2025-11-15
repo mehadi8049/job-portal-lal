@@ -1,0 +1,469 @@
+<html>
+   <body>
+      <style>
+         #rb-layout {
+         width: 100%;
+         max-width: 210mm;
+         background: #3F9599;
+         padding: 0;
+         box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+         }
+         #rb-main{
+         font-family: 'Open Sans',sans-serif;
+         font-size: 14px;line-height: 24px;
+         }
+         #rb-content {
+         background: #fff;
+         }
+         #rb-content .rb-content-main{
+         padding: 10px 0 10px 5px;
+         }
+         #rb-content-top{	
+         background:#fff;
+         padding-bottom: 10px;
+         }
+         #rb-top-info-img{
+         display: flex;
+         flex-wrap: nowrap;
+         }
+         #rb-top-info-img #rb-top-info{
+         width:80%;
+         text-align: left;
+         display: block;
+         margin-top: 34px;
+         margin-left: 40px;
+         padding-top: 25px;
+         padding-left: 30px;
+         }
+         #rb-box-ava img{
+         width:150px;
+         border-radius: 50%;
+         }
+         #rb-top-info-contact{
+         display:flex;
+         padding: 8px 30px;
+         margin-top: 20px;
+         margin-bottom: 0px!important;
+         color:#fff;
+         font-size: 14px;
+         background-color: #4baf71;
+         }
+         #rb-top-info-contact .top-contact{
+         flex: auto;
+         padding: 5px;
+         }
+         #rb-content .rb-block {
+         position: relative;
+         padding: 5px 10px;
+         }
+         #rb-left .rb-box-content {
+         padding-bottom: 0;
+         margin:0;
+         }
+         .skill{
+         margin-top: 15px
+         }
+         #rb-content-top h1{
+         font-size: 32px;	
+         margin:0;
+         padding-bottom: 10px;/* t, r,b,l */
+         line-height: normal;
+         text-transform: uppercase;
+         font-weight: 700;
+         }
+         #rb-content-top h1 span{
+         display:block
+         }
+         #rb-content-top h2{
+         margin:0;
+         font-size: 22px;
+         font-weight: normal;
+         /* padding: 0 20px 20px 20px; */
+         font-style: italic;
+         font-weight: 400;
+         }
+         .box-name p{		
+         overflow: hidden;
+         }
+         .box-name{		
+         overflow: hidden;
+         background: #2f3a40;
+         }
+         #rb-left .h3{
+         font-size: 18px;
+         font-weight: bold;
+         margin-top: 0;
+         text-transform: uppercase;
+         text-align: center;
+         }
+         .top-contact p{
+         margin:0;
+         }
+         #rb-content .head{
+         font-size: 18px;
+         color: #2f3a40;
+         padding-bottom: 5px;
+         /* border-bottom: 2px solid #9B9C8F; */
+         font-weight: bold;
+         margin-top: 0;
+         text-transform: uppercase;
+         }
+         #rb-content h3{
+         font-weight:bold;font-size: 14px;line-height:30px;margin-bottom: 10px;color: #333;
+         }
+         #rb-left .h3 span{
+         padding: 0px 15px;
+         }
+         #rb-content span[contenteditable]{
+         display: inline-block;
+         padding-right: 15px;
+         padding-left: 15px;
+         }
+         #rb-left .h3:first-child{
+         margin-top: 0
+         }
+         .rb-box-content{
+         margin-bottom: 25px;
+         padding-left: 15px;
+         position: relative;
+         }
+         #rb-box-ava{	
+         text-align:center;
+         padding-top: 34px;
+         padding-left: 40px;
+         }
+         .bar-exp span {
+         display:block;
+         height: 8px;
+         background: #d9d9d9;
+         }
+         .bar-exp{
+         background: #2f3a40;
+         border: solid 2px white;
+         margin-bottom: 12px;
+         }
+         .icoweb label{
+         display: block;
+         color:#627e88;
+         }
+         .icoweb span{
+         display: block;
+         }
+         .box-contact{
+         font-size: 13px;
+         margin-left: 5px;
+         padding-top:0px;
+         }
+         .icoweb i.fa{
+         width: 20px;
+         height: 20px;
+         background-color: #ffffff;
+         border-radius: 50%;
+         -webkit-border-radius: 50%;
+         -moz-border-radius: 50%;
+         display: inline-block;
+         text-align: center;
+         font-size: 13px;
+         line-height: 20px;
+         color: #2f3a40!important;
+         margin-right: 10px;
+         margin-top: 3px;float:left
+         }
+         .head i{
+         font-size: 25px;
+         margin-right: 10px;
+         }
+         .exp-content{
+         padding-left: 15px;
+         }
+         #rb-content span.exp-date {
+         float: right;
+         }
+         .icon_fa{
+         text-align: center;
+         }
+         .icon_fa i.fa{
+         font-size: 20px;
+         border: solid 1px #ffffff;
+         border-radius: 50%;
+         padding: 5px;
+         width: 20px;
+         color: white;
+         background: #ffffff;
+         margin-bottom: 5px;
+         }
+         p.head i.fa{float:left}
+      </style>
+      <div id="rb-layout">
+         <div id="rb-main">
+            <div id="rb-content">
+               <div id="rb-content-top">
+                  <div id="rb-top-info-img">
+                     <div id="rb-box-ava">
+                        <img id="cv-ava" src="http://redribbon.vn/images/bin/avatar/noavatar.png" >
+                     </div>
+                     <div id="rb-top-info">
+                        <h1><span>Your full name</span></h1>
+                        <h2><span>Job's position</span></h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores explicabo nam similique quaerat,
+                        </p>
+                     </div>
+                  </div>
+                  <div id="rb-top-info-contact">
+                     <div class="top-contact">
+                        <p class="icoweb" ><i class="fa fa-envelope-square"></i><span >example@example.com</span>
+                     </div>
+                     <div class="top-contact">
+                        <p class="icoweb" ><i class="fa fa-phone"></i><span >0123456789</span></p>
+                     </div>
+                     <div class="top-contact">
+                        <p class="icoweb"><i class="fa fa-map-marker"></i><span >New York</span>
+                        </p>
+                     </div>
+                     <div class="top-contact">
+                        <p class="icoweb" ><i class="fa fa-skype"></i><span >username.name</span></p>
+                     </div>
+                  </div>
+               </div>
+               <div class="rb-content-main">
+                  <div class="rb-block">
+                     <p class="head">
+                        <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                        <span >Education</span>
+                     </p>
+                     <div>
+                        <div class="rb-box-content">
+                           <h3>
+                              <span>School's name</span>
+                              <span class="exp-date"><em >08/2019</em> - <em >03/2020</em></span>
+                           </h3>
+                           <p class="h3">
+                              <span >Major</span>
+                           </p>
+                           <div class="exp-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores explicabo nam similique quaerat, porro perferendis adipisci molestias eius dolore eaque, consequatur placeat voluptates consequuntur
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="rb-block">
+                     <p class="head">
+                        <i class="fa fa-briefcase" aria-hidden="true"></i>
+                        <span>Expericence</span>
+                     </p>
+                     <div>
+                        <div class="rb-box-content">
+                           <h3>
+                              <span>Company's name</span>
+                              <span class="exp-date"><em>04/2020</em> - <em >Now</em></span>
+                           </h3>
+                           <p class="h3">
+                              <span>Position</span>
+                           </p>
+                           <div class="exp-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores explicabo nam similique quaerat, porro perferendis adipisci molestias eius dolore eaque, consequatur placeat voluptates consequuntur
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="rb-block">
+                     <p class="head">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        <span>Activities</span>
+                     </p>
+                     <div>
+                        <div class="rb-box-content">
+                           <h3>
+                              <span >Organization's name</span>
+                              <span class="exp-date"><em >01/2019</em> - <em>03/2020</em></span>
+                           </h3>
+                           <p class="h3">
+                              <span>Position</span>
+                           </p>
+                           <div class="exp-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores explicabo nam similique quaerat, porro perferendis adipisci molestias eius dolore eaque, consequatur placeat voluptates consequuntur
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="rb-block">
+                     <p class="head">
+                        <i class="fa fa-trophy" aria-hidden="true"></i>
+                        <span>AWARD</span>
+                     </p>
+                     <div>
+                        <div class="rb-box-content">
+                           <h3>
+                              <span >Award's name</span>
+                              <span class="exp-date"><em >01/2019</em></span>
+                           </h3>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="rb-block">
+                     <p class="head">
+                        <i class="fa fa-cogs" aria-hidden="true"></i>
+                        <span>SKILL</span>
+                     </p>
+                     <div>
+                        <div class="rb-box-content">
+                           <h3>
+                              <span >Skill's name</span>
+                           </h3>
+                           <div class="exp-content">Lorem ipsum dolor sit amet, consectetur adipisicing 
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="rb-block">
+                     <p class="head">
+                        <i class="fa fa-caret-square-o-down" aria-hidden="true"></i>
+                        <span>More information</span>
+                     </p>
+                     <div>
+                        <div class="rb-box-content">
+                           <div class="exp-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores explicabo nam similique quaerat, porro perferendis adipisci molestias eius dolore eaque, consequatur placeat voluptates consequuntur
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="rb-block">
+                     <p class="head">
+                        <i class="fa fa-link" aria-hidden="true"></i>
+                        <span>References</span>
+                     </p>
+                     <div>
+                        <div class="rb-box-content">
+                           <div class="exp-content">Name, company, phone, email,...
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js" integrity="sha512-s/XK4vYVXTGeUSv4bRPOuxSDmDlTedEpMEcAQk0t/FMd9V6ft8iXdwSBxV0eD60c6w/tjotSlKu9J2AAW1ckTA==" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+   <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+   <script type="text/javascript">
+   		class JsPdfWrapper {
+
+	    //////////////////////////////////////////////////
+	    // Constructor
+	    // @param options object: Toaster Option.
+	    //////////////////////////////////////////////////
+	    constructor(options = null) {
+	        this.OPTIONS = {
+	            'jsPDF': {
+	                'orientation': 'p',
+	                'unit': 'px',
+	                'format': 'a4',
+	                'putOnlyUsedFonts': false,
+	                'compress': false,
+	                'precision': 2,
+	                'userUnit': 1.0,
+	            },
+	            'html2canvas': {
+	                'allowTaint': false,
+	                'backgroundColor': '#ffffff',
+	                'canvas': null,
+	                'foreignObjectRendering': false,
+	                'imageTimeout': 15000,
+	                'logging': false,
+	                'onclone': null,
+	                'proxy': null,
+	                'removeContainer': true,
+	                //'quality': 4,
+                	//'scale': 5,
+	                'scale': window.devicePixelRatio,
+	                'useCORS': false,
+	            },
+	        }
+	        if(options != null) {
+	            if(options.jsPDF != null) {
+	                this.OPTIONS.jsPDF = options.jsPDF;
+	            }
+	            if(options.html2canvas != null) {
+	                this.OPTIONS.html2canvas = options.html2canvas;
+	            }
+	        }
+	    }
+
+
+	    //////////////////////////////////////////////////////////////////////
+	    // Download from HTML.
+	    //////////////////////////////////////////////////////////////////////
+	    DownloadFromHTML(targetElm, fileName = null) {
+	        let totalHeight = targetElm.offsetHeight;
+	        const pdf = new jsPDF(this.OPTIONS.jsPDF.orientation, this.OPTIONS.jsPDF.unit, this.OPTIONS.jsPDF.format);
+	        const pdfWidth = pdf.internal.pageSize.width;
+	        const pdfHeight = pdf.internal.pageSize.height;
+	        window.scrollTo(0,0);
+	        html2canvas(targetElm, this.OPTIONS.html2canvas).then((canvas) => {
+	            const widthRatio = pdfWidth / canvas.width;
+	            const sX = 0;
+	            const sWidth = canvas.width;
+	            const sHeight = pdfHeight + ((pdfHeight - pdfHeight*widthRatio) / widthRatio);
+	            const dX = 0;
+	            const dY = 0;
+	            const dWidth = sWidth;
+	            const dHeight = sHeight;
+	            let pageCnt = 1;
+	            while(totalHeight > 0) {
+	                totalHeight -= sHeight;
+	                let sY = sHeight * (pageCnt - 1);
+	                const childCanvas = document.createElement('CANVAS');
+	                childCanvas.setAttribute('width', sWidth);
+	                childCanvas.setAttribute('height', sHeight);
+	                const childCanvasCtx = childCanvas.getContext('2d');
+	                childCanvasCtx.drawImage(canvas, sX, sY, sWidth, sHeight, dX, dY, dWidth, dHeight);
+	                if(pageCnt > 1) {
+	                    pdf.addPage();
+	                }
+	                pdf.setPage(pageCnt);
+	                pdf.addImage(childCanvas.toDataURL('image/png'), 'PNG', 0, 0, canvas.width*widthRatio, 0);
+	                pageCnt++;
+	            }
+	            if(fileName == null) {
+	                fileName = '';
+	            } else {
+	                fileName += '_';
+	            }
+	            fileName += this.getCurrentDateStr();
+	            pdf.save(fileName);
+	        });
+	        window.scrollTo(0, document.body.scrollHeight || document.documentElement.scrollHeight);
+	    }
+
+
+	    //////////////////////////////////////////////////////////////////////
+	    // Get the current date as yyyymmddHHMMSS string.
+	    //////////////////////////////////////////////////////////////////////
+	    getCurrentDateStr() {
+	        const date = new Date();
+	        const yyyy = date.getFullYear().toString();
+	        const mm = date.getMonth() + 1 < 10 ? '0' + date.getMonth() + 1 : (date.getMonth() + 1).toString();
+	        const dd = date.getDate() < 10 ? '0' + date.getDate() : date.getDate().toString();
+	        const HH = date.getHours() < 10 ? '0' + date.getHours() : date.getHours().toString();
+	        const MM = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes().toString();
+	        const SS = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds().toString();
+	        return yyyy + mm + dd + HH + MM + SS;
+	    }
+
+
+	}
+		const jsPdfWrapper = new JsPdfWrapper();
+	        const options = {
+            'jsPDF': {
+                'orientation': 'p',
+                'unit': 'mm',
+                'format': 'letter',
+            }
+        };
+        //const jsPdfWrapper = new JsPdfWrapper(options);
+        console.log(window.devicePixelRatio);
+        const targetElement = document.getElementById('rb-layout');
+        const pdfFileName = 'sample';
+        jsPdfWrapper.DownloadFromHTML(targetElement, pdfFileName);
+     
+   </script>
+</html>
