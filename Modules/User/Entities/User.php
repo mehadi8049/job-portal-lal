@@ -67,6 +67,28 @@ class User extends Authenticatable
     {
         return $this->hasMany('Modules\ResumeCV\Entities\Resumecv');
     }
+
+    public function experiences()
+    {
+        return $this->hasMany('Modules\User\Entities\Experience');
+    }
+    public function qualifications()
+    {
+        return $this->hasMany('Modules\User\Entities\Qualification');
+    }
+    
+    public function skills()
+    {
+        return $this->hasMany('Modules\User\Entities\Skill');
+    }
+    public function preferredJobCategories()
+    {
+        return $this->hasMany('Modules\User\Entities\PreferredJobCategory');
+    }
+    public function languageProficiencies()
+    {
+        return $this->hasMany('Modules\User\Entities\LanguageProficiency');
+    }
     
     public function payments()
     {

@@ -20,6 +20,7 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900" rel="stylesheet">
     <link rel="stylesheet" href="{{ Module::asset('core:core/core.css') }}">
     <link rel="stylesheet" href="{{ Module::asset('core:app/css/customize.css') }}">
+    @stack('css')
     @includeWhen(config('app.GOOGLE_ANALYTICS'), 'core::partials.google-analytics')
     
     @stack('head')
