@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
     // Profile
     Route::get('accountsettings', 'UserController@accountSettings')->name('accountsettings.index');
     Route::put('accountsettings', 'UserController@accountSettingsUpdate')->name('accountsettings.update');
+    Route::put('experience/{id}/update', 'UserController@experienceUpdate')->name('experience.update');
 
     Route::middleware('can:admin')->prefix('settings')->name('settings.')->group(function () {
         // Users

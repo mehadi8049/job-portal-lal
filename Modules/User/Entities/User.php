@@ -25,13 +25,39 @@ class User extends Authenticatable
     protected $fillable = [
         'role',
         'name',
+        'father_name',
+        'mother_name',
+        'date_of_birth',
+        'gender',
+        'religion',
+        'marital_status',
+        'nationality',
+        'national_id',
+        'passport_number',
+        'passport_issue_date',
+        'primary_mobile',
+        'secondary_mobile',
+        'emergency_contact',
         'email',
+        'alternate_email',
+        'blood_group',
+        'height_meters',
+        'weight_kg',
         'email_verified_at',
         'password',
-        'remember_token',
-        'settings',
         'package_id',
         'package_ends_at',
+        'settings',
+        'present_address',
+        'parmanent_address',
+        'objective',
+        'present_salary',
+        'expected_salary',
+        'job_level',
+        'job_nature',
+        'career_summary',
+        'special_qualification',
+        'keywords'
     ];
 
     /**
@@ -50,7 +76,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'settings' => 'array'
+        'settings' => 'array',
+        'keywords' => 'array'
     ];
     
     public function scopeEmployer($query)

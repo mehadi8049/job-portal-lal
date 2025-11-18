@@ -7,12 +7,13 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Routing\Controller;
 use Modules\Saas\Entities\Package;
+use Modules\User\Entities\Experience;
 use Modules\User\Entities\User;
 use Nwidart\Modules\Facades\Module;
 
 class UserController extends Controller
 {
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -41,7 +42,7 @@ class UserController extends Controller
     public function create()
     {
         $packages = [];
-        
+
         if (Module::find('Saas')) {
             $packages = Package::all();
         }
@@ -71,12 +72,11 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        
+
         $user = User::create($request->all());
 
         return redirect()->route('settings.users.index')
             ->with('success', __('Created successfully'));
-
     }
 
     /**
@@ -124,7 +124,7 @@ class UserController extends Controller
             $request->request->remove('password');
         }
 
-        
+
         $user->update($request->all());
 
         return redirect()->route('settings.users.edit', $user)
@@ -144,7 +144,7 @@ class UserController extends Controller
                 ->with('error', __("You can't remove yourself."));
         }
         if ($user->company()->count() > 0) {
-            return redirect()->back()->with('error',"Can't delete because it has company in it");
+            return redirect()->back()->with('error', "Can't delete because it has company in it");
         }
 
         $user->delete();
@@ -155,30 +155,55 @@ class UserController extends Controller
 
     public function accountSettings(Request $request)
     {
-
-        $user = $request->user();
+        $user = $request->user()->load('experiences', 'qualifications','skills','preferredJobCategories','languageProficiencies');
         return view('user::auth.profile', compact(
-            'user'));
+            'user'
+        ));
     }
 
     public function accountSettingsUpdate(Request $request)
     {
-
-        $request->validate([
-            'name'     => 'required|max:255',
-            'password' => 'same:password_confirmation',
-        ]);
-
-        if ($request->filled('password')) {
-            $request->request->add([
-                'password' => Hash::make($request->password),
+        if ($request->need_update == "personal") {
+            $request->validate([
+                'name'     => 'required|max:255',
+                'password' => 'same:password_confirmation',
             ]);
-        } else {
-            $request->request->remove('password');
+
+            if ($request->filled('password')) {
+                $request->request->add([
+                    'password' => Hash::make($request->password),
+                ]);
+            } else {
+                $request->request->remove('password');
+            }
+            $request->user()->update($request->except('need_update'));
         }
+        if (in_array($request->need_update, ["address", "career_application", "other_relavand"])) {
+            $keywords = array_values(array_filter($request->keywords, function ($v) {
+                return !is_null($v) && $v !== "";
+            }));
+            $request->request->add([
+                'keywords' => $keywords,
+            ]);
+            $data = $request->except('need_update');
+            $request->user()->update($data);
+        }
+        if ($request->need_update == 'experience') {
+            $this->experience($request);
+        }
+        return redirect()->route('accountsettings.index')
+            ->with('success', __('Updated successfully'));
+    }
 
-        $request->user()->update($request->all());
+    protected function experience($request)
+    {
+        $request->merge(['user_id'=>$request->user()->id]);
+        Experience::create($request->all());
+    }
 
+    public function experienceUpdate(Request $request, $id)
+    {
+        Experience::where('id',$id)->update($request->except('_token','_method'));
         return redirect()->route('accountsettings.index')
             ->with('success', __('Updated successfully'));
     }
