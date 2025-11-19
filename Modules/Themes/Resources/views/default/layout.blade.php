@@ -39,7 +39,7 @@
             <i class="fas fa-times text-danger mr-2"></i> {!! session('error') !!}
         </div>
     @endif
-    @if(!Route:is('login'))
+    @if(!Route::is('login'))
         @include('themes::default.ads')
         @include('themes::default.nav')
     @endif
