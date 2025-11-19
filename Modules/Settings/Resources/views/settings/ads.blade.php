@@ -23,6 +23,22 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
+                                <label class="form-label">@lang('Topbar Ad Left')</label>
+                                <textarea class="form-control" name="top_bar_ad_left" rows="6" placeholder="@lang('Add your script Google ads, tag <img> banner or any vendor ads..')">{{ config('app.top_bar_ad_left') }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-label">@lang('Topbar Ad Right')</label>
+                                <textarea class="form-control" name="top_bar_ad_right" rows="6" placeholder="@lang('Add your script Google ads, tag <img> banner or any vendor ads..')">{{ config('app.top_bar_ad_right') }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
                                 <label class="form-label">@lang('Home Page Below Job Search')</label>
                                 <textarea class="form-control" name="ads_home_page_below_jobs_search" rows="6" placeholder="@lang('Add your script Google ads, tag <img> banner or any vendor ads..')">{{ config('app.ads_home_page_below_jobs_search') }}</textarea>
                             </div>

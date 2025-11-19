@@ -1,8 +1,6 @@
 @extends('themes::default.layout')
 @section('content')
-  @include('themes::default.nav')
-  
-  <section class="pt-4 pb-4">
+  <section class="pb-4">
       <div class="home-center">
           <div class="home-desc-center">
               <div class="container">

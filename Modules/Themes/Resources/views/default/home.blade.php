@@ -10,10 +10,13 @@
             position: relative;
             padding: 0px 0px 0px 0px;
         }
+
+        .list-group-item {
+            padding: 0.25rem 1.25rem;
+        }
     </style>
 @endpush
 @section('content')
-    @include('themes::default.nav')
     <!-- END HOME -->
     <section class="bg-home" id="home">
         <div class="home-center">
@@ -24,7 +27,7 @@
                             <div class="home-content">
                                 <h1 class="home-title">@lang('Find a job with') {{ config('app.name') }}</h1>
 
-                                <p class="text-primary mt-3 f-20">@lang('OWN A GOOD Resume-CV AND DREAM JOB')</p>
+                                <p class="text-primary f-20">@lang('OWN A GOOD Resume-CV AND DREAM JOB')</p>
                                 <p>@lang('10,000+ job opportunities are successfully connected every day')</p>
                                 <div class="mt-3">
                                     <a href="{{ route('templates') }}" class="btn btn-primary">@lang('Create Resume Online')</a>
@@ -34,13 +37,14 @@
                         </div>
                         <div class="col-md-4 d-none d-md-block">
                             <div class="mt-2">
-                                <h5><a href="/shortcuts" class="text-decoration-none">Shortcuts</a></h5>
+                                <h5><a href="#" class="text-decoration-none">Quick Access</a></h5>
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item"><a href="/services">Services</a></li>
-                                    <li class="list-group-item"><a href="/portfolio">Portfolio</a></li>
-                                    <li class="list-group-item"><a href="/blog">Blog</a></li>
+                                    <li class="list-group-item"><a href="/jobs?lastest=1">Latest Jobs</a></li>
+                                    <li class="list-group-item"><a href="/jobs?featured=1">Featured Jobs</a></li>
+                                    <li class="list-group-item"><a href="/companies">Company List</a></li>
+                                    <li class="list-group-item"><a href="/jobs">Job list</a></li>
+                                    <li class="list-group-item"><a href="/blogs">Blogs</a></li>
                                 </ul>
-                                {{-- <img src="{{ asset('img/undraw_interview_rmcf.png') }}" width="400" class="img-fluid"> --}}
                             </div>
                         </div>
                     </div>
@@ -85,6 +89,8 @@
                 </div>
             </div>
         </div>
+
+
     </section>
     @if (config('app.ads_home_page_below_jobs_search'))
         <section class="mb-4">

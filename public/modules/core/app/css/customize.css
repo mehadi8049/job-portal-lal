@@ -466,6 +466,9 @@ a.site-view {
   padding: 10px;
   padding-top: 15px;
 }
+.sidebar img {
+  width: 100%;
+}
 @media only screen and (max-width: 768px) {
   .sidebar .nav-item .nav-link {
     text-align: center;

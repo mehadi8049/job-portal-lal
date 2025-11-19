@@ -1,7 +1,5 @@
 @extends('themes::default.layout')
 @section('content')
-    @include('themes::default.nav')
-
     <div class="employer-header bg-light blog-detail-header">
         <div class="container">
             <div class="clearfix">

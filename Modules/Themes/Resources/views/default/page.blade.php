@@ -1,7 +1,5 @@
 @extends('themes::default.layout')
 @section('content')
-@include('themes::default.nav')
-
 <!-- START PRICING -->
     <section class="section-sm">
         <div class="container">

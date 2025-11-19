@@ -103,6 +103,8 @@ return [
         'saas.support_24_7'=> 'support_24_7',
         'saas.search_resumecv_candidates'=> 'search_resumecv_candidates',
 
+        'app.top_bar_ad_left' => 'top_bar_ad_left',
+        'app.top_bar_ad_right' => 'top_bar_ad_right',
         'app.ads_home_page_below_jobs_search' => 'ads_home_page_below_jobs_search',
         'app.ads_footer_layout_themes' => 'ads_footer_layout_themes',
         

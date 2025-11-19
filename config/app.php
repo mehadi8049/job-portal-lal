@@ -83,6 +83,8 @@ return [
     
     'GOOGLE_ANALYTICS'                => '',
 
+    'top_bar_ad_left' => '',
+    'top_bar_ad_right' => '',
     'ads_home_page_below_jobs_search' => '',
     'ads_footer_layout_themes' => '',
 
