@@ -39,8 +39,10 @@
             <i class="fas fa-times text-danger mr-2"></i> {!! session('error') !!}
         </div>
     @endif
-    @include('themes::default.ads')
-    @include('themes::default.nav')
+    @if(!Route:is('login'))
+        @include('themes::default.ads')
+        @include('themes::default.nav')
+    @endif
     @yield('content')
     @if (config('app.ads_footer_layout_themes'))
         <section class="mb-4">
