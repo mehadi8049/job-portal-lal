@@ -80,6 +80,7 @@ class User extends Authenticatable
         'keywords' => 'array'
     ];
     
+    
     public function scopeEmployer($query)
     {
         return $query->where('role', '=', 'employer');

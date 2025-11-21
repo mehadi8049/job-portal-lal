@@ -83,6 +83,30 @@
         $("#cancel-experience").on("click",function(){
             $("#add-experience-form").addClass('d-none')
         })
+        $("#add-qualification").on("click",function(){
+            $("#add-qualification-form").removeClass('d-none')
+        })
+        $("#cancel-qualification").on("click",function(){
+            $("#add-qualification-form").addClass('d-none')
+        })
+        $("#add-skill").on("click",function(){
+            $("#add-skill-form").removeClass('d-none')
+        })
+        $("#cancel-skill").on("click",function(){
+            $("#add-skill-form").addClass('d-none')
+        })
+        $("#add-category").on("click",function(){
+            $("#add-category-form").removeClass('d-none')
+        })
+        $("#cancel-category").on("click",function(){
+            $("#add-category-form").addClass('d-none')
+        })
+        $("#add-language").on("click",function(){
+            $("#add-language-form").removeClass('d-none')
+        })
+        $("#cancel-language").on("click",function(){
+            $("#add-language-form").addClass('d-none')
+        })
     </script>
 @endpush
 @section('content')

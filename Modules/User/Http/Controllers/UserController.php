@@ -4,12 +4,16 @@ namespace Modules\User\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Hash;
+use Modules\User\Entities\User;
+use Modules\User\Entities\Skill;
 use Illuminate\Routing\Controller;
 use Modules\Saas\Entities\Package;
-use Modules\User\Entities\Experience;
-use Modules\User\Entities\User;
 use Nwidart\Modules\Facades\Module;
+use Illuminate\Support\Facades\Hash;
+use Modules\User\Entities\Experience;
+use Modules\User\Entities\Qualification;
+use Modules\User\Entities\LanguageProficiency;
+use Modules\User\Entities\PreferredJobCategory;
 
 class UserController extends Controller
 {
@@ -155,7 +159,7 @@ class UserController extends Controller
 
     public function accountSettings(Request $request)
     {
-        $user = $request->user()->load('experiences', 'qualifications','skills','preferredJobCategories','languageProficiencies');
+        $user = $request->user()->load('experiences', 'qualifications', 'skills', 'preferredJobCategories', 'languageProficiencies');
         return view('user::auth.profile', compact(
             'user'
         ));
@@ -188,22 +192,79 @@ class UserController extends Controller
             $data = $request->except('need_update');
             $request->user()->update($data);
         }
-        if ($request->need_update == 'experience') {
-            $this->experience($request);
+
+        $method = $request->need_update;
+        if (method_exists($this, $method)) {
+            $this->$method($request);
         }
+
         return redirect()->route('accountsettings.index')
             ->with('success', __('Updated successfully'));
     }
 
     protected function experience($request)
     {
-        $request->merge(['user_id'=>$request->user()->id]);
+        $request->merge(['user_id' => $request->user()->id]);
         Experience::create($request->all());
     }
 
     public function experienceUpdate(Request $request, $id)
     {
-        Experience::where('id',$id)->update($request->except('_token','_method'));
+        Experience::where('id', $id)->update($request->except('_token', '_method'));
+        return redirect()->route('accountsettings.index')
+            ->with('success', __('Updated successfully'));
+    }
+
+
+    protected function qualification($request)
+    {
+        $request->merge(['user_id' => $request->user()->id]);
+        Qualification::create($request->all());
+    }
+
+    public function qualificationUpdate(Request $request, $id)
+    {
+        Qualification::where('id', $id)->update($request->except('_token', '_method'));
+        return redirect()->route('accountsettings.index')
+            ->with('success', __('Updated successfully'));
+    }
+
+
+    protected function skill($request)
+    {
+        $request->merge(['user_id' => $request->user()->id]);
+        Skill::create($request->all());
+    }
+
+    public function skillUpdate(Request $request, $id)
+    {
+        Skill::where('id', $id)->update($request->except('_token', '_method'));
+        return redirect()->route('accountsettings.index')
+            ->with('success', __('Updated successfully'));
+    }
+
+    protected function preferredJobCategory($request)
+    {
+        $request->merge(['user_id' => $request->user()->id]);
+        PreferredJobCategory::create($request->all());
+    }
+
+    public function preferredJobCategoryUpdate(Request $request, $id)
+    {
+        PreferredJobCategory::where('id', $id)->update($request->except('_token', '_method'));
+        return redirect()->route('accountsettings.index')
+            ->with('success', __('Updated successfully'));
+    }
+
+    protected function LanguageProficiency($request)
+    {
+        $request->merge(['user_id' => $request->user()->id]);
+        LanguageProficiency::create($request->all());
+    }
+
+    public function LanguageProficiencyUpdate(Request $request, $id)
+    {
+        LanguageProficiency::where('id', $id)->update($request->except('_token', '_method'));
         return redirect()->route('accountsettings.index')
             ->with('success', __('Updated successfully'));
     }

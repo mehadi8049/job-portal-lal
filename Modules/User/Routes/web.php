@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,6 +34,10 @@ Route::middleware('auth')->group(function () {
     Route::get('accountsettings', 'UserController@accountSettings')->name('accountsettings.index');
     Route::put('accountsettings', 'UserController@accountSettingsUpdate')->name('accountsettings.update');
     Route::put('experience/{id}/update', 'UserController@experienceUpdate')->name('experience.update');
+    Route::put('qualification/{id}/update', 'UserController@qualificationUpdate')->name('qualification.update');
+    Route::put('skill/{id}/update', 'UserController@skillUpdate')->name('skill.update');
+    Route::put('job-category/{id}/update', 'UserController@preferredJobCategoryUpdate')->name('job.category.update');
+    Route::put('preferred-job-language/{id}/update', 'UserController@languageUpdate')->name('job.language.update');
 
     Route::middleware('can:admin')->prefix('settings')->name('settings.')->group(function () {
         // Users
