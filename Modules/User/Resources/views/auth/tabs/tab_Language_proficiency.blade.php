@@ -25,7 +25,8 @@
                                 <!-- Language Name -->
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Language Name</label>
-                                    <input type="text" name="language_name" class="form-control"
+                                    <input type="text" name="language_name"
+                                        value="{{ old('language_name', $language->language_name) }}" class="form-control"
                                         placeholder="e.g. English, Bangla, Hindi">
                                 </div>
 
@@ -34,9 +35,15 @@
                                     <label class="form-label">Reading</label>
                                     <select name="reading_level" class="form-control">
                                         <option value="" selected>Select</option>
-                                        <option value="High">High</option>
-                                        <option value="Medium">Medium</option>
-                                        <option value="Low">Low</option>
+                                        <option value="High"
+                                            {{ old('reading_level', $language->reading_level) == 'High' ? 'selected' : '' }}>
+                                            High</option>
+                                        <option value="Medium"
+                                            {{ old('reading_level', $language->reading_level) == 'Medium' ? 'selected' : '' }}>
+                                            Medium</option>
+                                        <option value="Low"
+                                            {{ old('reading_level', $language->reading_level) == 'Low' ? 'selected' : '' }}>
+                                            Low</option>
                                     </select>
                                 </div>
 
@@ -45,9 +52,15 @@
                                     <label class="form-label">Writing</label>
                                     <select name="writing_level" class="form-control">
                                         <option value="" selected>Select</option>
-                                        <option value="High">High</option>
-                                        <option value="Medium">Medium</option>
-                                        <option value="Low">Low</option>
+                                        <option value="High"
+                                            {{ old('writing_level', $language->writing_level) == 'High' ? 'selected' : '' }}>
+                                            High</option>
+                                        <option value="Medium"
+                                            {{ old('writing_level', $language->writing_level) == 'Medium' ? 'selected' : '' }}>
+                                            Medium</option>
+                                        <option value="Low"
+                                            {{ old('writing_level', $language->writing_level) == 'Low' ? 'selected' : '' }}>
+                                            Low</option>
                                     </select>
                                 </div>
 
@@ -56,9 +69,15 @@
                                     <label class="form-label">Speaking</label>
                                     <select name="speaking_level" class="form-control">
                                         <option value="" selected>Select</option>
-                                        <option value="High">High</option>
-                                        <option value="Medium">Medium</option>
-                                        <option value="Low">Low</option>
+                                        <option value="High"
+                                            {{ old('speaking_level', $language->speaking_level) == 'High' ? 'selected' : '' }}>
+                                            High</option>
+                                        <option value="Medium"
+                                            {{ old('speaking_level', $language->speaking_level) == 'Medium' ? 'selected' : '' }}>
+                                            Medium</option>
+                                        <option value="Low"
+                                            {{ old('speaking_level', $language->speaking_level) == 'Low' ? 'selected' : '' }}>
+                                            Low</option>
                                     </select>
                                 </div>
 
@@ -90,7 +109,7 @@
                         <!-- Language Name -->
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Language Name</label>
-                            <input type="text" name="language_name" class="form-control"
+                            <input type="text" name="language_name" value="{{old('language_name')}}" class="form-control"
                                 placeholder="e.g. English, Bangla, Hindi">
                         </div>
 
@@ -99,9 +118,10 @@
                             <label class="form-label">Reading</label>
                             <select name="reading_level" class="form-control">
                                 <option value="" selected>Select</option>
-                                <option value="High">High</option>
-                                <option value="Medium">Medium</option>
-                                <option value="Low">Low</option>
+                                <option value="High" {{ old('reading_level') == 'High' ? 'selected' : '' }}>High</option>
+                                <option value="Medium" {{ old('reading_level') == 'Medium' ? 'selected' : '' }}>Medium
+                                </option>
+                                <option value="Low" {{ old('reading_level') == 'Low' ? 'selected' : '' }}>Low</option>
                             </select>
                         </div>
 
@@ -110,9 +130,10 @@
                             <label class="form-label">Writing</label>
                             <select name="writing_level" class="form-control">
                                 <option value="" selected>Select</option>
-                                <option value="High">High</option>
-                                <option value="Medium">Medium</option>
-                                <option value="Low">Low</option>
+                                <option value="High" {{ old('writing_level') == 'High' ? 'selected' : '' }}>High</option>
+                                <option value="Medium" {{ old('writing_level') == 'Medium' ? 'selected' : '' }}>Medium
+                                </option>
+                                <option value="Low" {{ old('writing_level') == 'Low' ? 'selected' : '' }}>Low</option>
                             </select>
                         </div>
 
@@ -121,9 +142,10 @@
                             <label class="form-label">Speaking</label>
                             <select name="speaking_level" class="form-control">
                                 <option value="" selected>Select</option>
-                                <option value="High">High</option>
-                                <option value="Medium">Medium</option>
-                                <option value="Low">Low</option>
+                                <option value="High" {{ old('speaking_level') == 'High' ? 'selected' : '' }}>High</option>
+                                <option value="Medium" {{ old('speaking_level') == 'Medium' ? 'selected' : '' }}>Medium
+                                </option>
+                                <option value="Low" {{ old('speaking_level') == 'Low' ? 'selected' : '' }}>Low</option>
                             </select>
                         </div>
 
@@ -132,7 +154,8 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="text-right">
-                                <button type="submit" class="btn btn-primary" name="need_update" value="LanguageProficiency">
+                                <button type="submit" class="btn btn-primary" name="need_update"
+                                    value="LanguageProficiency">
                                     <i class="fa fa-save mr-2"></i> @lang('Save Change')
                                 </button>
                             </div>

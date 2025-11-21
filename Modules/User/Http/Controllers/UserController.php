@@ -8,6 +8,8 @@ use Modules\User\Entities\User;
 use Modules\User\Entities\Skill;
 use Illuminate\Routing\Controller;
 use Modules\Saas\Entities\Package;
+use Modules\Jobs\Entities\Industry;
+use Modules\Location\Entities\City;
 use Nwidart\Modules\Facades\Module;
 use Illuminate\Support\Facades\Hash;
 use Modules\User\Entities\Experience;
@@ -160,8 +162,10 @@ class UserController extends Controller
     public function accountSettings(Request $request)
     {
         $user = $request->user()->load('experiences', 'qualifications', 'skills', 'preferredJobCategories', 'languageProficiencies');
+        $cities = City::active()->orderBy('is_default', 'desc')->get();
+        $industries = Industry::active()->orderBy('is_default', 'desc')->get();
         return view('user::auth.profile', compact(
-            'user'
+            'user','cities','industries'
         ));
     }
 
