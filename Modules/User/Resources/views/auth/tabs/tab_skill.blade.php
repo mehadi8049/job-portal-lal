@@ -1,4 +1,4 @@
-<div class="tab-pane" id="tab_skill">
+<div class="tab-pane {{request()->tab=='skill'?'active':''}}" id="tab_skill">
     <div id="skill_according">
         @foreach ($user->skills as $skill)
             <div class="card">

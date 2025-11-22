@@ -1,4 +1,4 @@
-<div class="tab-pane" id="tab_preferred_job_category">
+<div class="tab-pane {{request()->tab=='preferred-job-category'?'active':''}}" id="tab_preferred_job_category">
     <div class="tab-pane" id="tab_category">
         <div id="category_according">
             @foreach ($user->preferredJobCategories as $category)

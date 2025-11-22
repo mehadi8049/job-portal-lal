@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::put('qualification/{id}/update', 'UserController@qualificationUpdate')->name('qualification.update');
     Route::put('skill/{id}/update', 'UserController@skillUpdate')->name('skill.update');
     Route::put('job-category/{id}/update', 'UserController@preferredJobCategoryUpdate')->name('job.category.update');
-    Route::put('preferred-job-language/{id}/update', 'UserController@languageUpdate')->name('job.language.update');
+    Route::put('preferred-job-language/{id}/update', 'UserController@LanguageProficiencyUpdate')->name('job.language.update');
 
     Route::middleware('can:admin')->prefix('settings')->name('settings.')->group(function () {
         // Users

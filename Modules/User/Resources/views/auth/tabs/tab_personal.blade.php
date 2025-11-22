@@ -1,4 +1,4 @@
-<div class="tab-pane active" id="tab_profile">
+<div class="tab-pane {{!request()->tab||request()->tab=='personal'?'active':''}}" id="tab_profile">
     <div id="accordion">
         <div class="card">
             <div class="card-header" id="headingOne">
@@ -9,7 +9,6 @@
                     </button>
                 </h5>
             </div>
-
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                 <div class="card-body">
                     <form role="form" method="post" action="{{ route('accountsettings.update') }}"
@@ -304,7 +303,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">@lang('Present Salary')</label>
-                                    <input type="text" name="present_salary" value="{{ $user->present_salary }}"
+                                    <input type="number" name="present_salary" value="{{ $user->present_salary }}"
                                         class="form-control {{ $errors->has('present_salary') ? 'is-invalid' : '' }}"
                                         placeholder="@lang('Present Salary')">
                                 </div>
@@ -313,7 +312,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">@lang('Expected Salary')</label>
-                                    <input type="text" name="expected_salary"
+                                    <input type="number" name="expected_salary"
                                         value="{{ $user->expected_salary }}"
                                         class="form-control {{ $errors->has('expected_salary') ? 'is-invalid' : '' }}"
                                         placeholder="@lang('Expected Salary')">

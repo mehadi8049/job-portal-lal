@@ -24,4 +24,13 @@ class Experience extends Model
         'employment_from',
         'employment_to'
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'area_of_expertise' => 'array'
+    ];
 }

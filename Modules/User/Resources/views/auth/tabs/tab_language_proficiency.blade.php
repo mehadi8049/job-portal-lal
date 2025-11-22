@@ -1,4 +1,4 @@
-<div class="tab-pane" id="tab_Language_proficiency">
+<div class="tab-pane {{request()->tab=='language-proficiency'?'active':''}}" id="tab_language_proficiency">
     <div id="language_according">
         @foreach ($user->languageProficiencies as $language)
             <div class="card">
