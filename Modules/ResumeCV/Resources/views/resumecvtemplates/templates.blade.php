@@ -19,7 +19,7 @@
       @endforeach
   </div>
 </div>
-@if($data->count() > 0)
+@if(count($data) > 0)
 
 <div class="row row_blog_responsive pt-4 clearfix">
     @foreach($data as $item)
