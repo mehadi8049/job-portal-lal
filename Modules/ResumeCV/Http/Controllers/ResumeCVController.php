@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\File;
 use URL;
 use Illuminate\Support\Facades\Cookie;
 use Module;
+use Illuminate\Support\Facades\Http;
 
 class ResumeCVController extends Controller
 {
@@ -23,13 +24,13 @@ class ResumeCVController extends Controller
 
     public function index(Request $request)
     {
-        
+
         $data = Resumecv::where('user_id', $request->user()->id);
 
-        if($request->user()->can('admin')){
+        if ($request->user()->can('admin')) {
             $data = Resumecv::withCount(['user']);
         }
-       
+
         if ($request->filled('search')) {
             $data->where('name', 'like', '%' . $request->search . '%');
         }
@@ -37,7 +38,6 @@ class ResumeCVController extends Controller
         $data->orderBy('created_at', 'DESC');
 
         $data = $data->paginate(5);
-
         return view('resumecv::resumecv.index', compact(
             'data'
         ));
@@ -63,27 +63,67 @@ class ResumeCVController extends Controller
             'content' => $template->content,
             'style' => $template->style,
         ]);
-        
-        return redirect()->route('resumecv.builder', ['code'=>$item->code]);
+
+        return redirect()->route('resumecv.builder', ['code' => $item->code]);
     }
 
     public function builder($code, Request $request)
     {
-        $data = Resumecv::where('user_id', $request->user()->id);
+        $user = $request->user()->load('experiences', 'qualifications', 'skills', 'preferredJobCategories', 'languageProficiencies');
+        $data = Resumecv::where('user_id', $user->id);
         $data = $data->where('code', $code)->first();
+
+        //    $data->content = 'ats_friendly';
+        //             $data->save();
+        //             dd(200);
+        $text = "
+           - name: " . $user->name . ";
+           - job lavel: " . $user->job_level . ";
+           - job nature: " . $user->job_nature . ";
+           - special qualification: " . $user->special_qualification . ";
+           - keywords: " . ($user->keywords ? implode(',', $user->keywords) : '') . ";
+           - skills: " . ($user->skills ? json_encode($user->skills) : '') . ";
+           - experiences: " . ($user->experiences ? json_encode($user->experiences) : '') . ";
+           - qualifications: " . ($user->qualifications ? json_encode($user->qualifications) : '') . ";
+           - generate a simple 7 lines career objective with add skill autometicaly and no heading just objective
+           - do not use any variable
+           - use above job lavel, job nature and skills
+        ";
+        $response = Http::post(
+            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=" . env('GEMINI_API_KEY'),
+            [
+                'contents' => [
+                    ['parts' => [['text' => $text]]]
+                ]
+            ]
+        );
+
+        $result = $response->json();
+        $text = $result['candidates'][0]['content']['parts'][0]['text'] ?? null;
+        if ($text) {
+            $user->objective = $text;
+            $user->save();
+        }
+
+        $viewName = 'resumecv::autocv.templates.' . $data->content;
+
+        if (view()->exists($viewName)) {
+            $html = view($viewName, ['user' => $user])->render();
+            $data->content = $html;
+            $data->save();
+        }
         if (!$data) {
             abort(404);
         }
         $data = replaceVarContentStyle($data);
         $all_templates = Resumecvtemplate::with('category');
         $all_templates = $all_templates->orderBy('created_at', 'DESC')->get();
-        
+
         $images_url = getAllImagesUser($request->user()->id);
         $all_icons = config('app.all_icons');
         $all_fonts = config('app.all_fonts');
-        
-        return view('resumecv::resumecv.builder', compact('data','all_icons','all_fonts','images_url','all_templates'));
 
+        return view('resumecv::resumecv.builder', compact('data', 'all_icons', 'all_fonts', 'images_url', 'all_templates'));
     }
     public function updateBuilder($id, Request $request)
     {
@@ -94,14 +134,13 @@ class ResumeCVController extends Controller
             $item->content = $request->input('gjs-html');
             $item->style = $request->input('gjs-css');
 
-            if($item->save()){
-              return response()->json(['success'=>__("Updated successfully")]);
+            if ($item->save()) {
+                return response()->json(['success' => __("Updated successfully")]);
             }
-            
         }
-        return response()->json(['error'=>__("Updated failed")]);
+        return response()->json(['error' => __("Updated failed")]);
     }
-   
+
     public function loadBuilder($id, Request $request)
     {
         $item = Resumecv::find($id);
@@ -109,14 +148,14 @@ class ResumeCVController extends Controller
         if ($item) {
 
             return response()->json([
-                    'gjs-html'=>$item->content, 
-                    'gjs-css' => $item->style
+                'gjs-html' => $item->content,
+                'gjs-css' => $item->style
             ]);
         }
-        return response()->json(['error'=>__("Not Found template")]);
+        return response()->json(['error' => __("Not Found template")]);
     }
 
-    public function clone ($id, Request $request)
+    public function clone($id, Request $request)
     {
         $template = Resumecv::findorFail($id);
         $item = $template->replicate();
@@ -145,46 +184,44 @@ class ResumeCVController extends Controller
     public function uploadImage(Request $request)
     {
         $validator = Validator::make($request->all(), [
-                'files' => 'required|mimes:jpg,jpeg,png,svg|max:20000',
+            'files' => 'required|mimes:jpg,jpeg,png,svg|max:20000',
         ]);
-        if ($validator->fails()) {    
+        if ($validator->fails()) {
             return response()->json(['error' => __('The file must be an jpg,jpeg,png,svg')]);
         }
-        $images=array();
-        $imagesURL=array(); 
+        $images = array();
+        $imagesURL = array();
 
-        if($request->hasfile('files'))
-        {
+        if ($request->hasfile('files')) {
             $file = $request->file('files');
 
-            $name=$file->getClientOriginalName();
+            $name = $file->getClientOriginalName();
             $new_name = $name;
-            $file->move(public_path('storage/user_storage/'.$request->user()->id), $new_name);
-            $imagesURL[] = URL::to('/storage/user_storage/'.$request->user()->id."/".$new_name);
-            $images[]=$new_name;
-
+            $file->move(public_path('storage/user_storage/' . $request->user()->id), $new_name);
+            $imagesURL[] = URL::to('/storage/user_storage/' . $request->user()->id . "/" . $new_name);
+            $images[] = $new_name;
         }
         return response()->json($imagesURL);
     }
 
     public function deleteImage(Request $request)
     {
-        $input=$request->all();
-        $link_array = explode('/',$input['image_src']);
+        $input = $request->all();
+        $link_array = explode('/', $input['image_src']);
         $image_name = end($link_array);
-        $path = public_path('storage/user_storage/'.$request->user()->id."/".$image_name);
+        $path = public_path('storage/user_storage/' . $request->user()->id . "/" . $image_name);
 
-        if(File::exists($path)) {
+        if (File::exists($path)) {
             File::delete($path);
         }
         return response()->json($image_name);
     }
-    public function setting($code,Request $request)
+    public function setting($code, Request $request)
     {
         if ($code) {
-            
+
             $data = Resumecv::where('user_id', $request->user()->id);
-            
+
             $item = $data->where('code', $code)->first();
 
             if ($item) {
@@ -193,7 +230,7 @@ class ResumeCVController extends Controller
         }
         abort(404);
     }
-    public function settingUpdate($id,Request $request)
+    public function settingUpdate($id, Request $request)
     {
         // add validate intergration
         $validate = [
@@ -204,16 +241,16 @@ class ResumeCVController extends Controller
         $request->validate($validate);
         $item  = Resumecv::findOrFail($id);
         $dataRequest = $request->all();
-        
+
         $item->update($dataRequest);
 
         return back()->with('success', __('Updated successfully'));
     }
 
-    public function publish($slug,Request $request)
+    public function publish($slug, Request $request)
     {
         if ($slug) {
-            
+
             $item = Resumecv::where('slug', $slug)->first();
 
             if ($item) {
@@ -221,7 +258,7 @@ class ResumeCVController extends Controller
 
                 $user   = $request->user();
                 if ($user) {
-                    
+
                     if (Module::find('Saas')) {
                         $check_remove_brand = $request->user()->checkRemoveBrand();
                     }
@@ -231,17 +268,17 @@ class ResumeCVController extends Controller
                     $item->view_count += 1;
                     $item->save();
                 }
-                return view('resumecv::resumecv.publish', compact('item','check_remove_brand'));
+                return view('resumecv::resumecv.publish', compact('item', 'check_remove_brand'));
             }
         }
 
         abort(404);
     }
 
-    public function download($code,Request $request)
+    public function download($code, Request $request)
     {
         if ($code) {
-            
+
             $item = Resumecv::where('code', $code)->first();
 
             if ($item) {
@@ -249,19 +286,19 @@ class ResumeCVController extends Controller
 
                 $user   = $request->user();
                 if ($user) {
-                    
+
                     if (Module::find('Saas')) {
                         $check_remove_brand = $request->user()->checkRemoveBrand();
                     }
                 }
-                return view('resumecv::resumecv.download', compact('item','check_remove_brand'));
+                return view('resumecv::resumecv.download', compact('item', 'check_remove_brand'));
             }
         }
 
         abort(404);
     }
 
-    public function getPageJson($code,Request $request)
+    public function getPageJson($code, Request $request)
     {
         $page = $request->page;
         $item = Resumecv::where('code', $code)->first();
@@ -269,19 +306,18 @@ class ResumeCVController extends Controller
         if ($item) {
             return response()->json([
                 'css' => $item->style,
-                'html'=>$item->content, 
+                'html' => $item->content,
             ]);
         }
-
     }
     function add_count($id)
     {
-        $cookie_name = 'resumecv_view_'.$id;
-        
+        $cookie_name = 'resumecv_view_' . $id;
+
         $check_visitor = Cookie::get($cookie_name);
-        
+
         $minutes = 7200; // 5 days
-        
+
         if (!$check_visitor) {
             Cookie::queue($cookie_name, 'viewed', $minutes);
             return true;
@@ -289,5 +325,4 @@ class ResumeCVController extends Controller
         // exits Cookie
         return false;
     }
-    
 }

@@ -3,7 +3,6 @@
 namespace Modules\User\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Modules\User\Entities\User;
 use Modules\User\Entities\Skill;
 use Illuminate\Routing\Controller;
@@ -165,7 +164,9 @@ class UserController extends Controller
         $cities = City::active()->orderBy('is_default', 'desc')->get();
         $industries = Industry::active()->orderBy('is_default', 'desc')->get();
         return view('user::auth.profile', compact(
-            'user','cities','industries'
+            'user',
+            'cities',
+            'industries'
         ));
     }
 
@@ -184,25 +185,40 @@ class UserController extends Controller
             } else {
                 $request->request->remove('password');
             }
-            $request->user()->update($request->except('need_update'));
+            $inputData = $request->except('need_update');
+            $image = $request->file('photo');
+            if ($image != '') {
+                $path_folder = public_path('storage/user_storage/' . $request->user()->id);
+                $path = $path_folder . "/" . $request->user()->photo;
+                deleteImageWithPath($path);
+                $image_name = "user_photo_" . rand() . '.' . $image->getClientOriginalExtension();
+                $image->move($path_folder, $image_name);
+
+                $inputData['photo'] = $image_name;
+            }
+            $request->user()->update($inputData);
         }
         if (in_array($request->need_update, ["address", "career_application", "other_relavand"])) {
-            $keywords = array_values(array_filter($request->keywords, function ($v) {
-                return !is_null($v) && $v !== "";
-            }));
-            $request->request->add([
-                'keywords' => $keywords,
-            ]);
+            if (isset($request->keywords)) {
+                $keywords = array_values(array_filter($request->keywords, function ($v) {
+                    return !is_null($v) && $v !== "";
+                }));
+                $request->request->add([
+                    'keywords' => $keywords,
+                ]);
+            }
+
             $data = $request->except('need_update');
             $request->user()->update($data);
         }
+        $tab = 'personal';
 
         $method = $request->need_update;
         if (method_exists($this, $method)) {
-            $this->$method($request);
+            $tab = $this->$method($request);
         }
 
-        return redirect()->route('accountsettings.index')
+        return redirect()->route('accountsettings.index', ['tab' => $tab])
             ->with('success', __('Updated successfully'));
     }
 
@@ -210,12 +226,13 @@ class UserController extends Controller
     {
         $request->merge(['user_id' => $request->user()->id]);
         Experience::create($request->all());
+        return 'experience';
     }
 
     public function experienceUpdate(Request $request, $id)
     {
         Experience::where('id', $id)->update($request->except('_token', '_method'));
-        return redirect()->route('accountsettings.index')
+        return redirect()->route('accountsettings.index', ['tab' => 'experience'])
             ->with('success', __('Updated successfully'));
     }
 
@@ -224,12 +241,13 @@ class UserController extends Controller
     {
         $request->merge(['user_id' => $request->user()->id]);
         Qualification::create($request->all());
+        return 'qualification';
     }
 
     public function qualificationUpdate(Request $request, $id)
     {
         Qualification::where('id', $id)->update($request->except('_token', '_method'));
-        return redirect()->route('accountsettings.index')
+        return redirect()->route('accountsettings.index', ['tab' => 'qualification'])
             ->with('success', __('Updated successfully'));
     }
 
@@ -238,12 +256,13 @@ class UserController extends Controller
     {
         $request->merge(['user_id' => $request->user()->id]);
         Skill::create($request->all());
+        return 'skill';
     }
 
     public function skillUpdate(Request $request, $id)
     {
         Skill::where('id', $id)->update($request->except('_token', '_method'));
-        return redirect()->route('accountsettings.index')
+        return redirect()->route('accountsettings.index', ['tab' => 'skill'])
             ->with('success', __('Updated successfully'));
     }
 
@@ -251,12 +270,13 @@ class UserController extends Controller
     {
         $request->merge(['user_id' => $request->user()->id]);
         PreferredJobCategory::create($request->all());
+        return 'preferred-job-category';
     }
 
     public function preferredJobCategoryUpdate(Request $request, $id)
     {
         PreferredJobCategory::where('id', $id)->update($request->except('_token', '_method'));
-        return redirect()->route('accountsettings.index')
+        return redirect()->route('accountsettings.index', ['tab' => 'preferred-job-category'])
             ->with('success', __('Updated successfully'));
     }
 
@@ -264,12 +284,13 @@ class UserController extends Controller
     {
         $request->merge(['user_id' => $request->user()->id]);
         LanguageProficiency::create($request->all());
+        return 'language-proficiency';
     }
 
     public function LanguageProficiencyUpdate(Request $request, $id)
     {
         LanguageProficiency::where('id', $id)->update($request->except('_token', '_method'));
-        return redirect()->route('accountsettings.index')
+        return redirect()->route('accountsettings.index', ['tab' => 'language-proficiency'])
             ->with('success', __('Updated successfully'));
     }
 }

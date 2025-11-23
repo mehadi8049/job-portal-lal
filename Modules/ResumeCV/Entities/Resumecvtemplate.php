@@ -19,6 +19,7 @@ class Resumecvtemplate extends Model
         'thumb',
         'content',
         'style',
+        'is_auto',
         'active',
         'is_premium',
         'created_at',

@@ -67,7 +67,21 @@
                         
                     </div>
                      <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="form-label">@lang('Auto Template')</div>
+                                <label class="custom-switch">
+                                    @if ($template->is_auto)
+                                        <input type="checkbox" name="is_auto" value="1" class="custom-switch-input" checked>
+                                    @else 
+                                        <input type="checkbox" name="is_auto" value="1" class="custom-switch-input" >
+                                    @endif
+                                    <span class="custom-switch-indicator"></span>
+                                    <span class="custom-switch-description">@lang('Auto Template')</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <div class="form-label">@lang('Active')</div>
                                 <label class="custom-switch">
@@ -82,7 +96,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <div class="form-label">@lang('Premium')</div>
                                 <label class="custom-switch">

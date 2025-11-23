@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
 
             //personal information
             $table->string('name', 190);
+            $table->string('photo', 190);
             $table->string('father_name', 190)->nullable();
             $table->string('mother_name', 190)->nullable();
             $table->date('date_of_birth')->nullable();

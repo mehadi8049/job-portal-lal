@@ -77,34 +77,36 @@
                 hiddenContainer.appendChild(hiddenInput);
             }
         });
-        $("#add-experience").on("click",function(){
+
+
+        $("#add-experience").on("click", function() {
             $("#add-experience-form").removeClass('d-none')
         })
-        $("#cancel-experience").on("click",function(){
+        $("#cancel-experience").on("click", function() {
             $("#add-experience-form").addClass('d-none')
         })
-        $("#add-qualification").on("click",function(){
+        $("#add-qualification").on("click", function() {
             $("#add-qualification-form").removeClass('d-none')
         })
-        $("#cancel-qualification").on("click",function(){
+        $("#cancel-qualification").on("click", function() {
             $("#add-qualification-form").addClass('d-none')
         })
-        $("#add-skill").on("click",function(){
+        $("#add-skill").on("click", function() {
             $("#add-skill-form").removeClass('d-none')
         })
-        $("#cancel-skill").on("click",function(){
+        $("#cancel-skill").on("click", function() {
             $("#add-skill-form").addClass('d-none')
         })
-        $("#add-category").on("click",function(){
+        $("#add-category").on("click", function() {
             $("#add-category-form").removeClass('d-none')
         })
-        $("#cancel-category").on("click",function(){
+        $("#cancel-category").on("click", function() {
             $("#add-category-form").addClass('d-none')
         })
-        $("#add-language").on("click",function(){
+        $("#add-language").on("click", function() {
             $("#add-language-form").removeClass('d-none')
         })
-        $("#cancel-language").on("click",function(){
+        $("#cancel-language").on("click", function() {
             $("#add-language-form").addClass('d-none')
         })
     </script>
@@ -119,32 +121,32 @@
                 <div class="card-header">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#tab_profile" data-toggle="tab">
+                            <a class="nav-link {{!request()->tab||request()->tab=='personal'?'active':''}}" href="#tab_profile" data-toggle="tab">
                                 @lang('Profile')
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#tab_experience" data-toggle="tab">
+                            <a class="nav-link {{request()->tab=='experience'?'active':''}}" href="#tab_experience" data-toggle="tab">
                                 @lang('Experience')
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#tab_qualification" data-toggle="tab">
+                            <a class="nav-link {{request()->tab=='qualification'?'active':''}}" href="#tab_qualification" data-toggle="tab">
                                 @lang('Qualification/Traning')
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#tab_skill" data-toggle="tab">
+                            <a class="nav-link {{request()->tab=='skill'?'active':''}}" href="#tab_skill" data-toggle="tab">
                                 @lang('Skill')
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#tab_preferred_job_category" data-toggle="tab">
+                            <a class="nav-link {{request()->tab=='preferred-job-category'?'active':''}}" href="#tab_preferred_job_category" data-toggle="tab">
                                 @lang('Preferred Job Category')
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#tab_Language_proficiency" data-toggle="tab">
+                            <a class="nav-link {{request()->tab=='language-proficiency'?'active':''}}" href="#tab_language_proficiency" data-toggle="tab">
                                 @lang('Language Proficiency')
                             </a>
                         </li>
@@ -169,7 +171,7 @@
                         @include('user::auth.tabs.tab_qualification')
                         @include('user::auth.tabs.tab_skill')
                         @include('user::auth.tabs.tab_preferred_job_category')
-                        @include('user::auth.tabs.tab_Language_proficiency')
+                        @include('user::auth.tabs.tab_language_proficiency')
 
 
                         <div class="tab-pane" id="tab_payment_setting">

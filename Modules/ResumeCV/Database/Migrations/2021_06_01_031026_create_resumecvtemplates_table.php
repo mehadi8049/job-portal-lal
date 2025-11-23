@@ -20,6 +20,7 @@ class CreateResumecvtemplatesTable extends Migration
             $table->string('thumb', 190)->nullable();
             $table->longText('content')->nullable();
             $table->longText('style')->nullable();
+            $table->boolean('is_auto')->default(false);
             $table->boolean('active')->default(false);
             $table->boolean('is_premium')->default(false);
             $table->timestamps();
