@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\File;
 use URL;
 use Illuminate\Support\Facades\Cookie;
 use Module;
+use Illuminate\Support\Facades\Http;
 
 class ResumeCVController extends Controller
 {
@@ -68,16 +69,46 @@ class ResumeCVController extends Controller
 
     public function builder($code, Request $request)
     {
-        $user=$request->user()->load('experiences', 'qualifications', 'skills', 'preferredJobCategories', 'languageProficiencies');
+        $user = $request->user()->load('experiences', 'qualifications', 'skills', 'preferredJobCategories', 'languageProficiencies');
         $data = Resumecv::where('user_id', $user->id);
         $data = $data->where('code', $code)->first();
+
         //    $data->content = 'ats_friendly';
-        //     $data->save();
-        //     dd(200);
+        //             $data->save();
+        //             dd(200);
+        $text = "
+           - name: " . $user->name . ";
+           - job lavel: " . $user->job_level . ";
+           - job nature: " . $user->job_nature . ";
+           - special qualification: " . $user->special_qualification . ";
+           - keywords: " . ($user->keywords ? implode(',', $user->keywords) : '') . ";
+           - skills: " . ($user->skills ? json_encode($user->skills) : '') . ";
+           - experiences: " . ($user->experiences ? json_encode($user->experiences) : '') . ";
+           - qualifications: " . ($user->qualifications ? json_encode($user->qualifications) : '') . ";
+           - generate a simple 7 lines career objective with add skill autometicaly and no heading just objective
+           - do not use any variable
+           - use above job lavel, job nature and skills
+        ";
+        $response = Http::post(
+            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=" . env('GEMINI_API_KEY'),
+            [
+                'contents' => [
+                    ['parts' => [['text' => $text]]]
+                ]
+            ]
+        );
+
+        $result = $response->json();
+        $text = $result['candidates'][0]['content']['parts'][0]['text'] ?? null;
+        if ($text) {
+            $user->objective = $text;
+            $user->save();
+        }
+
         $viewName = 'resumecv::autocv.templates.' . $data->content;
-        
+
         if (view()->exists($viewName)) {
-            $html = view($viewName, ['user' =>$user ])->render();
+            $html = view($viewName, ['user' => $user])->render();
             $data->content = $html;
             $data->save();
         }

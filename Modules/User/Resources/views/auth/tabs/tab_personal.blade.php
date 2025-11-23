@@ -16,10 +16,15 @@
                         @csrf
                         @method('PUT')
                         <div class="row" style="margin-bottom:20px">
-                            <div class="col-md-4 col-sm-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">@lang('Photo')</label>
                                     <input type="file" name="photo" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <img width="160px" src="{{ URL::to('/') }}/storage/user_storage/{{ $user->id. "/". $user->photo }}" alt="{{$user->name}}'s photo">
                                 </div>
                             </div>
                         </div>

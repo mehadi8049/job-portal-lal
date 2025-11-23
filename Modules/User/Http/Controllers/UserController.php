@@ -3,7 +3,6 @@
 namespace Modules\User\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Modules\User\Entities\User;
 use Modules\User\Entities\Skill;
 use Illuminate\Routing\Controller;
@@ -186,7 +185,18 @@ class UserController extends Controller
             } else {
                 $request->request->remove('password');
             }
-            $request->user()->update($request->except('need_update'));
+            $inputData = $request->except('need_update');
+            $image = $request->file('photo');
+            if ($image != '') {
+                $path_folder = public_path('storage/user_storage/' . $request->user()->id);
+                $path = $path_folder . "/" . $request->user()->photo;
+                deleteImageWithPath($path);
+                $image_name = "user_photo_" . rand() . '.' . $image->getClientOriginalExtension();
+                $image->move($path_folder, $image_name);
+
+                $inputData['photo'] = $image_name;
+            }
+            $request->user()->update($inputData);
         }
         if (in_array($request->need_update, ["address", "career_application", "other_relavand"])) {
             if (isset($request->keywords)) {
@@ -201,11 +211,11 @@ class UserController extends Controller
             $data = $request->except('need_update');
             $request->user()->update($data);
         }
-        $tab='personal';
+        $tab = 'personal';
 
         $method = $request->need_update;
         if (method_exists($this, $method)) {
-            $tab=$this->$method($request);
+            $tab = $this->$method($request);
         }
 
         return redirect()->route('accountsettings.index', ['tab' => $tab])
@@ -222,7 +232,7 @@ class UserController extends Controller
     public function experienceUpdate(Request $request, $id)
     {
         Experience::where('id', $id)->update($request->except('_token', '_method'));
-        return redirect()->route('accountsettings.index',['tab'=>'experience'])
+        return redirect()->route('accountsettings.index', ['tab' => 'experience'])
             ->with('success', __('Updated successfully'));
     }
 
@@ -237,7 +247,7 @@ class UserController extends Controller
     public function qualificationUpdate(Request $request, $id)
     {
         Qualification::where('id', $id)->update($request->except('_token', '_method'));
-        return redirect()->route('accountsettings.index',['tab'=>'qualification'])
+        return redirect()->route('accountsettings.index', ['tab' => 'qualification'])
             ->with('success', __('Updated successfully'));
     }
 
@@ -252,7 +262,7 @@ class UserController extends Controller
     public function skillUpdate(Request $request, $id)
     {
         Skill::where('id', $id)->update($request->except('_token', '_method'));
-        return redirect()->route('accountsettings.index',['tab'=>'skill'])
+        return redirect()->route('accountsettings.index', ['tab' => 'skill'])
             ->with('success', __('Updated successfully'));
     }
 
@@ -266,7 +276,7 @@ class UserController extends Controller
     public function preferredJobCategoryUpdate(Request $request, $id)
     {
         PreferredJobCategory::where('id', $id)->update($request->except('_token', '_method'));
-        return redirect()->route('accountsettings.index',['tab'=>'preferred-job-category'])
+        return redirect()->route('accountsettings.index', ['tab' => 'preferred-job-category'])
             ->with('success', __('Updated successfully'));
     }
 
@@ -280,7 +290,7 @@ class UserController extends Controller
     public function LanguageProficiencyUpdate(Request $request, $id)
     {
         LanguageProficiency::where('id', $id)->update($request->except('_token', '_method'));
-        return redirect()->route('accountsettings.index',['tab'=>'language-proficiency'])
+        return redirect()->route('accountsettings.index', ['tab' => 'language-proficiency'])
             ->with('success', __('Updated successfully'));
     }
 }

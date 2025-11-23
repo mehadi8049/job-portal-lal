@@ -3,7 +3,7 @@
     <aside class="sidebar">
         <div class="profile-header">
             <div class="profile-photo">
-                <img src="/placeholder.svg?height=120&width=120" alt="Profile photo" />
+                <img src="{{ URL::to('/') }}/storage/user_storage/{{ $user->id. "/". $user->photo }}" alt="Profile photo" />
             </div>
             <h1 class="profile-name">{{ $user->name }}</h1>
             <p class="profile-title">{{ $user->email }}</p>
@@ -58,9 +58,7 @@
     <main class="main-content">
         <section class="header-intro">
             <p class="intro-text">
-                A highly motivated Full Stack Developer with experience designing, developing, and delivering scalable
-                web applications. Skilled in both frontend and backend technologies with a strong passion for clean
-                architecture and problem-solving.
+                {{$user->objective}}
             </p>
         </section>
 
