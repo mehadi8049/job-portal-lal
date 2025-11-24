@@ -7,6 +7,9 @@
 /public/storage/blogs/categories/*
 /public/storage/blogs/thumbnails/*
 /public/storage/blogs/contents/*
+public/storage/thumb_templates/*
+
+/technofirstltd.com
 
 /resources/lang/vi/
 /resources/lang/vi.json
