@@ -32,8 +32,8 @@
                 <div class="exp-item">
                     <div class="exp-header">
                         <span class="exp-title">{{ $experience->designation }}</span>
-                        <span class="exp-date">{{ $experience->employment_from->format('Y-m-d') }} -
-                            {{ $experience->is_current ? 'Present' : $experience->employment_to->format('Y-m-d') }}</span>
+                        <span class="exp-date">{{ $experience->employment_from?->format('Y-m-d') }} -
+                            {{ $experience->is_current ? 'Present' : $experience->employment_to?->format('Y-m-d') }}</span>
                     </div>
                     <div class="exp-company">{{ $experience->company_location }}</div>
                     <ul>

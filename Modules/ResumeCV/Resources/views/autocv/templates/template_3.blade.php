@@ -22,8 +22,8 @@
     <div class="section-content">
         @foreach ($user->experiences as $experience)
         <div class="employment-entry">
-            <div class="job-title">{{ $experience->designation }} ({{ $experience->employment_from->format('Y-m-d') }} -
-                                {{ $experience->is_current ? 'Present' : $experience->employment_to->format('Y-m-d') }})</div>
+            <div class="job-title">{{ $experience->designation }} ({{ $experience->employment_from?->format('Y-m-d') }} -
+                                {{ $experience->is_current ? 'Present' : $experience->employment_to?->format('Y-m-d') }})</div>
             <div class="company-info"><strong>{{ $experience->company_name }}</strong></div>
             <div class="company-info">{{ $experience->company_location }}</div>
             <div class="job-description">Tech Stack: {{implode(',', $experience->area_of_expertise)}}
