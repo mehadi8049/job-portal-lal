@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::put('skill/{id}/update', 'UserController@skillUpdate')->name('skill.update');
     Route::put('job-category/{id}/update', 'UserController@preferredJobCategoryUpdate')->name('job.category.update');
     Route::put('preferred-job-language/{id}/update', 'UserController@LanguageProficiencyUpdate')->name('job.language.update');
+    Route::get('cv/{id}', 'GenerateCvPdfController@generateCv')->name('user.cv');
 
     Route::middleware('can:admin')->prefix('settings')->name('settings.')->group(function () {
         // Users
