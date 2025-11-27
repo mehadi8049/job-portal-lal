@@ -4,6 +4,8 @@
 		<i class="fa fa-user"></i>
 		<span>@lang('My profile')</span></a>
 </li>
+
+</li>
 <li class="nav-item {{ (request()->is('resumecv*')) ? 'active' : '' }}">
 	<a class="nav-link" href="{{ route('resumecv.index') }}">
 		<i class="far fa-file-alt"></i>
