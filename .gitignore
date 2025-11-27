@@ -18,7 +18,7 @@ public/storage/thumb_templates/*
 /storage/upgrade/*
 /storage/logs/*
 /vendor
- .env
+.env
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
