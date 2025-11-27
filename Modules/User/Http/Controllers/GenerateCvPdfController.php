@@ -11,6 +11,10 @@ class GenerateCvPdfController extends Controller
     public function generateCv(Request $request)
     {
         $user = $request->user()->load('experiences', 'qualifications', 'skills', 'preferredJobCategories', 'languageProficiencies');
+        if ($user) {
+            return redirect()->back()->with('error', __("Please complete your profile fisrt with a photo."));
+        }
+
         $text = "
            - name: " . $user->name . ";
            - job lavel: " . $user->job_level . ";
