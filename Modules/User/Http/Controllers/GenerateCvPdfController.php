@@ -15,7 +15,10 @@ class GenerateCvPdfController extends Controller
             return redirect()->back()->with('error', __("Please complete your profile fisrt with a photo."));
         }
 
-        $text = "
+
+
+        if (!$user->objective) {
+            $text = "
            - name: " . $user->name . ";
            - job lavel: " . $user->job_level . ";
            - job nature: " . $user->job_nature . ";
@@ -28,8 +31,6 @@ class GenerateCvPdfController extends Controller
            - do not use any variable
            - use above job lavel, job nature and skills
         ";
-
-        if (!$user->objective) {
             $response = Http::post(
                 "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=" . env('GEMINI_API_KEY'),
                 [
@@ -46,6 +47,38 @@ class GenerateCvPdfController extends Controller
                 $user->save();
             }
         }
+
+        if (!$user->career_summary) {
+            $summary_text = "
+           - name: " . $user->name . ";
+           - job lavel: " . $user->job_level . ";
+           - job nature: " . $user->job_nature . ";
+           - special qualification: " . $user->special_qualification . ";
+           - keywords: " . ($user->keywords ? implode(',', $user->keywords) : '') . ";
+           - skills: " . ($user->skills ? json_encode($user->skills) : '') . ";
+           - experiences: " . ($user->experiences ? json_encode($user->experiences) : '') . ";
+           - qualifications: " . ($user->qualifications ? json_encode($user->qualifications) : '') . ";
+           - generate a simple 5 lines career summary with add skill autometicaly and no heading just summary
+           - do not use any variable
+           - use above job lavel, job nature and skills
+        ";
+            $response = Http::post(
+                "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=" . env('GEMINI_API_KEY'),
+                [
+                    'contents' => [
+                        ['parts' => [['text' => $summary_text]]]
+                    ]
+                ]
+            );
+
+            $result = $response->json();
+            $text = $result['candidates'][0]['content']['parts'][0]['text'] ?? null;
+            if ($text) {
+                $user->career_summary = $text;
+                $user->save();
+            }
+        }
+
 
 
         $html = view('user::pdf.generate', compact('user'))->render();

@@ -352,21 +352,23 @@
                 {{ $user->career_summary }}
             </div>
         @endif
-        <div class="section-header">Employment History</div>
-        <div class="section-content">
-            @foreach ($user->experiences as $experience)
-                <div class="employment-entry">
-                    <div class="job-title">{{ $experience->designation }}
-                        ({{ $experience->employment_from?->format('Y-m-d') }} -
-                        {{ $experience->is_current ? 'Present' : $experience->employment_to?->format('Y-m-d') }})
+        @if ($user->experiences->isNotEmpty())<!-- Employment History -->
+            <div class="section-header">Employment History</div>
+            <div class="section-content">
+                @foreach ($user->experiences as $experience)
+                    <div class="employment-entry">
+                        <div class="job-title">{{ $experience->designation }}
+                            ({{ $experience->employment_from?->format('Y-m-d') }} -
+                            {{ $experience->is_current ? 'Present' : $experience->employment_to?->format('Y-m-d') }})
+                        </div>
+                        <div class="company-info"><strong>{{ $experience->company_name }}</strong></div>
+                        <div class="company-info">{{ $experience->company_location }}</div>
+                        <div class="job-description">Tech Stack: {{ implode(',', $experience->area_of_expertise) }}
+                        </div>
                     </div>
-                    <div class="company-info"><strong>{{ $experience->company_name }}</strong></div>
-                    <div class="company-info">{{ $experience->company_location }}</div>
-                    <div class="job-description">Tech Stack: {{ implode(',', $experience->area_of_expertise) }}
-                    </div>
-                </div>
-            @endforeach
-        </div><!-- Academic Qualification -->
+                @endforeach
+            </div><!-- Academic Qualification -->
+        @endif
         <div class="table-header">Academic Qualification</div>
         <div class="table-wrapper">
             <table>
@@ -477,7 +479,7 @@
                 <tbody>
                     <tr>
                         <td><strong>Father's Name</strong></td>
-                        <td>{{ $user->fother_name }}</td>
+                        <td>{{ $user->father_name }}</td>
                         <td id="imxi66"><strong>Date of Birth</strong></td>
                         <td id="ijv0i5">{{ $user->date_of_birth }}</td>
                     </tr>
