@@ -17,4 +17,9 @@ class FunctionalArea extends JobAttribute
     {
         return __('Functional area');
     }
+
+    public function jobs()
+    {
+        return $this->hasMany(Job::class, 'functional_area_id');
+    }
 }

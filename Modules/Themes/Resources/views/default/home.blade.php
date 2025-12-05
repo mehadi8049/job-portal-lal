@@ -111,13 +111,10 @@
         /* --- Quick Links Sidebar (New) --- */
         .quick-links-box {
             background-color: #2457959c;
-            /* Dark Blue Background */
             color: #fff;
             padding: 20px;
             height: 100%;
             min-height: 380px;
-            border-radius: 4px;
-            /* blur */
             backdrop-filter: blur(5px);
         }
 
@@ -488,80 +485,24 @@
                         <span>Discover Jobs Across Popular Category & Industry</span>
                         <div class="btn-group btn-group-sm">
                             <button class="btn btn-secondary active">Category</button>
-                            <button class="btn btn-light border">Industry</button>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-md-4">
-                            <ul class="cat-list">
-                                <li><a href="#"><i class="pe-7s-angle-right"></i> Accounting/Finance <span
-                                            class="cat-count">(400)</span></a></li>
-                                <li><a href="#"><i class="pe-7s-angle-right"></i> Bank/ Non-Bank Fin. <span
-                                            class="cat-count">(82)</span></a></li>
-                                <li><a href="#"><i class="pe-7s-angle-right"></i> Supply Chain/ Procure <span
-                                            class="cat-count">(147)</span></a></li>
-                                <li><a href="#"><i class="pe-7s-angle-right"></i> Education/Training <span
-                                            class="cat-count">(454)</span></a></li>
-                                <li><a href="#"><i class="pe-7s-angle-right"></i> Engineer/Architects <span
-                                            class="cat-count">(362)</span></a></li>
-                                <li><a href="#"><i class="pe-7s-angle-right"></i> Garments/Textile <span
-                                            class="cat-count">(619)</span></a></li>
-                                <li><a href="#"><i class="pe-7s-angle-right"></i> HR/Org. Development <span
-                                            class="cat-count">(169)</span></a></li>
-                                <li><a href="#"><i class="pe-7s-angle-right"></i> Gen Mgt/Admin <span
-                                            class="cat-count">(185)</span></a></li>
-                                <li><a href="#"><i class="pe-7s-angle-right"></i> Healthcare/Medical <span
-                                            class="cat-count">(204)</span></a></li>
-                            </ul>
-                        </div>
-                        <div class="col-md-4">
-                            <ul class="cat-list">
-                                <li><a href="#"><i class="pe-7s-angle-right"></i> Production/Operation <span
-                                            class="cat-count">(155)</span></a></li>
-                                <li><a href="#"><i class="pe-7s-angle-right"></i> Hospitality/ Travel <span
-                                            class="cat-count">(203)</span></a></li>
-                                <li><a href="#"><i class="pe-7s-angle-right"></i> Commercial <span
-                                            class="cat-count">(74)</span></a></li>
-                                <li><a href="#"><i class="pe-7s-angle-right"></i> IT & Telecommunication <span
-                                            class="cat-count">(338)</span></a></li>
-                                <li><a href="#"><i class="pe-7s-angle-right"></i> Marketing/Sales <span
-                                            class="cat-count">(1085)</span></a></li>
-                                <li><a href="#"><i class="pe-7s-angle-right"></i> Customer Service/Call <span
-                                            class="cat-count">(195)</span></a></li>
-                                <li><a href="#"><i class="pe-7s-angle-right"></i> Media/Ad./Event Mgt. <span
-                                            class="cat-count">(169)</span></a></li>
-                                <li><a href="#"><i class="pe-7s-angle-right"></i> Pharmaceutical <span
-                                            class="cat-count">(97)</span></a></li>
-                                <li><a href="#"><i class="pe-7s-angle-right"></i> Electrician/Technician <span
-                                            class="cat-count">(22)</span></a></li>
-                            </ul>
-                        </div>
-                        <div class="col-md-4">
-                            <ul class="cat-list">
-                                <li><a href="#"><i class="pe-7s-angle-right"></i> Agro (Plant/Animal) <span
-                                            class="cat-count">(88)</span></a></li>
-                                <li><a href="#"><i class="pe-7s-angle-right"></i> NGO/Development <span
-                                            class="cat-count">(226)</span></a></li>
-                                <li><a href="#"><i class="pe-7s-angle-right"></i> Research/Consultancy <span
-                                            class="cat-count">(23)</span></a></li>
-                                <li><a href="#"><i class="pe-7s-angle-right"></i> Receptionist/ PS <span
-                                            class="cat-count">(66)</span></a></li>
-                                <li><a href="#"><i class="pe-7s-angle-right"></i> Data Entry/Operator <span
-                                            class="cat-count">(39)</span></a></li>
-                                <li><a href="#"><i class="pe-7s-angle-right"></i> Design/Creative <span
-                                            class="cat-count">(173)</span></a></li>
-                                <li><a href="#"><i class="pe-7s-angle-right"></i> Security/Support Service <span
-                                            class="cat-count">(47)</span></a></li>
-                                <li><a href="#"><i class="pe-7s-angle-right"></i> Law/Legal <span
-                                            class="cat-count">(39)</span></a></li>
-                                <li><a href="#"><i class="pe-7s-angle-right"></i> Others <span
-                                            class="cat-count">(14)</span></a></li>
-                            </ul>
-                            <div class="text-right mt-2">
-                                <a href="#" class="text-primary font-weight-bold">More +</a>
+                        @foreach ($functional_areas as $chunk)
+                            <div class="col-md-4">
+                                <ul class="cat-list">
+                                    @foreach ($chunk as $area)
+                                        <li>
+                                            <a href="{{ url('/jobs?functionalarea=' . $area->id) }}"><i
+                                                    class="pe-7s-right-arrow"></i>
+                                                {{ $area->name }}
+                                                <span class="cat-count">({{ $area->jobs_count }})</span></a>
+                                        </li>
+                                    @endforeach
+                                </ul>
                             </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
 

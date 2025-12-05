@@ -30,7 +30,7 @@ class ThemesController extends Controller
     {
         $this->translation = $translation;
     }
-    
+
     public function getLandingPage(Request $request)
     {
         $skin            = config('app.SITE_LANDING');
@@ -41,16 +41,27 @@ class ThemesController extends Controller
         $featuredJobs = Job::active()->featured()->limit(12)->get();
         $lastestJobs = Job::active()->orderBy('created_at', 'desc')->limit(12)->get();
         $cities = City::active()->orderBy('is_default', 'desc')->get();
-        $functional_areas = FunctionalArea::active()->orderBy('is_default', 'desc')->get();
-        return view('themes::' . $skin . '.home', compact(
-            'user','currency_symbol','currency_code', 'companies', 'cities', 'functional_areas', 'featuredJobs', 'lastestJobs'
-        ));
+        $total = FunctionalArea::active()->count();
 
+        $functional_areas = FunctionalArea::withCount('jobs')->active()
+            ->orderBy('is_default', 'desc')
+            ->get()
+            ->chunk(ceil($total / 3));
+        return view('themes::' . $skin . '.home', compact(
+            'user',
+            'currency_symbol',
+            'currency_code',
+            'companies',
+            'cities',
+            'functional_areas',
+            'featuredJobs',
+            'lastestJobs'
+        ));
     }
-    
+
     public function localize($locale)
     {
-        
+
         $languages = $this->translation->allLanguages();
         $locale = $languages->has($locale) ? $locale : config('app.fallback_locale');
 
