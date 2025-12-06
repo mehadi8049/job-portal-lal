@@ -14,9 +14,10 @@
 
         /* --- Hero Section & Stats --- */
         .bg-home {
-            background-image: url("{{ asset('modules/themes/default/images/home_slider.png') }}");
-            background-repeat: no-repeat;
-            background-size: cover;
+            /* background-image: url("{{ asset('modules/themes/default/images/home_slider.png') }}");
+                        background-repeat: no-repeat;
+                        background-size: cover; */
+            background: #083344;
             background-position: center center;
             /* padding: 40px 0; */
             /* Reduced top padding slightly */
