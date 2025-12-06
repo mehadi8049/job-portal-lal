@@ -5,14 +5,11 @@ namespace Modules\Themes\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Modules\User\Entities\User;
 use Illuminate\Support\Facades\App;
-use JoeDixon\Translation\Drivers\Translation;
-use Module;
-use Modules\ResumeCV\Entities\Resumecvtemplate;
-use Modules\ResumeCV\Entities\Resumecvcategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use JoeDixon\Translation\Drivers\Translation;
+use Module;
 use Modules\Blogs\Entities\Blog;
 use Modules\Blogs\Entities\Category;
 use Modules\Contacts\Entities\Contact;
@@ -21,8 +18,12 @@ use Modules\Jobs\Entities\FunctionalArea;
 use Modules\Jobs\Entities\Industry;
 use Modules\Jobs\Entities\Job;
 use Modules\Jobs\Entities\JobType;
+use Modules\Jobs\Entities\OwnershipType;
 use Modules\Location\Entities\City;
+use Modules\ResumeCV\Entities\Resumecvcategory;
+use Modules\ResumeCV\Entities\Resumecvtemplate;
 use Modules\Tracklink\Entities\Tracklink;
+use Modules\User\Entities\User;
 
 class ThemesController extends Controller
 {
@@ -47,6 +48,7 @@ class ThemesController extends Controller
             ->orderBy('is_default', 'desc')
             ->get()
             ->chunk(ceil($total / 3));
+        $organization_types = OwnershipType::active()->orderBy('is_default', 'desc')->get();
         return view('themes::' . $skin . '.home', compact(
             'user',
             'currency_symbol',
@@ -55,7 +57,8 @@ class ThemesController extends Controller
             'cities',
             'functional_areas',
             'featuredJobs',
-            'lastestJobs'
+            'lastestJobs',
+            'organization_types'
         ));
     }
 

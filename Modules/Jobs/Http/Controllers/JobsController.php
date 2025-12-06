@@ -36,33 +36,39 @@ class JobsController extends Controller
 
         $filter_city_id = $request->input('city');
         $filter_functional_area_id = $request->input('functionalarea');
+        $ownership_type_id = $request->input('organization_type');
         $filter_job_type_id = $request->input('jobtype');
         $filter_salary_from = $request->input('salaryfrom');
         $filter_salary_to = $request->input('salaryto');
         $filter_featured = $request->input('featured');
         $filter_lastest = $request->input('lastest');
-
-        $queryJobs = Job::query()->active()->where('title', 'like', '%' . $q . '%');
-        if(isset($filter_city_id)) {
+        $search = $request->input('keyword') ?? $q;
+        $queryJobs = Job::query()->active()->where('title', 'like', '%' . $search . '%');
+        if (isset($filter_city_id)) {
             $queryJobs->where('city_id', '=', $filter_city_id);
         }
-        if(isset($filter_functional_area_id)) {
+        if (isset($filter_functional_area_id)) {
             $queryJobs->where('functional_area_id', '=', $filter_functional_area_id);
         }
-        if(isset($filter_job_type_id)) {
+        if (isset($ownership_type_id)) {
+            $queryJobs->whereHas('company', function ($query) use ($ownership_type_id) {
+                $query->where('ownership_type_id', '=', $ownership_type_id);
+            });
+        }
+        if (isset($filter_job_type_id)) {
             $queryJobs->where('job_type_id', '=', $filter_job_type_id);
         }
-        if(isset($filter_salary_from)) {
+        if (isset($filter_salary_from)) {
             $queryJobs->where('salary_to', '>=', $filter_salary_from);
         }
-        if(isset($filter_salary_to)) {
+        if (isset($filter_salary_to)) {
             $queryJobs->where('salary_from', '<=', $filter_salary_to);
         }
 
-        if(isset($filter_featured) && $filter_featured == '1') {
-           $queryJobs->orderBy('is_featured', 'desc');
+        if (isset($filter_featured) && $filter_featured == '1') {
+            $queryJobs->orderBy('is_featured', 'desc');
         }
-        if(isset($filter_lastest) && $filter_lastest == '1') {
+        if (isset($filter_lastest) && $filter_lastest == '1') {
             $queryJobs->orderBy('created_at', 'desc');
         }
 
@@ -70,9 +76,20 @@ class JobsController extends Controller
 
 
         return view('themes::' . $skin . '.jobs_list', compact(
-            'currency_code','currency_symbol','user', 'q', 'filter_city_id', 'filter_functional_area_id', 'filter_job_type_id', 'filter_salary_from', 'filter_salary_to', 'data', 'cities', 'functional_areas', 'job_types'
+            'currency_code',
+            'currency_symbol',
+            'user',
+            'q',
+            'filter_city_id',
+            'filter_functional_area_id',
+            'filter_job_type_id',
+            'filter_salary_from',
+            'filter_salary_to',
+            'data',
+            'cities',
+            'functional_areas',
+            'job_types'
         ));
-
     }
 
     public function getJobDetail(Request $request, $slug)
@@ -85,22 +102,24 @@ class JobsController extends Controller
         $job = Job::where('slug', $slug)->active()->firstOrFail();
 
         $siblings = Job::active()->where('id', '!=', $job->id)
-                                ->where('functional_area_id', '=', $job->functional_area_id)
-                                ->orderBy('is_featured', 'desc')->limit(8)->get();
+            ->where('functional_area_id', '=', $job->functional_area_id)
+            ->orderBy('is_featured', 'desc')->limit(8)->get();
 
         Tracklink::save_from_request($request, Job::class, $job->id);
         return view('themes::' . $skin . '.job_details', compact(
-            'currency_code','currency_symbol','user', 'job', 'siblings'
+            'currency_code',
+            'currency_symbol',
+            'user',
+            'job',
+            'siblings'
         ));
-
     }
-    
+
     public function index(Request $request)
     {
         $data = Job::orderBy('created_at', 'DESC');
-        
-        if ($request->filled('search'))
-        {
+
+        if ($request->filled('search')) {
             $data->where('title', 'like', '%' . $request->search . '%');
         }
         $data = $data->paginate(10);
@@ -127,8 +146,8 @@ class JobsController extends Controller
     {
         $request->validate([
             'company_id' => 'required',
-            'title' => 'required', 
-            'city_id' => 'required', 
+            'title' => 'required',
+            'city_id' => 'required',
             'description' => 'required',
             'responbilities' => 'required',
             'requirements' => 'required'
@@ -141,7 +160,7 @@ class JobsController extends Controller
         !$request->filled('hide_salary') ?  $inputData['hide_salary'] = false : $inputData['hide_salary'] = true;
 
         $item = Job::create($inputData);
-        
+
         $item->slug = Str::slug($item->title, '-') . '-' . $item->id;
         $item->update();
 
@@ -172,8 +191,8 @@ class JobsController extends Controller
     {
         $request->validate([
             'company_id' => 'required',
-            'title' => 'required', 
-            'city_id' => 'required', 
+            'title' => 'required',
+            'city_id' => 'required',
             'description' => 'required',
             'responbilities' => 'required',
             'requirements' => 'required'
@@ -199,7 +218,7 @@ class JobsController extends Controller
         $item = Job::findOrFail($id);
 
         if ($item->applicants()->count() > 0) {
-            return redirect()->back()->with('error',"Can't delete because it has applicants in it");
+            return redirect()->back()->with('error', "Can't delete because it has applicants in it");
         }
 
         $item->delete();
@@ -207,5 +226,4 @@ class JobsController extends Controller
         return redirect()->route('settings.companies.index')
             ->with('success', __('Deleted successfully'));
     }
-
 }

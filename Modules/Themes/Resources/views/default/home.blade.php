@@ -438,11 +438,9 @@
                                     </div>
                                     <div style="flex: 2;">
                                         <select class="form-control" name="organization_type">
-                                            <option value="">Organization Type</option>
-                                            <option value="Government">Government</option>
-                                            <option value="Semi Government">Semi Government</option>
-                                            <option value="NGO">NGO</option>
-                                            <option value="Private">Private Firm</option>
+                                            @foreach ($organization_types as $type)
+                                                <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div>

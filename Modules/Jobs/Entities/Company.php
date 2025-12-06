@@ -61,24 +61,41 @@ class Company extends Model
 
     public function user()
     {
-        return $this->belongsTo('Modules\User\Entities\User','user_id');
+        return $this->belongsTo('Modules\User\Entities\User', 'user_id');
     }
     public function industry()
     {
-        return $this->belongsTo('Modules\Jobs\Entities\Industry','industry_id');
+        return $this->belongsTo('Modules\Jobs\Entities\Industry', 'industry_id');
     }
     public function city()
     {
-        return $this->belongsTo('Modules\Location\Entities\City','city_id');
+        return $this->belongsTo('Modules\Location\Entities\City', 'city_id');
     }
 
-    public function getLogoLink() {
+    public function state()
+    {
+        return $this->belongsTo('Modules\Location\Entities\State', 'state_id');
+    }
+
+    public function country()
+    {
+        return $this->belongsTo('Modules\Location\Entities\Country', 'country_id');
+    }
+
+    public function ownership_type()
+    {
+        return $this->belongsTo('Modules\Jobs\Entities\OwnershipType', 'ownership_type_id');
+    }
+
+    public function getLogoLink()
+    {
         return \URL::to('/') . '/storage/user_storage/' . $this->user_id . '/' . $this->logo;
     }
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
-        static::deleting(function($company) {
+        static::deleting(function ($company) {
             $company->jobs()->delete();
-       });
+        });
     }
 }
