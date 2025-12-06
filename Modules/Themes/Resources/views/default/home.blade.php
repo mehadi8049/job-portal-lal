@@ -458,16 +458,16 @@
                     <div class="quick-links-box">
                         <h5>Quick Links</h5>
                         <ul class="quick-links-list">
-                            <li><a href="#">&raquo; Employer List (3126)</a></li>
-                            <li><a href="#">&raquo; New Jobs (360)</a></li>
-                            <li><a href="#">&raquo; Deadline Tomorrow (515)</a></li>
-                            <li><a href="#">&raquo; Internship Opportunity (69) <span class="badge-new">new</span></a>
-                            </li>
-                            <li><a href="#">&raquo; Contractual Jobs (177)</a></li>
-                            <li><a href="#">&raquo; Part time Jobs (36)</a></li>
-                            <li><a href="#">&raquo; Overseas Jobs (36)</a></li>
-                            <li><a href="#">&raquo; Work From Home (73)</a></li>
-                            <li><a href="#">&raquo; Fresher Jobs (1479)</a></li>
+                            @foreach ($quick_links as $link)
+                                <li>
+                                    <a href="{{ $link->link_url }}" target="_blank">
+                                        <i class="pe-7s-right-arrow"></i> {{ $link->title }}
+                                        @if ($loop->first)
+                                            <span class="badge-new">new</span>
+                                        @endif
+                                    </a>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>

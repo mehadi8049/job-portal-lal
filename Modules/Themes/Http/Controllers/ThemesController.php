@@ -20,6 +20,7 @@ use Modules\Jobs\Entities\Job;
 use Modules\Jobs\Entities\JobType;
 use Modules\Jobs\Entities\OwnershipType;
 use Modules\Location\Entities\City;
+use Modules\QuickLink\Entities\QuickLink;
 use Modules\ResumeCV\Entities\Resumecvcategory;
 use Modules\ResumeCV\Entities\Resumecvtemplate;
 use Modules\Tracklink\Entities\Tracklink;
@@ -49,6 +50,7 @@ class ThemesController extends Controller
             ->get()
             ->chunk(ceil($total / 3));
         $organization_types = OwnershipType::active()->orderBy('is_default', 'desc')->get();
+        $quick_links = QuickLink::where('is_active', true)->orderBy('serial', 'asc')->get();
         return view('themes::' . $skin . '.home', compact(
             'user',
             'currency_symbol',
@@ -58,7 +60,8 @@ class ThemesController extends Controller
             'functional_areas',
             'featuredJobs',
             'lastestJobs',
-            'organization_types'
+            'organization_types',
+            'quick_links'
         ));
     }
 

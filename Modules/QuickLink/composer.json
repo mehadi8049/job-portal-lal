@@ -1,0 +1,25 @@
+{
+    "name": "nwidart/quicklink",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\QuickLink\\Providers\\QuickLinkServiceProvider"
+            ],
+            "aliases": {
+                
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\QuickLink\\": ""
+        }
+    }
+}

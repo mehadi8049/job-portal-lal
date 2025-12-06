@@ -1,0 +1,14 @@
+{
+    "name": "QuickLink",
+    "alias": "quicklink",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\QuickLink\\Providers\\QuickLinkServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

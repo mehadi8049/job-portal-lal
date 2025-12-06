@@ -43,7 +43,44 @@ class JobsController extends Controller
         $filter_featured = $request->input('featured');
         $filter_lastest = $request->input('lastest');
         $search = $request->input('keyword') ?? $q;
-        $queryJobs = Job::query()->active()->where('title', 'like', '%' . $search . '%');
+        $queryJobs = Job::with(['company', 'city', 'job_type', 'gender'])
+            ->active()
+
+            // 🔍 GLOBAL SEARCH (job table)
+            ->when($search, function ($query) use ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('title', 'like', "%{$search}%")
+                        ->orWhere('description', 'like', "%{$search}%")
+                        ->orWhere('benefits', 'like', "%{$search}%")
+                        ->orWhere('requirements', 'like', "%{$search}%")
+                        ->orWhere('responbilities', 'like', "%{$search}%")
+                        // 🔍 Search by COMPANY NAME
+                        ->when($search, function ($query) use ($search) {
+                            $query->orWhereHas('company', function ($q) use ($search) {
+                                $q->where('company_name', 'like', "%{$search}%");
+                            });
+                        })
+
+                        // 🔍 Search by CITY NAME
+                        ->when($search, function ($query) use ($search) {
+                            $query->orWhereHas('city', function ($q) use ($search) {
+                                $q->where('name', 'like', "%{$search}%");
+                            });
+                        })
+
+                        // 🔍 Search by JOB TYPE (Full Time / Part Time)
+                        ->when($search, function ($query) use ($search) {
+                            $query->orWhereHas('job_type', function ($q) use ($search) {
+                                $q->where('name', 'like', "%{$search}%");
+                            });
+                        })
+                        ->when($search, function ($query) use ($search) {
+                            $query->orWhereHas('gender', function ($q) use ($search) {
+                                $q->where('name', 'like', "%{$search}%");
+                            });
+                        });
+                });
+            });
         if (isset($filter_city_id)) {
             $queryJobs->where('city_id', '=', $filter_city_id);
         }

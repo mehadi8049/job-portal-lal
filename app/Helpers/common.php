@@ -11,17 +11,18 @@ use Modules\LandingPage\Entities\LandingPage;
 
 
 if (!function_exists('getDomainFromURL')) {
-    function getDomainFromURL($url) {
+    function getDomainFromURL($url)
+    {
         $parse = parse_url($url);
-        return $parse['host']; 
+        return $parse['host'];
     }
 }
 
 if (!function_exists('is_slug')) {
-    function is_slug($str) {
+    function is_slug($str)
+    {
         return preg_match('/^[a-z0-9]+(-?[a-z0-9]+)*$/i', $str);
     }
-
 }
 
 if (!function_exists('getEstablishedIn')) {
@@ -62,18 +63,20 @@ if (!function_exists('getNumEmployees')) {
 }
 
 if (!function_exists('routeName')) {
-    function routeName() {
-       return \Request::route()->getName();
+    function routeName()
+    {
+        return \Request::route()->getName();
     }
 }
 if (!function_exists('ruleMailChimpForAddContact')) {
 
-    function ruleMailChimpForAddContact($landing_page,$form_data) {
+    function ruleMailChimpForAddContact($landing_page, $form_data)
+    {
 
         if (isset($landing_page->settings['intergration'])) {
 
             $intergration = $landing_page->settings['intergration'];
-            
+
             if (isset($intergration['type']) && $intergration['type'] != "none") {
                 // Check field email exits and valid.
                 $field_values = $form_data->field_values;
@@ -91,7 +94,8 @@ if (!function_exists('ruleMailChimpForAddContact')) {
 
 if (!function_exists('getColorStatus')) {
 
-    function getColorStatus($status = '') {
+    function getColorStatus($status = '')
+    {
 
         switch ($status) {
             case 'OPEN':
@@ -99,13 +103,13 @@ if (!function_exists('getColorStatus')) {
                 return "primary";
 
                 break;
-            
+
             case 'COMPLETED':
                 # code..
                 return "success";
 
                 break;
-            
+
             case 'CANCELED':
                 # code...
                 return "danger";
@@ -121,10 +125,11 @@ if (!function_exists('getColorStatus')) {
 }
 if (!function_exists('getValueIfKeyIsset')) {
 
-    function getValueIfKeyIsset($array, $key) {
+    function getValueIfKeyIsset($array, $key)
+    {
 
         if (isset($array[$key])) {
-            
+
             if (is_numeric($array[$key])) {
                 return intval($array[$key]);
             }
@@ -136,11 +141,12 @@ if (!function_exists('getValueIfKeyIsset')) {
 
 if (!function_exists('checkIssetAndNotEmptyKeys')) {
 
-    function checkIssetAndNotEmptyKeys($array = [], $array_keys = []) {
+    function checkIssetAndNotEmptyKeys($array = [], $array_keys = [])
+    {
 
         foreach ($array_keys as $key) {
             if (!isset($array[$key]) || empty($array[$key])) {
-                 return false;
+                return false;
             }
         }
         return true;
@@ -149,14 +155,15 @@ if (!function_exists('checkIssetAndNotEmptyKeys')) {
 
 if (!function_exists('getLandingPageCurrentURL')) {
 
-    function getLandingPageCurrentURL(LandingPage $page) {
-        
+    function getLandingPageCurrentURL(LandingPage $page)
+    {
+
         $url = "http://";
-        
+
         if ($page) {
             if ($page->domain_type == 0) {
                 $url .= $page->sub_domain;
-            }else{
+            } else {
                 $url .= $page->custom_domain;
             }
         }
@@ -166,7 +173,8 @@ if (!function_exists('getLandingPageCurrentURL')) {
 
 if (!function_exists('QueryJsonPage')) {
 
-    function QueryJsonPage($json = '', $type='') {
+    function QueryJsonPage($json = '', $type = '')
+    {
 
         $q = new Jsonq($json);
         $res = $q->where('type', '=', $type)->get()->result();
@@ -176,7 +184,8 @@ if (!function_exists('QueryJsonPage')) {
 }
 if (!function_exists('getAppDomain')) {
 
-    function getAppDomain() {
+    function getAppDomain()
+    {
         $app_url = config('app.url');
         $parse = parse_url($app_url);
         $domain_main =  $parse['host'];
@@ -186,49 +195,48 @@ if (!function_exists('getAppDomain')) {
 
 if (!function_exists('publishLangModule')) {
 
-    function publishLangModule($name_module = "") {
+    function publishLangModule($name_module = "")
+    {
 
-        if(!empty($name_module)) {
-            
+        if (!empty($name_module)) {
+
             $module = Module::find($name_module);
-            
+
             if (!$module) {
 
                 return false;
             }
 
-            $path_lang_module = $module->getPath().'/Resources'.'/lang/en';
+            $path_lang_module = $module->getPath() . '/Resources' . '/lang/en';
 
-            if(File::exists($path_lang_module)) {
-                
+            if (File::exists($path_lang_module)) {
+
                 File::copyDirectory($path_lang_module, resource_path('lang/en'));
-
             }
             return true;
             // call
-        }else{
+        } else {
 
             // publish lang all module
             $all_modules = Module::all();
             foreach ($all_modules as $item) {
 
-                $path_lang_module = $item->getPath().'/Resources'.'/lang/en';
-                
-                if(File::exists($path_lang_module)) {
-                    
-                    File::copyDirectory($path_lang_module, resource_path('lang/en'));
+                $path_lang_module = $item->getPath() . '/Resources' . '/lang/en';
 
+                if (File::exists($path_lang_module)) {
+
+                    File::copyDirectory($path_lang_module, resource_path('lang/en'));
                 }
             }
         }
         return true;
-
     }
 }
 if (!function_exists('getAllJSModules')) {
 
-    function getAllAssetsModulesForApp($type = '') {
-        
+    function getAllAssetsModulesForApp($type = '')
+    {
+
         // publish lang all module
         $html = "";
         $types_arr = array("css", "js");
@@ -239,9 +247,9 @@ if (!function_exists('getAllJSModules')) {
         $all_modules = Module::all();
         foreach ($all_modules as $module) {
 
-            $path_assets = $module->getPath().'/Resources'.'/assets/app/'.$type;
-            
-            if(File::exists($path_assets)) {
+            $path_assets = $module->getPath() . '/Resources' . '/assets/app/' . $type;
+
+            if (File::exists($path_assets)) {
 
                 $files = File::allfiles($path_assets);
 
@@ -250,74 +258,72 @@ if (!function_exists('getAllJSModules')) {
                     if (!empty($item->getContents())) {
 
                         if ($type == "css") {
-                            $html .= "<link rel='stylesheet' href=".Module::asset($module->getLowerName().':app/css/'.$item->getFilename()).">\n";
+                            $html .= "<link rel='stylesheet' href=" . Module::asset($module->getLowerName() . ':app/css/' . $item->getFilename()) . ">\n";
+                        } elseif ($type == "js") {
+                            $html .= "<script src=" . Module::asset($module->getLowerName() . ':app/js/' . $item->getFilename()) . " ></script>\n";
                         }
-                        elseif($type == "js"){
-                            $html .= "<script src=".Module::asset($module->getLowerName().':app/js/'.$item->getFilename())." ></script>\n";
-                        }
-                        
                     }
                 }
             }
         }
         return $html;
-
     }
 }
 
 
-if(!function_exists("check_product_purchase")){
+if (!function_exists("check_product_purchase")) {
 
-    function check_product_purchase($product_id){
+    function check_product_purchase($product_id)
+    {
         $item = DB::table('purchase_managers')->where('product_id', $product_id)->first();
-        if(empty($item)){
+        if (empty($item)) {
             return false;
         }
         return $item;
     }
 }
 
-if(!function_exists("get_latest_version_product_id")){
+if (!function_exists("get_latest_version_product_id")) {
 
-    function get_latest_version_product_id($product_id){
+    function get_latest_version_product_id($product_id)
+    {
         $license = new License($product_id);
         $response = $license->getLatestVersion();
         if ($response['status'] == true) {
             return $response;
         }
-        
+
         return false;
     }
 }
 
-if(!function_exists("get_percentage")){
+if (!function_exists("get_percentage")) {
 
     function get_percentage($total, $number)
     {
-      if ( $total > 0 ) {
-       return number_format(($number / $total) * 100);
-
-      } else {
-        return 0;
-      }
+        if ($total > 0) {
+            return number_format(($number / $total) * 100);
+        } else {
+            return 0;
+        }
     }
 }
-if(!function_exists("random_color")){
+if (!function_exists("random_color")) {
 
     function random_color()
     {
-        $items = array("primary", "success", "info", "warning", "danger" , "secondary", "dark");
+        $items = array("primary", "success", "info", "warning", "danger", "secondary", "dark");
         return $items[array_rand($items)];
     }
 }
 
-if(!function_exists("get_color_chart_count")){
+if (!function_exists("get_color_chart_count")) {
 
     function get_color_chart_count($count = 0)
     {
-        
-        $items = ["#4353FF", "#1cc88a", "#36b9cc", "#f6c23e", "#e74a3b","#5a5c69", "#3366cc","#dc3912","#ff9900","#109618","#990099","#0099c6","#dd4477","#66aa00","#b82e2e","#316395","#3366cc","#994499","#22aa99","#aaaa11","#6633cc","#e67300","#8b0707","#651067","#329262","#5574a6","#3b3eac","#b77322","#16d620","#b91383","#f4359e","#9c5935","#a9c413","#2a778d","#668d1c","#bea413","#0c5922","#743411"];
-        
+
+        $items = ["#4353FF", "#1cc88a", "#36b9cc", "#f6c23e", "#e74a3b", "#5a5c69", "#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477", "#66aa00", "#b82e2e", "#316395", "#3366cc", "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300", "#8b0707", "#651067", "#329262", "#5574a6", "#3b3eac", "#b77322", "#16d620", "#b91383", "#f4359e", "#9c5935", "#a9c413", "#2a778d", "#668d1c", "#bea413", "#0c5922", "#743411"];
+
         $output = array_slice($items, 0, $count);
 
         return $output;
@@ -327,23 +333,21 @@ if(!function_exists("get_color_chart_count")){
 
 
 
-if(!function_exists("getDeviceTracking")){
+if (!function_exists("getDeviceTracking")) {
 
-    function getDeviceTracking($tracking){
-        
-        if($tracking->isMobile()){
+    function getDeviceTracking($tracking)
+    {
+
+        if ($tracking->isMobile()) {
 
             return "Mobile";
-        }
-        elseif($tracking->isTablet()){
+        } elseif ($tracking->isTablet()) {
 
             return "Tablet";
-        }
-        elseif($tracking->isDesktop()){
-            
+        } elseif ($tracking->isDesktop()) {
+
             return "Desktop";
-        }
-        else{
+        } else {
             return "Unknown";
         }
     }
@@ -352,67 +356,64 @@ if(!function_exists("getDeviceTracking")){
 
 /*Settings*/
 
-if(!function_exists("get_option")){
+if (!function_exists("get_option")) {
 
-    function get_option($key, $value = ""){
+    function get_option($key, $value = "")
+    {
 
-        if (File::exists(storage_path('installed'))){
+        if (File::exists(storage_path('installed'))) {
 
             $option = DB::table('settings')->where('key', $key)->first();
-            if(empty($option)){
+            if (empty($option)) {
                 DB::table('settings')->insert(
                     ['key' => $key, 'value' => $value]
                 );
                 return $value;
-            }else{
+            } else {
                 return $option->value;
             }
-
         }
         return $value;
-        
     }
 }
 
-if(!function_exists("update_option")){
+if (!function_exists("update_option")) {
 
-    function update_option($key, $value){
+    function update_option($key, $value)
+    {
 
         $option = DB::table('settings')->where('key', $key)->first();
-        if(empty($option)){
+        if (empty($option)) {
             DB::table('settings')->insert(
                 ['key' => $key, 'value' => $value]
             );
-        }else{
+        } else {
             DB::table('settings')
-            ->where('key', $key)
-            ->update(['value' => $value]);
+                ->where('key', $key)
+                ->update(['value' => $value]);
         }
     }
 }
 if (!function_exists('getPaymentsvailable')) {
 
-    function getPaymentsvailable() {
+    function getPaymentsvailable()
+    {
         $modules = Module::all();
         $payments = [];
         if ($modules) {
 
             foreach ($modules as $module) {
                 $name_module = $module->getLowerName();
-                $config = config($name_module.'.payment');
-                if(!empty($config)){
+                $config = config($name_module . '.payment');
+                if (!empty($config)) {
 
                     if (count($config) > 0) {
-                       foreach ($config as $item) {
-                           $payments[] = $item;
-
-                       }
+                        foreach ($config as $item) {
+                            $payments[] = $item;
+                        }
                     }
-
                 }
-                
             }
-           
         }
         return $payments;
     }
@@ -422,7 +423,8 @@ if (!function_exists('getPaymentsvailable')) {
 
 if (!function_exists('accountSettingPayments')) {
 
-    function accountSettingPayments($data = []) {
+    function accountSettingPayments($data = [])
+    {
         $modules = Module::all();
         $html = "";
         $config_module = [];
@@ -430,14 +432,13 @@ if (!function_exists('accountSettingPayments')) {
         if ($modules) {
             foreach ($modules as $module) {
                 $name_module = $module->getLowerName();
-                $menu_config = config($name_module.'.menu');
-                
-                if(view()->exists($name_module.'::moduletemplates.module-account-payment') && !empty($menu_config['account_payment_position'])){
+                $menu_config = config($name_module . '.menu');
+
+                if (view()->exists($name_module . '::moduletemplates.module-account-payment') && !empty($menu_config['account_payment_position'])) {
                     $tmp['name'] = $name_module;
                     $tmp['account_payment_position'] = $menu_config['account_payment_position'];
                     $modules_sort[] =  $tmp;
                 }
-                
             }
             // sort
             usort($modules_sort, function ($item1, $item2) {
@@ -446,9 +447,8 @@ if (!function_exists('accountSettingPayments')) {
 
             // get view Template
             foreach ($modules_sort as $item) {
-                $html .= view($item['name'].'::moduletemplates.module-account-payment',compact('data'))->render(); 
+                $html .= view($item['name'] . '::moduletemplates.module-account-payment', compact('data'))->render();
             }
-                
         }
         return $html;
     }
@@ -456,7 +456,8 @@ if (!function_exists('accountSettingPayments')) {
 
 if (!function_exists('settingPayments')) {
 
-    function settingPayments($data = []) {
+    function settingPayments($data = [])
+    {
         $modules = Module::all();
         $html = "";
         $config_module = [];
@@ -464,14 +465,13 @@ if (!function_exists('settingPayments')) {
         if ($modules) {
             foreach ($modules as $module) {
                 $name_module = $module->getLowerName();
-                $menu_config = config($name_module.'.menu');
-                
-                if(view()->exists($name_module.'::moduletemplates.module-setting-payment') && !empty($menu_config['setting_payment_position'])){
+                $menu_config = config($name_module . '.menu');
+
+                if (view()->exists($name_module . '::moduletemplates.module-setting-payment') && !empty($menu_config['setting_payment_position'])) {
                     $tmp['name'] = $name_module;
                     $tmp['setting_payment_position'] = $menu_config['setting_payment_position'];
                     $modules_sort[] =  $tmp;
                 }
-                
             }
             // sort
             usort($modules_sort, function ($item1, $item2) {
@@ -480,16 +480,16 @@ if (!function_exists('settingPayments')) {
 
             // get view Template
             foreach ($modules_sort as $item) {
-                $html .= view($item['name'].'::moduletemplates.module-setting-payment')->render(); 
+                $html .= view($item['name'] . '::moduletemplates.module-setting-payment')->render();
             }
-                
         }
         return $html;
     }
 }
 if (!function_exists('paymentSkins')) {
 
-    function paymentSkins($data = []) {
+    function paymentSkins($data = [])
+    {
         $modules = Module::all();
         $html = "";
         $config_module = [];
@@ -497,14 +497,13 @@ if (!function_exists('paymentSkins')) {
         if ($modules) {
             foreach ($modules as $module) {
                 $name_module = $module->getLowerName();
-                $menu_config = config($name_module.'.menu');
-                
-                if(view()->exists($name_module.'::moduletemplates.module-payment-skins') && !empty($menu_config['payment_skins_position'])){
+                $menu_config = config($name_module . '.menu');
+
+                if (view()->exists($name_module . '::moduletemplates.module-payment-skins') && !empty($menu_config['payment_skins_position'])) {
                     $tmp['name'] = $name_module;
                     $tmp['payment_skins_position'] = $menu_config['payment_skins_position'];
                     $modules_sort[] =  $tmp;
                 }
-                
             }
             // sort
             usort($modules_sort, function ($item1, $item2) {
@@ -513,16 +512,16 @@ if (!function_exists('paymentSkins')) {
 
             // get view Template
             foreach ($modules_sort as $item) {
-                $html .= view($item['name'].'::moduletemplates.module-payment-skins',compact('data'))->render(); 
+                $html .= view($item['name'] . '::moduletemplates.module-payment-skins', compact('data'))->render();
             }
-                
         }
         return $html;
     }
 }
 if (!function_exists('menuHeaderSkins')) {
 
-    function menuHeaderSkins($data = []) {
+    function menuHeaderSkins($data = [])
+    {
         $modules = Module::all();
         $html = "";
         $config_module = [];
@@ -530,14 +529,13 @@ if (!function_exists('menuHeaderSkins')) {
         if ($modules) {
             foreach ($modules as $module) {
                 $name_module = $module->getLowerName();
-                $menu_config = config($name_module.'.menu');
-                
-                if(view()->exists($name_module.'::moduletemplates.module-header-skins') && !empty($menu_config['header_skins_position'])){
+                $menu_config = config($name_module . '.menu');
+
+                if (view()->exists($name_module . '::moduletemplates.module-header-skins') && !empty($menu_config['header_skins_position'])) {
                     $tmp['name'] = $name_module;
                     $tmp['header_skins_position'] = $menu_config['header_skins_position'];
                     $modules_sort[] =  $tmp;
                 }
-                
             }
             // sort
             usort($modules_sort, function ($item1, $item2) {
@@ -546,9 +544,8 @@ if (!function_exists('menuHeaderSkins')) {
 
             // get view Template
             foreach ($modules_sort as $item) {
-                $html .= view($item['name'].'::moduletemplates.module-header-skins')->render(); 
+                $html .= view($item['name'] . '::moduletemplates.module-header-skins')->render();
             }
-                
         }
         return $html;
     }
@@ -556,7 +553,8 @@ if (!function_exists('menuHeaderSkins')) {
 
 if (!function_exists('menuBottomSkins')) {
 
-    function menuBottomSkins($data = []) {
+    function menuBottomSkins($data = [])
+    {
 
         $modules = Module::all();
         $html = "";
@@ -565,14 +563,13 @@ if (!function_exists('menuBottomSkins')) {
         if ($modules) {
             foreach ($modules as $module) {
                 $name_module = $module->getLowerName();
-                $menu_config = config($name_module.'.menu');
-                
-                if(view()->exists($name_module.'::moduletemplates.module-bottom-skins') && !empty($menu_config['bottom_skins_position'])){
+                $menu_config = config($name_module . '.menu');
+
+                if (view()->exists($name_module . '::moduletemplates.module-bottom-skins') && !empty($menu_config['bottom_skins_position'])) {
                     $tmp['name'] = $name_module;
                     $tmp['bottom_skins_position'] = $menu_config['bottom_skins_position'];
                     $modules_sort[] =  $tmp;
                 }
-
             }
             // sort
             usort($modules_sort, function ($item1, $item2) {
@@ -581,9 +578,8 @@ if (!function_exists('menuBottomSkins')) {
 
             // get view Template
             foreach ($modules_sort as $item) {
-                $html .= view($item['name'].'::moduletemplates.module-bottom-skins',compact('data'))->render(); 
+                $html .= view($item['name'] . '::moduletemplates.module-bottom-skins', compact('data'))->render();
             }
-                
         }
         return $html;
     }
@@ -592,23 +588,23 @@ if (!function_exists('menuBottomSkins')) {
 
 if (!function_exists('menuSiderbar')) {
 
-    function menuSiderbar($data = []) {
+    function menuSiderbar($data = [])
+    {
         $modules = Module::all();
         $html = "";
         $config_module = [];
         $modules_sort = [];
         if ($modules) {
-            
+
             foreach ($modules as $module) {
                 $name_module = $module->getLowerName();
-                $menu_config = config($name_module.'.menu');
-                
-                if(view()->exists($name_module.'::moduletemplates.module-sidebar') && !empty($menu_config['siderbar_position'])){
+                $menu_config = config($name_module . '.menu');
+
+                if (view()->exists($name_module . '::moduletemplates.module-sidebar') && !empty($menu_config['siderbar_position'])) {
                     $tmp['name'] = $name_module;
                     $tmp['siderbar_position'] = $menu_config['siderbar_position'];
                     $modules_sort[] =  $tmp;
                 }
-                
             }
             // sort
             usort($modules_sort, function ($item1, $item2) {
@@ -617,9 +613,8 @@ if (!function_exists('menuSiderbar')) {
 
             // get view Template
             foreach ($modules_sort as $item) {
-                $html .= view($item['name'].'::moduletemplates.module-sidebar')->render(); 
+                $html .= view($item['name'] . '::moduletemplates.module-sidebar')->render();
             }
-                
         }
         return $html;
     }
@@ -627,7 +622,8 @@ if (!function_exists('menuSiderbar')) {
 
 if (!function_exists('menuAdminSettingSiderbar')) {
 
-    function menuAdminSettingSiderbar($data = []) {
+    function menuAdminSettingSiderbar($data = [])
+    {
         $modules = Module::all();
         $html = "";
         $config_module = [];
@@ -636,14 +632,13 @@ if (!function_exists('menuAdminSettingSiderbar')) {
             // sort module with siderbar position
             foreach ($modules as $module) {
                 $name_module = $module->getLowerName();
-                $menu_config = config($name_module.'.menu');
-                
-                if(view()->exists($name_module.'::moduletemplates.module-setting-sidebar') && !empty($menu_config['siderbar_setting_position'])){
+                $menu_config = config($name_module . '.menu');
+
+                if (view()->exists($name_module . '::moduletemplates.module-setting-sidebar') && !empty($menu_config['siderbar_setting_position'])) {
                     $tmp['name'] = $name_module;
                     $tmp['siderbar_setting_position'] = $menu_config['siderbar_setting_position'];
                     $modules_sort[] =  $tmp;
                 }
-                
             }
             // sort
             usort($modules_sort, function ($item1, $item2) {
@@ -652,16 +647,16 @@ if (!function_exists('menuAdminSettingSiderbar')) {
 
             // get view template
             foreach ($modules_sort as $item) {
-                $html .= view($item['name'].'::moduletemplates.module-setting-sidebar')->render(); 
+                $html .= view($item['name'] . '::moduletemplates.module-setting-sidebar')->render();
             }
-                
         }
         return $html;
     }
 }
 if (!function_exists('menuHeaderTopLeft')) {
 
-    function menuHeaderTopLeft($data = []) {
+    function menuHeaderTopLeft($data = [])
+    {
         $modules = Module::all();
         $html = "";
         $config_module = [];
@@ -670,14 +665,13 @@ if (!function_exists('menuHeaderTopLeft')) {
             // sort module with siderbar position
             foreach ($modules as $module) {
                 $name_module = $module->getLowerName();
-                $menu_config = config($name_module.'.menu');
-                
-                if(view()->exists($name_module.'::moduletemplates.module-header-top-left') && !empty($menu_config['header_top_left'])){
+                $menu_config = config($name_module . '.menu');
+
+                if (view()->exists($name_module . '::moduletemplates.module-header-top-left') && !empty($menu_config['header_top_left'])) {
                     $tmp['name'] = $name_module;
                     $tmp['header_top_left'] = $menu_config['header_top_left'];
                     $modules_sort[] =  $tmp;
                 }
-                
             }
             // sort
             usort($modules_sort, function ($item1, $item2) {
@@ -686,16 +680,16 @@ if (!function_exists('menuHeaderTopLeft')) {
 
             // get view template
             foreach ($modules_sort as $item) {
-                $html .= view($item['name'].'::moduletemplates.module-header-top-left')->render(); 
+                $html .= view($item['name'] . '::moduletemplates.module-header-top-left')->render();
             }
-                
         }
         return $html;
     }
 }
 if (!function_exists('menuHeaderTop')) {
 
-    function menuHeaderTop($data = []) {
+    function menuHeaderTop($data = [])
+    {
         $modules = Module::all();
         $html = "";
         $config_module = [];
@@ -704,14 +698,13 @@ if (!function_exists('menuHeaderTop')) {
             // sort module with siderbar position
             foreach ($modules as $module) {
                 $name_module = $module->getLowerName();
-                $menu_config = config($name_module.'.menu');
-                
-                if(view()->exists($name_module.'::moduletemplates.module-header-top') && !empty($menu_config['header_top'])){
+                $menu_config = config($name_module . '.menu');
+
+                if (view()->exists($name_module . '::moduletemplates.module-header-top') && !empty($menu_config['header_top'])) {
                     $tmp['name'] = $name_module;
                     $tmp['header_top'] = $menu_config['header_top'];
                     $modules_sort[] =  $tmp;
                 }
-                
             }
             // sort
             usort($modules_sort, function ($item1, $item2) {
@@ -720,9 +713,8 @@ if (!function_exists('menuHeaderTop')) {
 
             // get view template
             foreach ($modules_sort as $item) {
-                $html .= view($item['name'].'::moduletemplates.module-header-top')->render(); 
+                $html .= view($item['name'] . '::moduletemplates.module-header-top')->render();
             }
-                
         }
         return $html;
     }
@@ -730,7 +722,8 @@ if (!function_exists('menuHeaderTop')) {
 
 if (!function_exists('generateRandomString')) {
 
-    function generateRandomString($length = 10) {
+    function generateRandomString($length = 10)
+    {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
         $charactersLength = strlen($characters);
         $randomString = '';
@@ -743,59 +736,60 @@ if (!function_exists('generateRandomString')) {
 
 if (!function_exists('getAllImagesContentMedia')) {
 
-    function getAllImagesContentMedia(){
+    function getAllImagesContentMedia()
+    {
         $path = public_path('storage/content_media');
-        if(!File::exists($path)) {
+        if (!File::exists($path)) {
             File::makeDirectory($path, $mode = 0755, true, true);
         }
         $images_url = [];
         $files = File::files($path);
         foreach ($files as $item) {
             # code...
-            $images_url[] = URL::to('/storage/content_media')."/".$item->getFilename();
+            $images_url[] = URL::to('/storage/content_media') . "/" . $item->getFilename();
         }
         return $images_url;
-        
     }
 }
 
 if (!function_exists('getAllImagesUser')) {
 
-    function getAllImagesUser($user_id){
-        $path = public_path('storage/user_storage/'.$user_id);
-        if(!File::exists($path)) {
+    function getAllImagesUser($user_id)
+    {
+        $path = public_path('storage/user_storage/' . $user_id);
+        if (!File::exists($path)) {
             File::makeDirectory($path, $mode = 0755, true, true);
         }
         $images_url = [];
         $files = File::files($path);
         foreach ($files as $item) {
             # code...
-            $images_url[] = URL::to('/storage/user_storage/'.$user_id)."/".$item->getFilename();
+            $images_url[] = URL::to('/storage/user_storage/' . $user_id) . "/" . $item->getFilename();
         }
         return $images_url;
-        
     }
 }
 if (!function_exists('getAllContentTemplate')) {
 
-    function getAllContentTemplate(){
+    function getAllContentTemplate()
+    {
         $path = public_path('storage/content_media');
         $images_url = [];
         $files = File::files($path);
         foreach ($files as $item) {
             # code...
-            $images_url[] = URL::to('/storage/content_media')."/".$item->getFilename();
+            $images_url[] = URL::to('/storage/content_media') . "/" . $item->getFilename();
         }
         return $images_url;
-        
     }
 }
 if (!function_exists('replaceVarContentStyle')) {
 
-    function replaceVarContentStyle($item=""){
+    function replaceVarContentStyle($item = "")
+    {
         // Image URL: ##image_url##
         $results = array();
-        $image_url = URL::to('/storage/content_media')."/";
+        $image_url = URL::to('/storage/content_media') . "/";
 
         $temp = $item;
         if (is_object($item)) {
@@ -811,10 +805,7 @@ if (!function_exists('replaceVarContentStyle')) {
             if (isset($item->thank_you_style)) {
                 $temp->thank_you_style = str_replace('##image_url##', $image_url, $item->thank_you_style);
             }
-            
-            
-        }
-        else{
+        } else {
             if (isset($item)) {
                 $temp = str_replace('##image_url##', $image_url, $item);
             }
@@ -824,7 +815,7 @@ if (!function_exists('replaceVarContentStyle')) {
 }
 if (!function_exists('saveImgBase64')) {
 
-     function saveImgBase64($param, $folder)
+    function saveImgBase64($param, $folder)
     {
         list($extension, $content) = explode(';', $param);
         $tmpExtension = explode('/', $extension);
@@ -847,7 +838,8 @@ if (!function_exists('saveImgBase64')) {
 
 if (!function_exists('cleanImages')) {
 
-    function cleanImages(){
+    function cleanImages()
+    {
 
         $path = public_path('storage/thumb_templates');
         $images_url = [];
@@ -856,9 +848,9 @@ if (!function_exists('cleanImages')) {
             # code...
             //$block = Template::where('thumb',$item->getFilename())->first();
             if (!$block) {
-                $path_delete = $path."/".$item->getFilename();
+                $path_delete = $path . "/" . $item->getFilename();
 
-                if(File::exists($path_delete)) {
+                if (File::exists($path_delete)) {
                     File::delete($path_delete);
                 }
             }
@@ -867,16 +859,17 @@ if (!function_exists('cleanImages')) {
     }
 }
 if (!function_exists('deleteImageWithPath')) {
-    
-    function deleteImageWithPath($path_delete){
 
-        if(File::exists($path_delete)) {
+    function deleteImageWithPath($path_delete)
+    {
+
+        if (File::exists($path_delete)) {
             File::delete($path_delete);
         }
     }
 }
 if (!function_exists('setEnv')) {
-    
+
     function setEnv($data)
     {
         if (empty($data) || !is_array($data) || !is_file(base_path('.env'))) {
@@ -1002,10 +995,10 @@ if (!function_exists('change_file_json')) {
     function change_file_json($file, $key_change, $value_change)
     {
         $jsonString = file_get_contents($file);
-        
+
         $data = json_decode($jsonString, true);
         $data[$key_change] = $value_change;
-        
+
         $newJsonString = json_encode($data);
 
         file_put_contents($file, $newJsonString);
@@ -1071,31 +1064,32 @@ if (!function_exists('scan_folder')) {
 }
 
 if (!function_exists('get_device_type')) {
-    function get_device_type($user_agent) {
+    function get_device_type($user_agent)
+    {
         $mobile_regex = '/(?:phone|windows\s+phone|ipod|blackberry|(?:android|bb\d+|meego|silk|googlebot) .+? mobile|palm|windows\s+ce|opera mini|avantgo|mobilesafari|docomo)/i';
         $tablet_regex = '/(?:ipad|playbook|(?:android|bb\d+|meego|silk)(?! .+? mobile))/i';
 
-        if(preg_match_all($mobile_regex, $user_agent)) {
+        if (preg_match_all($mobile_regex, $user_agent)) {
             return 'mobile';
         } else {
 
-            if(preg_match_all($tablet_regex, $user_agent)) {
+            if (preg_match_all($tablet_regex, $user_agent)) {
                 return 'tablet';
             } else {
                 return 'desktop';
             }
-
         }
     }
 }
 
 if (!function_exists('get_country_from_country_code')) {
-    function get_country_from_country_code($code) {
+    function get_country_from_country_code($code)
+    {
         $code = mb_strtoupper($code);
 
         $country_list = get_countries_array();
 
-        if(!isset($country_list[$code])) {
+        if (!isset($country_list[$code])) {
             return __('Unknown');
         } else {
             return $country_list[$code];
@@ -1104,7 +1098,8 @@ if (!function_exists('get_country_from_country_code')) {
 }
 
 if (!function_exists('get_countries_array')) {
-    function get_countries_array() {
+    function get_countries_array()
+    {
         return [
             'AF' => 'Afghanistan',
             'AX' => 'Aland Islands',
@@ -1361,43 +1356,41 @@ if (!function_exists('get_countries_array')) {
 }
 
 if (!function_exists('nr')) {
-    function nr($number, $decimals = 0, $extra = false) {
+    function nr($number, $decimals = 0, $extra = false)
+    {
 
-        if($extra) {
+        if ($extra) {
             $formatted_number = $number;
             $touched = false;
 
-            if(!$touched && (!is_array($extra) || (is_array($extra) && in_array('B', $extra)))) {
+            if (!$touched && (!is_array($extra) || (is_array($extra) && in_array('B', $extra)))) {
 
-                if($number > 999999999) {
+                if ($number > 999999999) {
                     $formatted_number = number_format($number / 1000000000, $decimals, '.', ',') . 'B';
 
                     $touched = true;
                 }
-
             }
 
-            if(!$touched && (!is_array($extra) || (is_array($extra) && in_array('M', $extra)))) {
+            if (!$touched && (!is_array($extra) || (is_array($extra) && in_array('M', $extra)))) {
 
-                if($number > 999999) {
+                if ($number > 999999) {
                     $formatted_number = number_format($number / 1000000, $decimals, '.', ',') . 'M';
 
                     $touched = true;
                 }
-
             }
 
-            if(!$touched && (!is_array($extra) || (is_array($extra) && in_array('K', $extra)))) {
+            if (!$touched && (!is_array($extra) || (is_array($extra) && in_array('K', $extra)))) {
 
-                if($number > 999) {
+                if ($number > 999) {
                     $formatted_number = number_format($number / 1000, $decimals, '.', ',') . 'K';
 
                     $touched = true;
                 }
-
             }
 
-            if($decimals > 0) {
+            if ($decimals > 0) {
                 $dotzero = '.' . str_repeat('0', $decimals);
                 $formatted_number = str_replace($dotzero, '', $formatted_number);
             }
@@ -1405,7 +1398,7 @@ if (!function_exists('nr')) {
             return $formatted_number;
         }
 
-        if($number == 0) {
+        if ($number == 0) {
             return 0;
         }
 
@@ -1414,10 +1407,11 @@ if (!function_exists('nr')) {
 }
 
 if (!function_exists('get_language_from_locale')) {
-    function get_language_from_locale($locale) {
+    function get_language_from_locale($locale)
+    {
         $languages = get_locale_languages_array();
 
-        if(!isset($languages[$locale])) {
+        if (!isset($languages[$locale])) {
             return __('Unknown');
         } else {
             return $languages[$locale];
@@ -1426,7 +1420,8 @@ if (!function_exists('get_language_from_locale')) {
 }
 
 if (!function_exists('get_locale_languages_array')) {
-    function get_locale_languages_array() {
+    function get_locale_languages_array()
+    {
         return [
             'ab' => 'Abkhazian',
             'aa' => 'Afar',
@@ -1617,25 +1612,24 @@ if (!function_exists('get_locale_languages_array')) {
 }
 
 if (!function_exists('get_chart_data')) {
-    function get_chart_data(Array $main_array) {
+    function get_chart_data(array $main_array)
+    {
 
         $results = [];
 
-        foreach($main_array as $date_label => $data) {
+        foreach ($main_array as $date_label => $data) {
 
-            foreach($data as $label_key => $label_value) {
+            foreach ($data as $label_key => $label_value) {
 
-                if(!isset($results[$label_key])) {
+                if (!isset($results[$label_key])) {
                     $results[$label_key] = [];
                 }
 
                 $results[$label_key][] = $label_value;
-
             }
-
         }
 
-        foreach($results as $key => $value) {
+        foreach ($results as $key => $value) {
             $results[$key] = '["' . implode('", "', $value) . '"]';
         }
 
