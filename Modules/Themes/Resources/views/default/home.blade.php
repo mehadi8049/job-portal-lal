@@ -295,7 +295,6 @@
         }
 
         .company-logo-img {
-            width: 75px;
             height: 45px;
             object-fit: cover;
             border: 1px solid #f0f0f0;

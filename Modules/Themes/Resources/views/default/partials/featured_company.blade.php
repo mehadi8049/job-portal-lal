@@ -19,12 +19,12 @@
 
                             <div class="company-logo-wrap">
                                 <img src="{{ $company->getLogoLink() }}" class="company-logo-img"
-                                    alt="{{ $company->name ?? 'Company Name' }}">
+                                    alt="{{ $company->company_name ?? 'Company Name' }}">
                             </div>
 
                             <div class="company-info">
-                                <h6 class="" title="{{ $company->name ?? 'Company Name' }}">
-                                    {{ $company->name ?? 'Company Name' }}
+                                <h6 class="" title="{{ $company->company_name ?? 'Company Name' }}">
+                                    {{ $company->company_name ?? 'Company Name' }}
                                 </h6>
 
                             </div>
