@@ -228,7 +228,6 @@
         }
 
         .card-govt {
-            background-color: #fff9e6;
             border: 1px solid #f5eaca;
             border-radius: 4px;
             padding: 15px;
