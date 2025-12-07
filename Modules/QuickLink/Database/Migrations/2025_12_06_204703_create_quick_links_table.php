@@ -17,7 +17,7 @@ class CreateQuickLinksTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->string('link_url');
-            $table->number('serial');
+            $table->integer('serial');
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
