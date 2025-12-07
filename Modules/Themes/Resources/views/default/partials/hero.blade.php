@@ -1,9 +1,9 @@
 <section class="bg-home" id="home">
     <div class="container hero-container">
         <div class="row">
-            <div class="col-lg-9 col-md-12 pt-5 pb-5">
+            <div class="col-lg-9 col-md-12">
 
-                <div class="mb-5 mt-4">
+                <div class="mb-5 mt-3">
                     <h1 class="hero-title mb-2">Find the right job</h1>
                 </div>
 

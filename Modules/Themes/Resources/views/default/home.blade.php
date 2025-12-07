@@ -75,7 +75,7 @@
         .bd-search-box {
             background: #ed7724cf;
             padding: 15px;
-            margin-bottom: 10px;
+            margin-bottom: 1rem !important;
             border-radius: 4px;
             display: flex;
             gap: 10px;
@@ -125,7 +125,7 @@
             color: #fff;
             padding: 20px;
             height: 100%;
-            min-height: 380px;
+            height: 100%;
             backdrop-filter: blur(5px);
         }
 
@@ -363,6 +363,16 @@
 
         .card-padding {
             padding: 0px 8px !important;
+        }
+
+        .btn-yellow {
+            background-color: #ff9800 !important;
+            border-color: #ff9800 !important;
+            color: #fff !important;
+            padding: 4px 10px;
+            margin: 2px;
+            border-radius: 4px;
+            font-size: 14px;
         }
     </style>
 @endpush

@@ -1,4 +1,33 @@
 @extends('themes::default.layout')
+
+
+@push('head')
+    <style>
+        a {
+            text-decoration: none !important;
+        }
+
+        .bd-search-box {
+            background: #ed7724cf;
+            padding: 15px;
+            margin-bottom: 1rem !important;
+            border-radius: 4px;
+
+        }
+
+        h3 {
+
+            color: #ffffff;
+
+        }
+
+        .form-group {
+            margin-bottom: 0px !important;
+        }
+    </style>
+@endpush
+
+
 @section('content')
     <section class="pb-4">
         <div class="home-center">
@@ -12,7 +41,7 @@
                                 </div>
                             </div>
                             <form id="form_search" action="javascript:void(0)" method="GET">
-                                <div class="row">
+                                <div class="row bd-search-box">
                                     <div class="form-group col-md-4">
                                         <input class="form-control" value="{{ request()->keyword }}" name="keyword"
                                             type="text" placeholder="@lang('Job title, position you want to apply for')" id="keyword"
@@ -87,11 +116,11 @@
                                 <div class="row">
                                     <div class="col-md-9">&nbsp;</div>
                                     <div class="col-md-3">
-                                        <div class="pull-right" id="show_advanced">
-                                            <a href="#" id="btn-show-advanced-search">
+                                        <div class="pull-right " id="show_advanced">
+                                            <a href="#" class="text-white" id="btn-show-advanced-search">
                                                 <i class="pe-7s-angle-down"></i>@lang('Search advanced')
                                             </a>
-                                            <a href="#" id="btn-hidden-advanced-search">
+                                            <a href="#" class="text-white" id="btn-hidden-advanced-search">
                                                 <i class="pe-7s-angle-up"></i>@lang('Hide search advanced')
                                             </a>
                                         </div>

@@ -28,44 +28,48 @@
             </div>
 
             <div class="col-lg-3 col-md-12 mt-4 mt-lg-0">
-                <div class="card-govt">
-                    <h5><i class="pe-7s-plane"></i> GOVT JOBS</h5>
-                    <div class="mt-3">
-                        <p class="mb-1 text-dark font-weight-bold">বাংলাদেশ নৌবাহিনী</p>
-                        <p class="text-muted small">কমিশন্ড অফিসার বিশেষজ্ঞ চিকিৎসক</p>
-                    </div>
-                    <div class="mt-3">
-                        <a href="#" class="text-success font-weight-bold small">VIEW ALL (240)</a>
-                    </div>
-                </div>
 
-                <div class="card-overseas mt-3">
+
+                <div class="card-overseas">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5 class="mb-0"><i class="pe-7s-world"></i> বিদেশ চাকরি</h5>
-                        <span class="badge badge-primary">JOBS</span>
+                        <h5 class="mb-0"><i class="pe-7s-settings"></i> CV Builder</h5>
+                        <span class="badge badge-primary">Resume</span>
                     </div>
 
                     <div class="mb-2">
-                        <p class="mb-0 text-dark font-weight-bold">BJIT Ltd.</p>
-                        <p class="text-muted small">CAD and Construction Management Engineer</p>
+                        <p class="mb-0 text-dark font-weight-bold">CV</p>
+                        <p class="text-muted small">শিক্ষা, অভিজ্ঞতা ও দক্ষতার পূর্ণ বিবরণ</p>
                     </div>
                     <hr class="my-2">
                     <div class="mb-2">
-                        <p class="mb-0 text-dark font-weight-bold">Solar World Power BD</p>
-                        <p class="text-muted small">Call Center Agent, Australia</p>
+                        <p class="mb-0 text-dark font-weight-bold">Resume</p>
+                        <p class="text-muted small">আন্তর্জাতিক মানের সংক্ষিপ্ত জীবনবৃত্তান্ত</p>
                     </div>
 
                     <div class="mt-3">
-                        <a href="#" class="text-warning font-weight-bold small">View All (37)</a>
+                        <a href="#" class="text-warning font-weight-bold small">Click Here</a>
+                    </div>
+                </div>
+                <div class="card-govt mt-3">
+                    <h5><i class="pe-7s-plane"></i> GOVT JOBS</h5>
+                    <div class="mt-3">
+                        <p class="mb-1 text-dark font-weight-bold">সরকারি চাকরির সুযোগ</p>
+                        <p class="text-muted small">আজকের সর্বশেষ সরকারি চাকরির খবর দেখুন এখানেই</p>
+                    </div>
+                    <div class="mt-3">
+                        <a href="{{ url('jobs?organization_type=4') }}" class="text-success font-weight-bold small">VIEW
+                            ALL</a>
                     </div>
                 </div>
 
+
                 <div class="mt-3 row">
                     <div class="col-6 pr-1">
-                        <a href="#" class="btn btn-success btn-block btn-sm text-white">Post your CV</a>
+                        <a href="{{ url('templates') }}" class="btn btn-yellow btn-block btn-sm text-white">Make
+                            CV</a>
                     </div>
                     <div class="col-6 pl-1">
-                        <a href="#" class="btn btn-danger btn-block btn-sm text-white">Video CV</a>
+                        <a href="{{ url('jobs') }}" class="btn btn-primary btn-block btn-sm text-white">All Jobs</a>
                     </div>
                 </div>
             </div>

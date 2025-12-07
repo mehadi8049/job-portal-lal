@@ -1,23 +1,23 @@
 @extends('themes::default.layout')
 @section('title', __('Templates'))
 @section('content')
-<section class="pb-4">
-      <div class="home-center">
-          <div class="home-desc-center">
-              <div class="container">
-                  <div class="row mt-3">
-                      <div class="col-md-12">
-                          <div class="row mb-2">
-                              <div class="col-md-12">
-                                  <h3><strong>@lang('Choose a template for your Resumecv')</strong></h3>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </section>
+    <section class="pb-4">
+        <div class="home-center">
+            <div class="home-desc-center">
+                <div class="container">
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <div class="row mb-2">
+                                <div class="col-md-12">
+                                    <h3 class="text-white"><strong>@lang('Choose a template for your Resumecv')</strong></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <section class="section-sm" id="pricing">
         <div class="container">
 

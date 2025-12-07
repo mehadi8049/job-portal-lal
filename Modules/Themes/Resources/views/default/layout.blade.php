@@ -31,7 +31,7 @@
         <style>
             /* --- Section Background --- */
             .section-counter-awesome {
-                background-color: #3360ad;
+                background-color: #083344;
                 padding: 80px 0;
                 overflow: hidden;
                 /* Prevents overflow scrolling */
@@ -117,8 +117,8 @@
 
             /* --- Custom Button --- */
             .btn-awesome-white {
-                background-color: #ffffff;
-                color: #3360ad;
+                background-color: #ed7724;
+                color: #ffffff;
                 font-weight: 700;
                 padding: 14px 35px;
                 border-radius: 50px;
@@ -127,13 +127,13 @@
                 text-decoration: none;
                 display: inline-flex;
                 align-items: center;
-                transition: all 0.3s ease;
+
             }
 
             .btn-awesome-white:hover {
-                background-color: #3360ad;
+                background-color: #cf681e;
                 color: #ffffff;
-                border: 2px solid #ffffff;
+
                 text-decoration: none;
             }
 
