@@ -37,7 +37,7 @@
                         <div class="col-md-12">
                             <div class="row mb-2">
                                 <div class="col-md-12">
-                                    <h3><strong>@lang('Discover now all best jobs on') {{ config('app.name') }}</strong></h3>
+                                    <h3><strong>@lang('Discover now all best jobs')</strong></h3>
                                 </div>
                             </div>
                             <form id="form_search" action="javascript:void(0)" method="GET">

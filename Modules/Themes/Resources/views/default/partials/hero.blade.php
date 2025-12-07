@@ -4,7 +4,7 @@
             <div class="col-lg-9 col-md-12">
 
                 <div class="mb-5 mt-3">
-                    <h1 class="hero-title mb-2">Find the right job</h1>
+                    <h1 class="hero-title mb-2">Find Your Next Job</h1>
                 </div>
 
                 <div class="row mb-4">
