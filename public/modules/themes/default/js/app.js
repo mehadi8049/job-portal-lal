@@ -33,12 +33,19 @@
     });
     $('#form_search').on('submit', function() {
         var keyword = $('#keyword').val();
+        var organization_type = $('#organization_type').val();
         var params = [];
         var city = $('#city').val();
+        if(keyword != undefined && keyword != null && keyword != '') {
+            params.push(`keyword=${keyword}`);
+        }
+        if(organization_type != undefined && organization_type != null && organization_type != '') {
+            params.push(`organization_type=${organization_type}`);
+        }
         if(city != undefined && city != null && city != '') {
             params.push(`city=${city}`);
         }
-        var functionalArea = $('#category').val();
+        var functionalArea = $('#functionalarea').val();
         if(functionalArea != undefined && functionalArea != null && functionalArea != '') {
             params.push(`functionalarea=${functionalArea}`);
         }
@@ -56,20 +63,20 @@
         }
 
         var url = url_search_jobs;
-        url = url.replace(':q', keyword);
         if(params.length > 0) {
             url += '?' + params.join('&');
         }
-
         window.location.href = url;
     });
     // trigger open advance filter
     (function(){
+        var functionalarea = $('#functionalarea').val();
         var jobType = $('#job_type').val();
         var salaryFrom = $('#salary_from').val();
         var salaryTo = $('#salary_to').val();
         if(
-            (jobType != undefined && jobType != null && jobType != '')
+            (functionalarea != undefined && functionalarea != null && functionalarea != '')
+            ||(jobType != undefined && jobType != null && jobType != '')
             || (salaryFrom != undefined && salaryFrom != null && salaryFrom != '')
             || (salaryTo != undefined && salaryTo != null && salaryTo != '')
         ) {

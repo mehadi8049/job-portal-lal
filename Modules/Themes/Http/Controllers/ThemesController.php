@@ -40,15 +40,22 @@ class ThemesController extends Controller
         $currency_code   = config('app.CURRENCY_CODE');
         $user            = $request->user();
         $companies = Company::active()->featured()->limit(12)->get();
+        $total_companies = Company::active()->count();
+        $total_job = Job::selectRaw("
+        SUM(CASE WHEN created_at >= ? THEN 1 ELSE 0 END) AS last_7_days_jobs,
+        SUM(CASE WHEN expiry_date >= ? THEN 1 ELSE 0 END) AS not_expired_jobs
+    ", [now()->subDays(7), now()])
+            ->active()
+            ->first();
         $featuredJobs = Job::active()->featured()->limit(12)->get();
         $lastestJobs = Job::active()->orderBy('created_at', 'desc')->limit(12)->get();
         $cities = City::active()->orderBy('is_default', 'desc')->get();
         $total = FunctionalArea::active()->count();
-
         $functional_areas = FunctionalArea::withCount('jobs')->active()
             ->orderBy('is_default', 'desc')
-            ->get()
-            ->chunk(ceil($total / 3));
+            ->get();
+        $total_functional_areas = $functional_areas->count();
+        $functional_areas = $functional_areas->chunk(ceil($total / 3));
         $organization_types = OwnershipType::active()->orderBy('is_default', 'desc')->get();
         $quick_links = QuickLink::where('is_active', true)->orderBy('serial', 'asc')->get();
         return view('themes::' . $skin . '.home', compact(
@@ -56,7 +63,10 @@ class ThemesController extends Controller
             'currency_symbol',
             'currency_code',
             'companies',
+            'total_companies',
             'cities',
+            'total_functional_areas',
+            'total_job',
             'functional_areas',
             'featuredJobs',
             'lastestJobs',

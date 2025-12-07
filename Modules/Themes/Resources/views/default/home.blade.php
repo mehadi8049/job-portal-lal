@@ -14,20 +14,13 @@
 
         /* --- Hero Section & Stats --- */
         .bg-home {
-            /* background-image: url("{{ asset('modules/themes/default/images/home_slider.png') }}");
-                        background-repeat: no-repeat;
-                        background-size: cover; */
             background: #083344;
             background-position: center center;
-            /* padding: 40px 0; */
-            /* Reduced top padding slightly */
             position: relative;
         }
 
         .bg-overlay {
             background-color: rgba(255, 255, 255, 0.1);
-            /* Lighter overlay to see bg image, or adjust to match pref */
-            /* If you want the dark blue overlay like before, use rgba(0, 50, 100, 0.6) */
             position: absolute;
             top: 0;
             left: 0;
@@ -42,21 +35,19 @@
 
         /* Left Side Content Styles */
         .hero-title {
-            color: #333;
-            /* Dark text if bg is light, or White if bg is dark. Adjust based on your background image */
+            color: #ffffff;
             font-weight: 700;
         }
 
         .hero-subtitle {
-            color: #555;
+            color: #ffffff;
         }
 
         /* Stats Circle */
         .stat-circle {
             width: 50px;
             height: 50px;
-            background: #296dc1;
-            /* Blue circle */
+            background: #ed7724;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -69,22 +60,22 @@
         .stat-text h3 {
             font-size: 22px;
             font-weight: 700;
-            color: #296dc1;
+            color: #ffffff;
             margin: 0;
         }
 
         .stat-text p {
-            color: #666;
+            color: #e6e6e6;
             margin: 0;
             font-size: 12px;
             text-transform: uppercase;
         }
 
-        /* Main Search Box */
+        /* Main Search Box (Desktop/Complex) */
         .bd-search-box {
-            background: rgba(0, 50, 100, 0.7);
-            /* Semi-transparent dark blue background */
+            background: #ed7724cf;
             padding: 15px;
+            margin-bottom: 10px;
             border-radius: 4px;
             display: flex;
             gap: 10px;
@@ -98,8 +89,7 @@
         }
 
         .bd-search-box .btn-search {
-            background-color: #8bc34a;
-            /* Green button */
+            background-color: #3360ad;
             color: #fff;
             font-weight: 600;
             padding: 0 30px;
@@ -109,7 +99,27 @@
             text-transform: uppercase;
         }
 
-        /* --- Quick Links Sidebar (New) --- */
+        /* --- Mobile Search Box Styles (New) --- */
+        .mobile-search-form .form-control,
+        .mobile-search-form select {
+            border: 1px solid #fff !important;
+            height: 45px !important;
+            border-radius: 4px !important;
+        }
+
+        .mobile-search-form .form-group {
+            margin-bottom: 15px;
+        }
+
+        .mobile-search-form .btn-primary {
+            width: 100%;
+            background-color: #3360ad !important;
+            border-color: #3360ad !important;
+            padding: 10px !important;
+            font-weight: 600;
+        }
+
+        /* --- Quick Links Sidebar --- */
         .quick-links-box {
             background-color: #2457959c;
             color: #fff;
@@ -157,7 +167,6 @@
 
         .badge-new {
             background-color: #ffeb3b;
-            /* Yellow badge */
             color: #000;
             font-size: 10px;
             padding: 2px 5px;
@@ -168,11 +177,14 @@
             vertical-align: middle;
         }
 
-        /* --- Category Section & Sidebar CSS (Kept from previous) --- */
+        /* --- Category Section & Sidebar CSS --- */
         .cat-section {
-            background: #fff;
-            border-bottom: 1px solid #ddd;
-            padding: 20px 0;
+            border: 1px solid #e1e7ec;
+            padding: 20px 15px;
+        }
+
+        .cat-section-buttons a {
+            width: 135px;
         }
 
         .cat-header {
@@ -249,13 +261,11 @@
         .company-item-card {
             background: #fff;
             border: 1px solid #e5e5e5;
-            padding: 15px;
+            padding: 12px;
             border-radius: 8px;
-            /* Slightly more modern roundness */
             display: flex;
-            align-items: flex-start;
-            /* Align logo and content to the top */
-            gap: 15px;
+            align-items: center;
+            gap: 10px;
             height: 100%;
             transition: box-shadow 0.3s ease, border-color 0.3s ease;
             position: relative;
@@ -267,7 +277,6 @@
         .company-item-card:hover {
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
             border-color: #0056b3;
-            /* Highlight border on hover */
         }
 
         .company-item-card::after {
@@ -277,9 +286,7 @@
             left: 0;
             width: 100%;
             height: 3px;
-            /* Height of the hover border */
             background-color: #00b074;
-            /* Vibrant accent color */
             transform: translateY(100%);
             transition: transform 0.3s ease-out;
         }
@@ -288,11 +295,10 @@
             transform: translateY(0);
         }
 
-
         .company-logo-img {
-            width: 30px;
-            height: 30px;
-            object-fit: contain;
+            width: 75px;
+            height: 45px;
+            object-fit: cover;
             border: 1px solid #f0f0f0;
             padding: 5px;
             border-radius: 4px;
@@ -329,7 +335,6 @@
             top: 0;
             right: 0;
             background-color: #f39c12;
-            /* Orange/Gold for Featured */
             color: white;
             font-size: 10px;
             padding: 3px 8px;
@@ -338,310 +343,37 @@
             font-weight: 700;
         }
 
-        /* Remove the old hot-job-card styling if not used elsewhere */
-        .hot-job-card {
-            /* Keeping this style to avoid breaking other parts, but we'll use .company-item-card for the new design */
-            display: none;
-        }
 
-        .hot-job-img {
-            width: 50px;
-            height: 50px;
-            object-fit: contain;
-            border: 1px solid #f0f0f0;
-            padding: 2px;
+
+
+        /* Default styling for the location buttons */
+        .btn-primary {
+            background-color: #0057b394 !important;
+            border-color: #0057b312 !important;
+            padding: 4px 10px;
+            margin: 2px;
             border-radius: 4px;
-        }
-
-        .hot-job-info h6 {
             font-size: 14px;
-            color: #0056b3;
-            margin: 0 0 2px 0;
-            font-weight: 600;
-            line-height: 1.2;
         }
 
-        .hot-job-info span {
-            font-size: 12px;
-            color: #333;
-            display: block;
-            line-height: 1.2;
+        .btn-primary:hover {
+            background-color: #004494 !important;
+            border-color: #004494 !important;
         }
 
-
-        /* custom */
-
-        .col-lg-3 {
-            padding: 0 2px !important;
-            height: auto !important;
+        .card-padding {
+            padding: 0px 8px !important;
         }
     </style>
 @endpush
 
 @section('content')
-    <section class="bg-home" id="home">
-        <div class="container hero-container">
-            <div class="row">
-                <div class="col-lg-9 col-md-12">
-
-                    <div class="mb-5 mt-4">
-                        <h1 class="hero-title mb-2">Find the right job</h1>
-                    </div>
-
-                    <div class="row mb-5">
-                        <div class="col-md-3 col-6 mb-3">
-                            <div class="d-flex align-items-center">
-                                <div class="stat-circle"><i class="pe-7s-graph1"></i></div>
-                                <div class="stat-text">
-                                    <h3>5,354</h3>
-                                    <p>Live Jobs</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-6 mb-3">
-                            <div class="d-flex align-items-center">
-                                <div class="stat-circle"><i class="pe-7s-users"></i></div>
-                                <div class="stat-text">
-                                    <h3>20,192</h3>
-                                    <p>Vacancies</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-6 mb-3">
-                            <div class="d-flex align-items-center">
-                                <div class="stat-circle"><i class="pe-7s-portfolio"></i></div>
-                                <div class="stat-text">
-                                    <h3>3,126</h3>
-                                    <p>Companies</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-6 mb-3">
-                            <div class="d-flex align-items-center">
-                                <div class="stat-circle"><i class="pe-7s-rocket"></i></div>
-                                <div class="stat-text">
-                                    <h3>361</h3>
-                                    <p>New Jobs</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12">
-                            <form action="{{ route('jobslist') }}" method="GET">
-                                <div class="bd-search-box">
-                                    <div style="flex: 2; position: relative;">
-                                        <i class="pe-7s-search"
-                                            style="position: absolute; left: 10px; top: 14px; font-weight: bold;"></i>
-                                        <input type="text" class="form-control" name="keyword"
-                                            placeholder="Search by keyword" style="padding-left: 30px;">
-                                    </div>
-                                    <div style="flex: 2;">
-                                        <select class="form-control" name="organization_type">
-                                            @foreach ($organization_types as $type)
-                                                <option value="{{ $type->id }}">{{ $type->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <button type="submit" class="btn btn-search">Search</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
 
 
-                </div>
-
-                <div class="col-lg-3 d-none d-lg-block">
-                    <div class="quick-links-box">
-                        <h5>Quick Links</h5>
-                        <ul class="quick-links-list">
-                            @foreach ($quick_links as $link)
-                                <li>
-                                    <a href="{{ $link->link_url }}" target="_blank">
-                                        <i class="pe-7s-right-arrow"></i> {{ $link->title }}
-                                        @if ($loop->first)
-                                            <span class="badge-new">new</span>
-                                        @endif
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-    <section class="section bg-white pt-5 pb-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-9 col-md-12">
-                    <div class="cat-header d-flex justify-content-between">
-                        <span>Discover Jobs Across Popular Category & Industry</span>
-                        <div class="btn-group btn-group-sm">
-                            <button class="btn btn-secondary active">Category</button>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        @foreach ($functional_areas as $chunk)
-                            <div class="col-md-4">
-                                <ul class="cat-list">
-                                    @foreach ($chunk as $area)
-                                        <li>
-                                            <a href="{{ url('/jobs?functionalarea=' . $area->id) }}"><i
-                                                    class="pe-7s-right-arrow"></i>
-                                                {{ $area->name }}
-                                                <span class="cat-count">({{ $area->jobs_count }})</span></a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-12 mt-4 mt-lg-0">
-                    <div class="card-govt">
-                        <h5><i class="pe-7s-plane"></i> GOVT JOBS</h5>
-                        <div class="mt-3">
-                            <p class="mb-1 text-dark font-weight-bold">বাংলাদেশ নৌবাহিনী</p>
-                            <p class="text-muted small">কমিশন্ড অফিসার বিশেষজ্ঞ চিকিৎসক</p>
-                        </div>
-                        <div class="mt-3">
-                            <a href="#" class="text-success font-weight-bold small">VIEW ALL (240)</a>
-                        </div>
-                    </div>
-
-                    <div class="card-overseas mt-3">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h5 class="mb-0"><i class="pe-7s-world"></i> বিদেশ চাকরি</h5>
-                            <span class="badge badge-primary">JOBS</span>
-                        </div>
-
-                        <div class="mb-2">
-                            <p class="mb-0 text-dark font-weight-bold">BJIT Ltd.</p>
-                            <p class="text-muted small">CAD and Construction Management Engineer</p>
-                        </div>
-                        <hr class="my-2">
-                        <div class="mb-2">
-                            <p class="mb-0 text-dark font-weight-bold">Solar World Power BD</p>
-                            <p class="text-muted small">Call Center Agent, Australia</p>
-                        </div>
-
-                        <div class="mt-3">
-                            <a href="#" class="text-warning font-weight-bold small">View All (37)</a>
-                        </div>
-                    </div>
-
-                    <div class="mt-3 row">
-                        <div class="col-6 pr-1">
-                            <a href="#" class="btn btn-success btn-block btn-sm text-white">Post your CV</a>
-                        </div>
-                        <div class="col-6 pl-1">
-                            <a href="#" class="btn btn-danger btn-block btn-sm text-white">Video CV</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    @isset($companies)
-        <section class="section pt-4 pb-5 bg-light">
-            <div class="container">
-                <div class="row mb-4">
-                    <div class="col-lg-12">
-                        <div class="d-flex align-items-center">
-                            <h4 class="mb-0 mr-2">Featured Companies</h4>
-                            <span class="badge badge-danger">Hot Jobs</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    @foreach ($companies as $company)
-                        <div class="col-lg-3 col-md-6 mb-4">
-                            <a href="#" class="company-item-card">
-
-                                {{-- Check if the company is featured and display badge --}}
-                                @if (isset($company->is_featured) && $company->is_featured)
-                                    {{-- <span class="featured-badge">FEATURED</span> --}}
-                                @endif
-
-                                <div class="company-logo-wrap">
-                                    <img src="{{ $company->logo_url ?? asset('modules/themes/default/images/default_company_logo.png') }}"
-                                        class="company-logo-img" alt="{{ $company->name ?? 'Company Name' }}">
-                                </div>
-
-                                <div class="company-info">
-                                    <h6 class="" title="{{ $company->name ?? 'Company Name' }}">
-                                        {{ $company->name ?? 'Company Name Placeholder' }}
-                                    </h6>
-
-                                    {{-- Location --}}
-                                    <div class="company-meta-item">
-                                        <i class="pe-7s-map-marker"></i>
-                                        {{ $company->location ?? 'Dhaka, Bangladesh' }}
-                                    </div>
-
-                                    {{-- Category --}}
-                                    <div class="company-meta-item">
-                                        <i class="pe-7s-folder"></i>
-                                        {{ $company->category ?? 'IT & Telecom' }}
-                                    </div>
-
-                                    {{-- Open Jobs Count --}}
-                                    <div class="company-meta-item">
-                                        <i class="pe-7s-airplay"></i>
-                                        <span
-                                            class="font-weight-bold text-success">{{ $company->open_jobs_count ?? '12' }}</span>
-                                        Open Jobs
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    @endforeach
-
-                    {{-- STATIC EXAMPLE (If $companies is empty) --}}
-                    @if (!count($companies))
-                        @for ($i = 0; $i < 4; $i++)
-                            <div class="col-lg-3 col-md-6 mb-4">
-                                <a href="#" class="company-item-card">
-                                    @if ($i == 0)
-                                        {{-- <span class="featured-badge">FEATURED</span> --}}
-                                    @endif
-                                    <div class="company-logo-wrap">
-                                        <img src="{{ asset('modules/themes/default/images/arrow-1.png') }}"
-                                            class="company-logo-img" alt="Example Company">
-                                    </div>
-                                    <div class="company-info">
-                                        <h6 class="text-truncate" title="Innovative Solutions Ltd.">
-                                            Innovative Solutions Ltd.
-                                        </h6>
-                                        <div class="company-meta-item">
-                                            <i class="pe-7s-map-marker"></i> Remote/Dhaka
-                                        </div>
-                                        <div class="company-meta-item">
-                                            <i class="pe-7s-folder"></i> Software & Tech
-                                        </div>
-                                        <div class="company-meta-item">
-                                            <i class="pe-7s-airplay"></i> <span class="font-weight-bold text-success">8</span>
-                                            Open Jobs
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        @endfor
-                    @endif
-                </div>
-            </div>
-        </section>
-    @endisset
+    @include('themes::default.partials.hero')
+    @include('themes::default.partials.location')
+    @include('themes::default.partials.category')
+    @include('themes::default.partials.featured_company')
 @stop
 
 @push('scripts')

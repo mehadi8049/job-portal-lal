@@ -3,7 +3,7 @@
     <div class="container">
         <!-- LOGO -->
         <a class="navbar-brand logo text-uppercase" href="{{ url('/') }}">
-            <img src="{{ asset(config('app.logo_frontend')) }}" alt="" height="50">
+            <img src="{{ asset(config('app.logo_frontend')) }}" alt="" height="35">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
             aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">

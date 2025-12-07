@@ -15,6 +15,7 @@ use Modules\Jobs\Entities\Job;
 use Modules\Jobs\Entities\JobExperience;
 use Modules\Jobs\Entities\JobShift;
 use Modules\Jobs\Entities\JobType;
+use Modules\Jobs\Entities\OwnershipType;
 use Modules\Jobs\Entities\SalaryPeriod;
 use Modules\Jobs\Http\Requests\ApplyJobRequest;
 use Modules\Location\Entities\City;
@@ -42,7 +43,9 @@ class JobsController extends Controller
         $filter_salary_to = $request->input('salaryto');
         $filter_featured = $request->input('featured');
         $filter_lastest = $request->input('lastest');
+
         $search = $request->input('keyword') ?? $q;
+
         $queryJobs = Job::with(['company', 'city', 'job_type', 'gender'])
             ->active()
 
@@ -110,13 +113,12 @@ class JobsController extends Controller
         }
 
         $data = $queryJobs->paginate(10);
-
+        $organization_types = OwnershipType::active()->orderBy('is_default', 'desc')->get();
 
         return view('themes::' . $skin . '.jobs_list', compact(
             'currency_code',
             'currency_symbol',
             'user',
-            'q',
             'filter_city_id',
             'filter_functional_area_id',
             'filter_job_type_id',
@@ -125,7 +127,8 @@ class JobsController extends Controller
             'data',
             'cities',
             'functional_areas',
-            'job_types'
+            'job_types',
+            'organization_types',
         ));
     }
 
