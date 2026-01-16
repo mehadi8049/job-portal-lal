@@ -56,7 +56,7 @@
                         @if ($setting && filter_var($setting?->value, FILTER_VALIDATE_URL))
                             <img src="{{ $setting?->value }}" alt="Side bar ad" width="100%">
                         @else
-                            {! $setting?->$setting->value !}
+                            {!! $setting?->$setting->value !!}
                         @endif
                     </div>
                 </div>
