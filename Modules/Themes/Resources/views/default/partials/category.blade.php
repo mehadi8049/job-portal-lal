@@ -50,16 +50,18 @@
                         <a href="{{ url('templates') }}" class="text-warning font-weight-bold small">Click Here</a>
                     </div>
                 </div>
-                <div class="card-overseas mt-2">
+                @if ($setting?->value)
+                    <div class="card-overseas mt-2">
 
-                    <div class="mt-2">
-                        @if ($setting && filter_var($setting?->value, FILTER_VALIDATE_URL))
-                            <img src="{{ $setting?->value }}" alt="Side bar ad" width="100%">
-                        @else
-                            {!! $setting?->$setting->value !!}
-                        @endif
+                        <div class="mt-2">
+                            @if (filter_var($setting?->value, FILTER_VALIDATE_URL))
+                                <img src="{{ $setting?->value }}" alt="Side bar ad" width="100%">
+                            @else
+                                {!! $setting?->$setting->value !!}
+                            @endif
+                        </div>
                     </div>
-                </div>
+                @endif
                 <div class="card-govt mt-3">
                     <h5><i class="pe-7s-plane"></i> GOVT JOBS</h5>
                     <div class="mt-3">
