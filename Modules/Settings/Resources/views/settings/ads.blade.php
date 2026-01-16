@@ -4,65 +4,73 @@
 
 @section('content')
 
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-     <h1 class="h3 mb-0 text-gray-800">@lang('Manage Ads')</h1>
-</div>
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">@lang('Manage Ads')</h1>
+    </div>
 
-<div class="row">
-    <div class="col-md-12">
+    <div class="row">
+        <div class="col-md-12">
 
-        <form role="form" method="post" action="{{ route('settings.general.update', 'ads') }}" autocomplete="off">
-            @csrf
+            <form role="form" method="post" action="{{ route('settings.general.update', 'ads') }}" autocomplete="off">
+                @csrf
 
-            <div class="card">
+                <div class="card">
                     <div class="card-status bg-blue"></div>
                     <div class="card-header">
-                            <h4 class="card-title">@lang('Manage Ads')</h4>
+                        <h4 class="card-title">@lang('Manage Ads')</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-label">@lang('Topbar Ad Left')</label>
+                                    <textarea class="form-control" name="top_bar_ad_left" rows="6" placeholder="@lang('Add your script Google ads, tag <img> banner or any vendor ads..')">{{ config('app.top_bar_ad_left') }}</textarea>
+                                </div>
+                            </div>
                         </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="form-label">@lang('Topbar Ad Left')</label>
-                                <textarea class="form-control" name="top_bar_ad_left" rows="6" placeholder="@lang('Add your script Google ads, tag <img> banner or any vendor ads..')">{{ config('app.top_bar_ad_left') }}</textarea>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-label">@lang('Topbar Ad Right')</label>
+                                    <textarea class="form-control" name="top_bar_ad_right" rows="6" placeholder="@lang('Add your script Google ads, tag <img> banner or any vendor ads..')">{{ config('app.top_bar_ad_right') }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-label">@lang('Sidebar Ad Right')</label>
+                                    <textarea class="form-control" name="sidebar_ad_right" rows="6" placeholder="@lang('Add your script Google ads, tag <img> banner or any vendor ads..')">{{ config('app.sidebar_ad_right') }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-label">@lang('Home Page Below Job Search')</label>
+                                    <textarea class="form-control" name="ads_home_page_below_jobs_search" rows="6" placeholder="@lang('Add your script Google ads, tag <img> banner or any vendor ads..')">{{ config('app.ads_home_page_below_jobs_search') }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-label">@lang('Footer Layout Of Themes')</label>
+                                    <textarea class="form-control"name="ads_footer_layout_themes" rows="6" placeholder="@lang('Add your script Google ads, tag <img> banner or any vendor ads..')">{{ config('app.ads_footer_layout_themes') }}</textarea>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="form-label">@lang('Topbar Ad Right')</label>
-                                <textarea class="form-control" name="top_bar_ad_right" rows="6" placeholder="@lang('Add your script Google ads, tag <img> banner or any vendor ads..')">{{ config('app.top_bar_ad_right') }}</textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="form-label">@lang('Home Page Below Job Search')</label>
-                                <textarea class="form-control" name="ads_home_page_below_jobs_search" rows="6" placeholder="@lang('Add your script Google ads, tag <img> banner or any vendor ads..')">{{ config('app.ads_home_page_below_jobs_search') }}</textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="form-label">@lang('Footer Layout Of Themes')</label>
-                                <textarea class="form-control"name="ads_footer_layout_themes" rows="6" placeholder="@lang('Add your script Google ads, tag <img> banner or any vendor ads..')">{{ config('app.ads_footer_layout_themes') }}</textarea>
-                            </div>
-                        </div>
+                    <div class="card-footer text-right">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fe fe-save mr-2"></i> @lang('Save settings')
+                        </button>
                     </div>
                 </div>
-                <div class="card-footer text-right">
-                    <button type="submit" class="btn btn-primary btn-block">
-                        <i class="fe fe-save mr-2"></i> @lang('Save settings')
-                    </button>
-                </div>
-            </div>
 
-        </form>
+            </form>
+
+        </div>
 
     </div>
-    
-</div>
 @stop

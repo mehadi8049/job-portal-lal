@@ -39,17 +39,17 @@ class SettingsController extends Controller
         $recent_20_companies = $data_companies->take(20)->get();
 
 
-        return view('settings::settings.dashboard', 
+        return view(
+            'settings::settings.dashboard',
             compact(
-            'total_employers',
-            'total_candidates',
-            'total_jobs', 
-            'recent_20_jobs',
-            'total_companies', 
-            'recent_20_companies'
+                'total_employers',
+                'total_candidates',
+                'total_jobs',
+                'recent_20_jobs',
+                'total_companies',
+                'recent_20_companies'
             )
         );
-
     }
 
     public function index(Request $request)
@@ -69,12 +69,12 @@ class SettingsController extends Controller
         $time_zones = DateTimeZone::listIdentifiers(DateTimeZone::ALL);
         $languages = $this->translation->allLanguages();
         $currencies      = config('currencies');
-        
+
         $CURRENCY_CODE = config('app.CURRENCY_CODE');
         $CURRENCY_SYMBOL = config('app.CURRENCY_SYMBOL');
         $APP_TIMEZONE = config('app.timezone');
         $APP_LOCALE = config('app.locale');
-        
+
         return view('settings::settings.localization', compact(
             'CURRENCY_CODE',
             'CURRENCY_SYMBOL',
@@ -140,75 +140,74 @@ class SettingsController extends Controller
                 break;
 
             default:
-            
+
                 $message_mimes = __('The :attribute must be an jpg,jpeg,png,svg');
-                
-                $request->validate([
-                    'APP_URL'    => 'required|url',
-                    'APP_NAME'   => 'required',
-                    'SITE_LANDING'  => 'required',
-                    'SERVER_IP'  => 'required',
-                    'logo_frontend'                 => 'sometimes|required|mimes:jpg,jpeg,png,svg|max:20000',
-                    'logo_favicon'                  => 'sometimes|required|mimes:jpg,jpeg,png,svg|max:20000',
-                    'logo_light'                     => 'sometimes|required|mimes:jpg,jpeg,png,svg|max:20000',   
-                ],
-                [
-                    'logo_frontend.mimes' => $message_mimes,
-                    'logo_favicon.mimes' => $message_mimes,
-                    'logo_light.mimes' => $message_mimes,
-                ]
+
+                $request->validate(
+                    [
+                        'APP_URL'    => 'required|url',
+                        'APP_NAME'   => 'required',
+                        'SITE_LANDING'  => 'required',
+                        'SERVER_IP'  => 'required',
+                        'logo_frontend'                 => 'sometimes|required|mimes:jpg,jpeg,png,svg|max:20000',
+                        'logo_favicon'                  => 'sometimes|required|mimes:jpg,jpeg,png,svg|max:20000',
+                        'logo_light'                     => 'sometimes|required|mimes:jpg,jpeg,png,svg|max:20000',
+                    ],
+                    [
+                        'logo_frontend.mimes' => $message_mimes,
+                        'logo_favicon.mimes' => $message_mimes,
+                        'logo_light.mimes' => $message_mimes,
+                    ]
                 );
 
                 if ($request->hasFile('logo_favicon') && $request->file('logo_favicon')->isValid()) {
 
                     // delete image old
-                    $path = public_path('storage')."/". config('app.logo_favicon');
+                    $path = public_path('storage') . "/" . config('app.logo_favicon');
                     deleteImageWithPath($path);
 
                     $logo_favicon = $request->file('logo_favicon')->store('system', 'public');
-                    $data_more['logo_favicon'] = "storage/". $logo_favicon;
-
+                    $data_more['logo_favicon'] = "storage/" . $logo_favicon;
                 }
 
                 if ($request->hasFile('logo_frontend') && $request->file('logo_frontend')->isValid()) {
 
                     // delete image old
-                    $path = public_path('storage')."/". config('app.logo_frontend');
+                    $path = public_path('storage') . "/" . config('app.logo_frontend');
                     deleteImageWithPath($path);
 
                     $logo_frontend = $request->file('logo_frontend')->store('system', 'public');
-                    $data_more['logo_frontend'] = "storage/". $logo_frontend;
-                    
+                    $data_more['logo_frontend'] = "storage/" . $logo_frontend;
                 }
                 if ($request->hasFile('logo_light') && $request->file('logo_light')->isValid()) {
 
                     // delete image old
-                    $path = public_path('storage')."/". config('app.logo_light');
+                    $path = public_path('storage') . "/" . config('app.logo_light');
                     deleteImageWithPath($path);
-                    
+
                     $logo_light = $request->file('logo_light')->store('system', 'public');
-                    $data_more['logo_light'] = "storage/". $logo_light;
-                
+                    $data_more['logo_light'] = "storage/" . $logo_light;
                 }
 
                 break;
         }
-        
-        $data = array_merge($data_more,$request->except(['_token','logo_favicon','logo_frontend','logo_light']));
 
-        if(is_array($data)){
+        $data = array_merge($data_more, $request->except(['_token', 'logo_favicon', 'logo_frontend', 'logo_light']));
+
+        if (is_array($data)) {
             foreach ($data as $key => $value) {
                 update_option($key, trim($value));
             }
         }
-        if($group == 'ads'){
+        if ($group == 'ads') {
             return redirect()->route('settings.manage-ads')->with('success', __('Settings saved successfully'));
         }
 
         return back()->with('success', __('Settings saved successfully'));
     }
 
-    public function updateVersion(){
+    public function updateVersion()
+    {
         set_time_limit(900); // 15 minutes
         Artisan::call('migrate', ["--force" => true]);
         Artisan::call('module:publish');
@@ -216,16 +215,16 @@ class SettingsController extends Controller
         Artisan::call('optimize:clear');
         die("All Artisan call done");
     }
-    public function cacheClear(){
+    public function cacheClear()
+    {
         Artisan::call('optimize:clear');
         die("optimize:clear done");
     }
 
-    public function syncMissingTranslationKeys(){
+    public function syncMissingTranslationKeys()
+    {
         Artisan::call('optimize:clear');
         Artisan::call('translation:sync-missing-translation-keys');
         die("translation:sync-missing-translation-keys done");
     }
-
-    
 }
