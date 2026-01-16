@@ -372,6 +372,158 @@
             border-radius: 4px;
             font-size: 14px;
         }
+
+
+        /* cv builder */
+
+        :root {
+            --step-blue: #0062af;
+            --step-orange: #f39c12;
+            --step-coral: #e67e22;
+            --step-teal: #16a085;
+            --step-dark: #2c3e50;
+        }
+
+        .process-section {
+            padding: 40px 0;
+            background: #f8f9fa;
+        }
+
+        /* Header Styling */
+        .cv-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .cv-header h2 {
+            font-weight: 900;
+            font-size: 2.2rem;
+            color: #333;
+        }
+
+        .cv-header h2 i {
+            color: var(--step-blue);
+            margin-right: 10px;
+        }
+
+        /* The Process Container */
+        .process-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.1));
+        }
+
+        /* Individual Card */
+        .step-card {
+            position: relative;
+            flex: 1;
+            padding: 35px 20px;
+            color: white;
+            text-align: center;
+            background-color: #333;
+            /* This creates the overlap effect */
+            clip-path: polygon(0% 0%, 95% 0%, 100% 50%, 95% 100%, 0% 100%, 5% 50%);
+            margin-right: -15px;
+            /* Pulls cards together */
+            transition: all 0.3s ease;
+        }
+
+        /* First and Last Card rounding/adjustments */
+        .step-card:first-child {
+            clip-path: polygon(0% 0%, 95% 0%, 100% 50%, 95% 100%, 0% 100%);
+            border-radius: 8px 0 0 8px;
+        }
+
+        .step-card:last-child {
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 5% 50%);
+            border-radius: 0 8px 8px 0;
+            margin-right: 0;
+        }
+
+        .step-card:hover {
+            transform: scale(1.05);
+            z-index: 10;
+            filter: brightness(1.1);
+        }
+
+        .step-card h4 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .step-card p {
+            font-size: 0.75rem;
+            line-height: 1.4;
+            opacity: 0.9;
+            margin-bottom: 0;
+            padding: 0 10px;
+        }
+
+        .step-card i {
+            font-size: 32px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        /* Specific Colors */
+        .bg-1 {
+            background-color: var(--step-blue);
+        }
+
+        .bg-2 {
+            background-color: var(--step-orange);
+        }
+
+        .bg-3 {
+            background-color: var(--step-coral);
+        }
+
+        .bg-4 {
+            background-color: var(--step-teal);
+        }
+
+        .bg-5 {
+            background-color: var(--step-dark);
+        }
+
+        /* Modern Button */
+        .btn-build {
+            background: var(--step-blue);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            border: none;
+            transition: 0.3s;
+            box-shadow: 0 8px 20px rgba(0, 98, 175, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-build:hover {
+            background: #004a85;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(0, 98, 175, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 991px) {
+            .process-container {
+                flex-direction: column;
+            }
+
+            .step-card {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 10px;
+                clip-path: none !important;
+                border-radius: 12px !important;
+            }
+        }
     </style>
 @endpush
 
@@ -381,6 +533,8 @@
     @include('themes::default.partials.hero')
     @include('themes::default.partials.location')
     @include('themes::default.partials.category')
+    @include('themes::default.partials.cv_builder')
+    @include('themes::default.partials.resume')
     @include('themes::default.partials.featured_company')
 @stop
 

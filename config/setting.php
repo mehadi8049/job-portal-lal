@@ -99,15 +99,16 @@ return [
         'saas.no_job_post' => 'no_job_post',
         'saas.no_job_featured' => 'no_job_featured',
         'saas.no_day_job_display' => 'no_day_job_display',
-        'saas.featured_company'=> 'featured_company',
-        'saas.support_24_7'=> 'support_24_7',
-        'saas.search_resumecv_candidates'=> 'search_resumecv_candidates',
+        'saas.featured_company' => 'featured_company',
+        'saas.support_24_7' => 'support_24_7',
+        'saas.search_resumecv_candidates' => 'search_resumecv_candidates',
 
         'app.top_bar_ad_left' => 'top_bar_ad_left',
         'app.top_bar_ad_right' => 'top_bar_ad_right',
+        'app.sidebar_ad_right' => 'sidebar_ad_right',
         'app.ads_home_page_below_jobs_search' => 'ads_home_page_below_jobs_search',
         'app.ads_footer_layout_themes' => 'ads_footer_layout_themes',
-        
+
         'mail.host'                       => 'MAIL_HOST',
         'mail.port'                       => 'MAIL_PORT',
         'mail.from.address'               => 'MAIL_FROM_ADDRESS',
@@ -150,9 +151,7 @@ return [
     |   "currency" => "USD",
     |
     */
-    'fallback' => [
-
-    ],
+    'fallback' => [],
 
     /*
     |--------------------------------------------------------------------------
@@ -166,9 +165,7 @@ return [
     |   "tenant_id",
     |
     */
-    'required_extra_columns' => [
-
-    ],
+    'required_extra_columns' => [],
 
     /*
     |--------------------------------------------------------------------------
@@ -181,8 +178,6 @@ return [
     |   "payment.key"
     |
     */
-   'encrypted_keys' => [
-
-   ],
+    'encrypted_keys' => [],
 
 ];

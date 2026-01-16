@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use JoeDixon\Translation\Drivers\Translation;
 use Module;
@@ -58,6 +59,7 @@ class ThemesController extends Controller
         $functional_areas = $functional_areas->chunk(ceil($total / 3));
         $organization_types = OwnershipType::active()->orderBy('is_default', 'desc')->get();
         $quick_links = QuickLink::where('is_active', true)->orderBy('serial', 'asc')->get();
+        $setting = DB::table('settings')->where('key', 'sidebar_ad_right')->first();
         return view('themes::' . $skin . '.home', compact(
             'user',
             'currency_symbol',
@@ -71,7 +73,8 @@ class ThemesController extends Controller
             'featuredJobs',
             'lastestJobs',
             'organization_types',
-            'quick_links'
+            'quick_links',
+            'setting'
         ));
     }
 

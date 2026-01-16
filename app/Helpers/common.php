@@ -383,7 +383,9 @@ if (!function_exists("update_option")) {
     {
 
         $option = DB::table('settings')->where('key', $key)->first();
+
         if (empty($option)) {
+
             DB::table('settings')->insert(
                 ['key' => $key, 'value' => $value]
             );
