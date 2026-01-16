@@ -1,6 +1,7 @@
 /Modules/Saas/
 /node_modules
 /public/hot
+/public/storage
 /public/storage/pages/*
 /public/storage/user_storage/*
 /public/storage/resume_cvs_apply/*
