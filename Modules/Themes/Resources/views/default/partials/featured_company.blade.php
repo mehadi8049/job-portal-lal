@@ -1,5 +1,5 @@
 @isset($companies)
-    <section class="section pt-4 pb-5 bg-light">
+    <section class="section pt-4 pb-5 bg-light" style="background-color: #e7e8e9 !important">
         <div class="container">
             <div class="row mb-4">
                 <div class="col-lg-12">
