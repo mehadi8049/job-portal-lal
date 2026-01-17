@@ -34,8 +34,7 @@
                     </div>
                     <div class="form-group">
                         <select name="role" class="form-control">
-                            <option value="candidate" {{ request()->key == 'employee' ? 'selected' : '' }}
-                                @readonly(true)>
+                            <option value="candidate" {{ request()->key == 'employee' ? 'selected' : '' }}>
                                 @lang('Register as Candidate')</option>
                             <option value="employer" {{ request()->key == 'employer' ? 'selected' : '' }}>@lang('Register as Employer')
                             </option>
