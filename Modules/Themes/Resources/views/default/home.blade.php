@@ -533,9 +533,9 @@
     @include('themes::default.partials.hero')
     @include('themes::default.partials.location')
     @include('themes::default.partials.category')
+    @include('themes::default.partials.featured_company')
     @include('themes::default.partials.cv_builder')
     @include('themes::default.partials.resume')
-    @include('themes::default.partials.featured_company')
 @stop
 
 @push('scripts')
