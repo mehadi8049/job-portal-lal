@@ -1,4 +1,4 @@
-<div class="tab-pane {{request()->tab=='skill'?'active':''}}" id="tab_skill">
+<div class="tab-pane {{ request()->tab == 'skill' ? 'active' : '' }}" id="tab_skill">
     <div id="skill_according">
         @foreach ($user->skills as $skill)
             <div class="card">
@@ -23,7 +23,8 @@
                                 <!-- Skill Name -->
                                 <div class="col-md-8 mb-3">
                                     <label class="form-label">Skill Name</label>
-                                    <input type="text" name="skill_name" value="{{old('skill',$skill->skill_name)}}" class="form-control"
+                                    <input type="text" name="skill_name"
+                                        value="{{ old('skill', $skill->skill_name) }}" class="form-control"
                                         placeholder="e.g. Laravel, React, SEO">
                                 </div>
 
@@ -31,12 +32,29 @@
                                 <div class="col-md-12 mb-3">
                                     <label class="form-label">Skill Learned From</label>
 
+                                    @php
+                                        $skill_learned_from = is_array(
+                                            old('skill_learned_from', $skill->skill_learned_from),
+                                        )
+                                            ? old('skill_learned_from', $skill->skill_learned_from)
+                                            : [];
+                                    @endphp
                                     <select name="skill_learned_from[]" class="form-control" multiple>
-                                        <option value="Academic" {{in_array('Academic',old('skill_learned_from',$skill->skill_learned_from))?'selected':''}}>Academic</option>
-                                        <option value="Training Center" {{in_array('Training Center',old('skill_learned_from',$skill->skill_learned_from))?'selected':''}}>Training Center</option>
-                                        <option value="Online Course" {{in_array('Online Course',old('skill_learned_from',$skill->skill_learned_from))?'selected':''}}>Online Course</option>
-                                        <option value="Self Learning" {{in_array('Self Learning',old('skill_learned_from',$skill->skill_learned_from))?'selected':''}}>Self Learning</option>
-                                        <option value="Job Experience" {{in_array('Job Experience',old('skill_learned_from',$skill->skill_learned_from))?'selected':''}}>Job Experience</option>
+                                        <option value="Academic"
+                                            {{ in_array('Academic', $skill_learned_from) ? 'selected' : '' }}>Academic
+                                        </option>
+                                        <option value="Training Center"
+                                            {{ in_array('Training Center', old('skill_learned_from', $skill_learned_from)) ? 'selected' : '' }}>
+                                            Training Center</option>
+                                        <option value="Online Course"
+                                            {{ in_array('Online Course', old('skill_learned_from', $skill_learned_from)) ? 'selected' : '' }}>
+                                            Online Course</option>
+                                        <option value="Self Learning"
+                                            {{ in_array('Self Learning', old('skill_learned_from', $skill_learned_from)) ? 'selected' : '' }}>
+                                            Self Learning</option>
+                                        <option value="Job Experience"
+                                            {{ in_array('Job Experience', old('skill_learned_from', $skill_learned_from)) ? 'selected' : '' }}>
+                                            Job Experience</option>
                                     </select>
 
                                     <small class="text-muted">
@@ -70,8 +88,8 @@
                         <!-- Skill Name -->
                         <div class="col-md-8 mb-3">
                             <label class="form-label">Skill Name</label>
-                            <input type="text" name="skill_name" class="form-control" value="{{old('skill_name')}}"
-                                placeholder="e.g. Laravel, React, SEO">
+                            <input type="text" name="skill_name" class="form-control"
+                                value="{{ old('skill_name') }}" placeholder="e.g. Laravel, React, SEO">
                         </div>
 
                         <!-- Skill Learned From (JSON) -->
@@ -79,11 +97,25 @@
                             <label class="form-label">Skill Learned From</label>
 
                             <select name="skill_learned_from[]" class="form-control" multiple>
-                                <option value="Academic" {{in_array('Academic',old('skill_learned_from',[]))?'selected':''}}>Academic</option>
-                                        <option value="Training Center" {{in_array('Training Center',old('skill_learned_from',[]))?'selected':''}}>Training Center</option>
-                                        <option value="Online Course" {{in_array('Online Course',old('skill_learned_from',[]))?'selected':''}}>Online Course</option>
-                                        <option value="Self Learning" {{in_array('Self Learning',old('skill_learned_from',[]))?'selected':''}}>Self Learning</option>
-                                        <option value="Job Experience" {{in_array('Job Experience',old('skill_learned_from',[]))?'selected':''}}>Job Experience</option>
+                                <option value="Academic"
+                                    {{ in_array('Academic', old('skill_learned_from', [])) ? 'selected' : '' }}>
+                                    Academic
+                                </option>
+                                <option value="Training Center"
+                                    {{ in_array('Training Center', old('skill_learned_from', [])) ? 'selected' : '' }}>
+                                    Training Center</option>
+                                <option value="Online Course"
+                                    {{ in_array('Online Course', old('skill_learned_from', [])) ? 'selected' : '' }}>
+                                    Online
+                                    Course</option>
+                                <option value="Self Learning"
+                                    {{ in_array('Self Learning', old('skill_learned_from', [])) ? 'selected' : '' }}>
+                                    Self
+                                    Learning</option>
+                                <option value="Job Experience"
+                                    {{ in_array('Job Experience', old('skill_learned_from', [])) ? 'selected' : '' }}>
+                                    Job
+                                    Experience</option>
                             </select>
 
                             <small class="text-muted">
