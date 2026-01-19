@@ -40,7 +40,7 @@ class ThemesController extends Controller
         $currency_symbol         = config('app.CURRENCY_SYMBOL');
         $currency_code   = config('app.CURRENCY_CODE');
         $user            = $request->user();
-        $companies = Company::active()->featured()->limit(12)->get();
+        $companies = Company::with('jobs')->active()->featured()->limit(12)->get();
         $total_companies = Company::active()->count();
         $total_job = Job::selectRaw("
         SUM(CASE WHEN created_at >= ? THEN 1 ELSE 0 END) AS last_7_days_jobs,

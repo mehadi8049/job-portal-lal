@@ -1,69 +1,153 @@
-@isset($companies)
-    <section class="section pt-4 pb-5 bg-light" style="background-color: #e7e8e9 !important">
-        <div class="container">
-            <div class="row mb-4">
-                <div class="col-lg-12">
-                    <div class="d-flex align-items-center">
-                        <h4 class="mb-0 mr-2">Featured Companies</h4>
-                        <span class="badge badge-danger">Hot Jobs</span>
+<style>
+    /* 1. Centering & Layout */
+    .job-section-wrapper {
+        max-width: 1200px;
+        /* Max width to center the grid */
+        margin: 40px auto;
+        padding: 0 15px;
+    }
+
+    .job-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        border-top: 1px solid #e0e0e0;
+        border-left: 1px solid #e0e0e0;
+        background-color: #fff;
+    }
+
+    /* 2. Card Container (Fixed Position Base) */
+    .job-card-wrapper {
+        position: relative;
+        height: 115px;
+        /* Fixed height for static state */
+        border-right: 1px solid #e0e0e0;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    /* 3. Smooth Expanding Content */
+    .job-card-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 12px;
+        background: #fff;
+        z-index: 10;
+        overflow: hidden;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        /* Ultra smooth animation */
+        display: flex;
+        gap: 12px;
+    }
+
+    /* Hover State */
+    .job-card-wrapper:hover .job-card-content {
+        height: auto;
+        min-height: 100%;
+        z-index: 100;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        border: 1px solid #2563eb;
+        margin: -1px;
+        /* Aligns border over the grid */
+    }
+
+    /* 4. Logo Box Design */
+    .logo-box {
+        width: 65px;
+        height: 65px;
+        flex-shrink: 0;
+        border: 1px solid #f0f0f0;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+    }
+
+    .logo-box img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+
+    /* 5. Typography */
+    .comp-name {
+        font-size: 13.5px;
+        color: #1a56db;
+        font-weight: 600;
+        line-height: 1.3;
+        margin-bottom: 5px;
+        cursor: pointer;
+    }
+
+    .comp-name:hover {
+        text-decoration: underline;
+    }
+
+    .cat-item {
+        font-size: 12px;
+        color: #555;
+        display: block;
+        padding: 2px 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .cat-item:hover {
+        color: #2563eb;
+    }
+
+    .cat-icon {
+        font-size: 9px;
+        margin-right: 6px;
+        color: #888;
+    }
+
+    .more-indicator {
+        font-size: 11px;
+        color: #999;
+        margin-top: 2px;
+    }
+</style>
+
+<div class="job-section-wrapper">
+    <h1>Hot Jobs
+    </h1>
+    <div class="job-grid">
+        @foreach ($companies as $company)
+            <div class="job-card-wrapper">
+                <div class="job-card-content">
+                    <div class="logo-box">
+                        <img src="{{ $company->getLogoLink() }}" alt="{{ $company->company_name ?? 'Company Name' }}">
                     </div>
+
+                    <div class="flex-1 overflow-hidden">
+                        <h3 class="comp-name" title="{{ $company->company_name ?? 'Company Name' }}">
+                            {{ $company->company_name ?? 'Company Name' }}
+                        </h3>
+
+                        <div class="category-list">
+                            @foreach ($company->jobs as $index => $job)
+                                <a href="{{ route('job', $job->slug) }}"
+                                    class="cat-item {{ $index >= 2 ? 'hidden-on-static' : '' }}">
+                                    <span class="cat-icon">▶</span>{{ $job?->title }}
+                                </a>
+                            @endforeach
+                            @if ($company->jobs?->count() > 2)
+                                <div class="more-indicator static-only">...</div>
+                            @endif
+                        </div>
+                    </div>
+
                 </div>
             </div>
+        @endforeach
+    </div>
+</div>
 
-            <div class="row">
-                @foreach ($companies as $company)
-                    <div class="col-lg-3 col-md-6 mb-4 card-padding">
-                        <a href="#" class="company-item-card">
-
-
-
-                            <div class="company-logo-wrap">
-                                <img src="{{ $company->getLogoLink() }}" class="company-logo-img"
-                                    alt="{{ $company->company_name ?? 'Company Name' }}">
-                            </div>
-
-                            <div class="company-info">
-                                <h6 class="" title="{{ $company->company_name ?? 'Company Name' }}">
-                                    {{ $company->company_name ?? 'Company Name' }}
-                                </h6>
-
-                            </div>
-                        </a>
-                    </div>
-                @endforeach
-
-                {{-- STATIC EXAMPLE (If $companies is empty) --}}
-                @if (!count($companies))
-                    @for ($i = 0; $i < 4; $i++)
-                        <div class="col-lg-3 col-md-6 mb-4">
-                            <a href="#" class="company-item-card">
-                                @if ($i == 0)
-                                    {{-- <span class="featured-badge">FEATURED</span> --}}
-                                @endif
-                                <div class="company-logo-wrap">
-                                    <img src="{{ asset('modules/themes/default/images/arrow-1.png') }}"
-                                        class="company-logo-img" alt="Example Company">
-                                </div>
-                                <div class="company-info">
-                                    <h6 class="text-truncate" title="Innovative Solutions Ltd.">
-                                        Innovative Solutions Ltd.
-                                    </h6>
-                                    <div class="company-meta-item">
-                                        <i class="pe-7s-map-marker"></i> Remote/Dhaka
-                                    </div>
-                                    <div class="company-meta-item">
-                                        <i class="pe-7s-folder"></i> Software & Tech
-                                    </div>
-                                    <div class="company-meta-item">
-                                        <i class="pe-7s-airplay"></i> <span class="font-weight-bold text-success">8</span>
-                                        Open Jobs
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    @endfor
-                @endif
-            </div>
-        </div>
-    </section>
-@endisset
+<script>
+    // Pure CSS is used for the animation to keep it smooth, 
+    // but you can add Alpine.js here if you need complex toggle logic.
+</script>
