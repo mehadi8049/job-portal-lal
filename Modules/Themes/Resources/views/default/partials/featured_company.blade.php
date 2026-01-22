@@ -7,19 +7,49 @@
         padding: 0 15px;
     }
 
+    /* 1. Base Grid (Mobile: 1 Column) */
     .job-grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: 1fr;
         border-top: 1px solid #e0e0e0;
         border-left: 1px solid #e0e0e0;
         background-color: #fff;
     }
 
-    /* 2. Card Container (Fixed Position Base) */
+    /* 2. Tablet: 2 Columns */
+    @media (min-width: 640px) {
+        .job-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    /* 3. PC/Desktop: 4 Columns */
+    @media (min-width: 1024px) {
+        .job-grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    /* Logic for "Hidden on Static" */
+    .hidden-on-static {
+        display: none;
+        /* Hide extra jobs by default */
+    }
+
+    .job-card-wrapper:hover .hidden-on-static {
+        display: block;
+        /* Show extra jobs on hover */
+    }
+
+    .job-card-wrapper:hover .static-only {
+        display: none;
+        /* Hide the "..." indicator on hover */
+    }
+
+    /* 4. Responsive Card Container */
     .job-card-wrapper {
         position: relative;
         height: 115px;
-        /* Fixed height for static state */
         border-right: 1px solid #e0e0e0;
         border-bottom: 1px solid #e0e0e0;
     }

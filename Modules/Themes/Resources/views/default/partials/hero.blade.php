@@ -109,7 +109,7 @@
 
             </div>
 
-            <div class="col-lg-3 d-none d-lg-block">
+            <div class="col-lg-3 d-lg-block">
                 <div class="quick-links-box">
                     <h5>Quick Links</h5>
                     <ul class="quick-links-list">

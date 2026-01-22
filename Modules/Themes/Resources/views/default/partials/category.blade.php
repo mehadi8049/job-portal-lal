@@ -10,7 +10,7 @@
                 </div>
 
                 <div class="row">
-                    @foreach ($functional_areas as $chunk)
+                    @foreach ($functional_areas as $index => $chunk)
                         <div class="col-md-4">
                             <ul class="cat-list">
                                 @foreach ($chunk as $area)
