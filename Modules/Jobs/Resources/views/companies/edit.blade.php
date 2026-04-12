@@ -139,7 +139,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">@lang('Established')</label>
-                                <select name="established_in" class="form-control" required="">
+                                <select name="established_in" class="form-control">
                                     @foreach(getEstablishedIn() as $item)
                                         <option value="{{ $item }}" {{ $company->established_in ==  $item ? 'selected' : '' }}>{{ $item }}</option>
                                     @endforeach
