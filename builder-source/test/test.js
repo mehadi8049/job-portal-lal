@@ -1,32 +1,5 @@
 [
   {
-    "type": "paypal-button",
-    "classes": [
-      {
-        "name": "builder-paypal-button",
-        "private": 1
-      }
-    ],
-    "attributes": {
-      "id": "ihsv"
-    },
-    "productid": "1"
-  },
-  {
-    "type": "paypal-button",
-    "classes": [
-      {
-        "name": "builder-paypal-button",
-        "private": 1
-      }
-    ],
-    "attributes": {
-      "id": "iqjd"
-    },
-    "productid": "2",
-    "view": ""
-  },
-  {
     "type": "textnode",
     "content": "`"
   },
@@ -138,20 +111,6 @@
                 "view": ""
               },
               {
-                "type": "paypal-button",
-                "classes": [
-                  {
-                    "name": "builder-paypal-button",
-                    "private": 1
-                  }
-                ],
-                "attributes": {
-                  "id": "ie6d"
-                },
-                "productid": "2",
-                "view": ""
-              },
-              {
                 "classes": [
                   {
                     "name": "input-group-append",
@@ -232,20 +191,6 @@
                 },
                 "view": ""
               },
-              {
-                "type": "paypal-button",
-                "classes": [
-                  {
-                    "name": "builder-paypal-button",
-                    "private": 1
-                  }
-                ],
-                "attributes": {
-                  "id": "icegu"
-                },
-                "productid": "2",
-                "view": ""
-              }
             ],
             "view": ""
           }

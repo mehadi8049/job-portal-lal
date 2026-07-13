@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
 
             //personal information
             $table->string('name', 190);
-            $table->string('photo', 190);
+            $table->string('photo', 190)->nullable();
             $table->string('father_name', 190)->nullable();
             $table->string('mother_name', 190)->nullable();
             $table->date('date_of_birth')->nullable();
@@ -40,7 +40,7 @@ class CreateUsersTable extends Migration
             $table->decimal('height_meters', 5, 2)->nullable();
             $table->decimal('weight_kg', 5, 2)->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password', 190);;
+            $table->string('password', 190);
             $table->integer('package_id')->nullable();
             $table->dateTime('package_ends_at')->nullable();
             $table->text('settings')->nullable();

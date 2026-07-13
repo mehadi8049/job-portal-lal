@@ -24,7 +24,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <img width="160px" src="{{ URL::to('/') }}/storage/user_storage/{{ $user->id. "/". $user->photo }}" alt="{{$user->name}}'s photo">
+                                    <img width="160px" src="{{ $user->photo ? URL::to('/') . '/storage/user_storage/' . $user->id . '/' . $user->photo : URL::to('/') . '/img/default-avatar.png' }}" alt="{{ $user->name }}'s photo">
                                 </div>
                             </div>
                         </div>
@@ -95,9 +95,12 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">@lang('Gender')</label>
-                                    <input type="text" name="gender" value="{{ $user->gender }}"
-                                        class="form-control {{ $errors->has('gender') ? 'is-invalid' : '' }}"
-                                        placeholder="@lang('Gender')">
+                                    <select name="gender" class="form-control {{ $errors->has('gender') ? 'is-invalid' : '' }}">
+                                        <option value="">{{ __('Select') }}</option>
+                                        <option value="Male" {{ $user->gender == 'Male' ? 'selected' : '' }}>@lang('Male')</option>
+                                        <option value="Female" {{ $user->gender == 'Female' ? 'selected' : '' }}>@lang('Female')</option>
+                                        <option value="Other" {{ $user->gender == 'Other' ? 'selected' : '' }}>@lang('Other')</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -115,9 +118,13 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">@lang('Marital Status')</label>
-                                    <input type="text" name="marital_status" value="{{ $user->marital_status }}"
-                                        class="form-control {{ $errors->has('marital_status') ? 'is-invalid' : '' }}"
-                                        placeholder="@lang('Marital Status')">
+                                    <select name="marital_status" class="form-control {{ $errors->has('marital_status') ? 'is-invalid' : '' }}">
+                                        <option value="">{{ __('Select') }}</option>
+                                        <option value="Single" {{ $user->marital_status == 'Single' ? 'selected' : '' }}>@lang('Single')</option>
+                                        <option value="Married" {{ $user->marital_status == 'Married' ? 'selected' : '' }}>@lang('Married')</option>
+                                        <option value="Divorced" {{ $user->marital_status == 'Divorced' ? 'selected' : '' }}>@lang('Divorced')</option>
+                                        <option value="Widowed" {{ $user->marital_status == 'Widowed' ? 'selected' : '' }}>@lang('Widowed')</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -205,9 +212,12 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">@lang('Blood Group')</label>
-                                    <input type="text" name="blood_group" value="{{ $user->blood_group }}"
-                                        class="form-control {{ $errors->has('blood_group') ? 'is-invalid' : '' }}"
-                                        placeholder="@lang('Blood Group')">
+                                    <select name="blood_group" class="form-control {{ $errors->has('blood_group') ? 'is-invalid' : '' }}">
+                                        <option value="">{{ __('Select') }}</option>
+                                        @foreach (['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'] as $bg)
+                                            <option value="{{ $bg }}" {{ $user->blood_group == $bg ? 'selected' : '' }}>{{ $bg }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-3">

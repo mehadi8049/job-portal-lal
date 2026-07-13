@@ -224,6 +224,12 @@ class UserController extends Controller
 
     protected function experience($request)
     {
+        $request->validate([
+            'company_name'    => 'required|string|max:255',
+            'designation'     => 'required|string|max:255',
+            'employment_from' => 'required|date',
+            'employment_to'   => 'nullable|date|after_or_equal:employment_from',
+        ]);
         $request->merge(['user_id' => $request->user()->id]);
         Experience::create($request->all());
         return 'experience';
@@ -231,7 +237,14 @@ class UserController extends Controller
 
     public function experienceUpdate(Request $request, $id)
     {
-        Experience::where('id', $id)->update($request->except('_token', '_method'));
+        $request->validate([
+            'company_name'    => 'required|string|max:255',
+            'designation'     => 'required|string|max:255',
+            'employment_from' => 'required|date',
+            'employment_to'   => 'nullable|date|after_or_equal:employment_from',
+        ]);
+        $experience = Experience::where('id', $id)->where('user_id', $request->user()->id)->firstOrFail();
+        $experience->update($request->all());
         return redirect()->route('accountsettings.index', ['tab' => 'experience'])
             ->with('success', __('Updated successfully'));
     }
@@ -239,6 +252,11 @@ class UserController extends Controller
 
     protected function qualification($request)
     {
+        $request->validate([
+            'education_level' => 'required|string|max:255',
+            'degree_title'    => 'required|string|max:255',
+            'passing_year'    => 'nullable|integer|min:1950|max:' . date('Y'),
+        ]);
         $request->merge(['user_id' => $request->user()->id]);
         Qualification::create($request->all());
         return 'qualification';
@@ -246,7 +264,13 @@ class UserController extends Controller
 
     public function qualificationUpdate(Request $request, $id)
     {
-        Qualification::where('id', $id)->update($request->except('_token', '_method'));
+        $request->validate([
+            'education_level' => 'required|string|max:255',
+            'degree_title'    => 'required|string|max:255',
+            'passing_year'    => 'nullable|integer|min:1950|max:' . date('Y'),
+        ]);
+        $qualification = Qualification::where('id', $id)->where('user_id', $request->user()->id)->firstOrFail();
+        $qualification->update($request->all());
         return redirect()->route('accountsettings.index', ['tab' => 'qualification'])
             ->with('success', __('Updated successfully'));
     }
@@ -254,14 +278,29 @@ class UserController extends Controller
 
     protected function skill($request)
     {
-        $request->merge(['user_id' => $request->user()->id]);
-        Skill::create($request->all());
+        $request->validate([
+            'skill_name' => 'required|string|max:255',
+        ]);
+        $data = $request->all();
+        if (!$request->has('skill_learned_from')) {
+            $data['skill_learned_from'] = [];
+        }
+        $data['user_id'] = $request->user()->id;
+        Skill::create($data);
         return 'skill';
     }
 
     public function skillUpdate(Request $request, $id)
     {
-        Skill::where('id', $id)->update($request->except('_token', '_method'));
+        $request->validate([
+            'skill_name' => 'required|string|max:255',
+        ]);
+        $skill = Skill::where('id', $id)->where('user_id', $request->user()->id)->firstOrFail();
+        $data = $request->all();
+        if (!$request->has('skill_learned_from')) {
+            $data['skill_learned_from'] = [];
+        }
+        $skill->update($data);
         return redirect()->route('accountsettings.index', ['tab' => 'skill'])
             ->with('success', __('Updated successfully'));
     }
@@ -275,13 +314,17 @@ class UserController extends Controller
 
     public function preferredJobCategoryUpdate(Request $request, $id)
     {
-        PreferredJobCategory::where('id', $id)->update($request->except('_token', '_method'));
+        $category = PreferredJobCategory::where('id', $id)->where('user_id', $request->user()->id)->firstOrFail();
+        $category->update($request->all());
         return redirect()->route('accountsettings.index', ['tab' => 'preferred-job-category'])
             ->with('success', __('Updated successfully'));
     }
 
     protected function LanguageProficiency($request)
     {
+        $request->validate([
+            'language_name' => 'required|string|max:255',
+        ]);
         $request->merge(['user_id' => $request->user()->id]);
         LanguageProficiency::create($request->all());
         return 'language-proficiency';
@@ -289,7 +332,11 @@ class UserController extends Controller
 
     public function LanguageProficiencyUpdate(Request $request, $id)
     {
-        LanguageProficiency::where('id', $id)->update($request->except('_token', '_method'));
+        $request->validate([
+            'language_name' => 'required|string|max:255',
+        ]);
+        $language = LanguageProficiency::where('id', $id)->where('user_id', $request->user()->id)->firstOrFail();
+        $language->update($request->all());
         return redirect()->route('accountsettings.index', ['tab' => 'language-proficiency'])
             ->with('success', __('Updated successfully'));
     }

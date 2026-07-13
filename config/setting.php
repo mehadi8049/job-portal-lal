@@ -134,9 +134,6 @@ return [
         'services.stripe.secret'          => 'STRIPE_SECRET',
         'services.stripe.webhook.secret'          => 'STRIPE_WEBHOOK_SECRET',
 
-        'services.paypal.client_id'       => 'PAYPAL_CLIENT_ID',
-        'services.paypal.secret'          => 'PAYPAL_SECRET',
-        'services.paypal.sandbox'         => 'PAYPAL_SANDBOX',
 
     ],
 

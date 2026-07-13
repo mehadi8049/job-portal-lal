@@ -33,27 +33,24 @@
                                     <label class="form-label">Skill Learned From</label>
 
                                     @php
-                                        $skill_learned_from = is_array(
-                                            old('skill_learned_from', $skill->skill_learned_from),
-                                        )
-                                            ? old('skill_learned_from', $skill->skill_learned_from)
-                                            : [];
+                                        $skill_learned_from = old('skill_learned_from', $skill->skill_learned_from ?? []);
+                                        if (!is_array($skill_learned_from)) $skill_learned_from = [];
                                     @endphp
                                     <select name="skill_learned_from[]" class="form-control" multiple>
                                         <option value="Academic"
                                             {{ in_array('Academic', $skill_learned_from) ? 'selected' : '' }}>Academic
                                         </option>
                                         <option value="Training Center"
-                                            {{ in_array('Training Center', old('skill_learned_from', $skill_learned_from)) ? 'selected' : '' }}>
+                                            {{ in_array('Training Center', $skill_learned_from) ? 'selected' : '' }}>
                                             Training Center</option>
                                         <option value="Online Course"
-                                            {{ in_array('Online Course', old('skill_learned_from', $skill_learned_from)) ? 'selected' : '' }}>
+                                            {{ in_array('Online Course', $skill_learned_from) ? 'selected' : '' }}>
                                             Online Course</option>
                                         <option value="Self Learning"
-                                            {{ in_array('Self Learning', old('skill_learned_from', $skill_learned_from)) ? 'selected' : '' }}>
+                                            {{ in_array('Self Learning', $skill_learned_from) ? 'selected' : '' }}>
                                             Self Learning</option>
                                         <option value="Job Experience"
-                                            {{ in_array('Job Experience', old('skill_learned_from', $skill_learned_from)) ? 'selected' : '' }}>
+                                            {{ in_array('Job Experience', $skill_learned_from) ? 'selected' : '' }}>
                                             Job Experience</option>
                                     </select>
 
@@ -96,24 +93,28 @@
                         <div class="col-md-12 mb-3">
                             <label class="form-label">Skill Learned From</label>
 
+                            @php
+                                $add_skill_learned_from = old('skill_learned_from', []);
+                                if (!is_array($add_skill_learned_from)) $add_skill_learned_from = [];
+                            @endphp
                             <select name="skill_learned_from[]" class="form-control" multiple>
                                 <option value="Academic"
-                                    {{ in_array('Academic', old('skill_learned_from', [])) ? 'selected' : '' }}>
+                                    {{ in_array('Academic', $add_skill_learned_from) ? 'selected' : '' }}>
                                     Academic
                                 </option>
                                 <option value="Training Center"
-                                    {{ in_array('Training Center', old('skill_learned_from', [])) ? 'selected' : '' }}>
+                                    {{ in_array('Training Center', $add_skill_learned_from) ? 'selected' : '' }}>
                                     Training Center</option>
                                 <option value="Online Course"
-                                    {{ in_array('Online Course', old('skill_learned_from', [])) ? 'selected' : '' }}>
+                                    {{ in_array('Online Course', $add_skill_learned_from) ? 'selected' : '' }}>
                                     Online
                                     Course</option>
                                 <option value="Self Learning"
-                                    {{ in_array('Self Learning', old('skill_learned_from', [])) ? 'selected' : '' }}>
+                                    {{ in_array('Self Learning', $add_skill_learned_from) ? 'selected' : '' }}>
                                     Self
                                     Learning</option>
                                 <option value="Job Experience"
-                                    {{ in_array('Job Experience', old('skill_learned_from', [])) ? 'selected' : '' }}>
+                                    {{ in_array('Job Experience', $add_skill_learned_from) ? 'selected' : '' }}>
                                     Job
                                     Experience</option>
                             </select>

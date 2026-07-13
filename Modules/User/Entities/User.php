@@ -4,11 +4,12 @@ namespace Modules\User\Entities;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Sanctum\HasApiTokens;
 use Modules\User\Notifications\QueuedResetPassword;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use HasApiTokens, Notifiable;
 
     protected $dates = [
         'email_verified_at',

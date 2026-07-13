@@ -22,7 +22,7 @@ class CreateQualificationsTable extends Migration
             $table->string('institute_name')->nullable();
 
             $table->string('result_type')->nullable();
-            $table->decimal('cgpa', 3, 2);
+            $table->decimal('cgpa', 3, 2)->nullable();
             $table->integer('scale')->nullable();
 
             $table->year('passing_year')->nullable();

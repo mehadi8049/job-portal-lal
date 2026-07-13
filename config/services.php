@@ -43,11 +43,6 @@ return [
             'tolerance' => env('STRIPE_WEBHOOK_TOLERANCE', 300),
         ],
     ],
-    'paypal'    => [
-        'client_id' => env('PAYPAL_CLIENT_ID'),
-        'secret'    => env('PAYPAL_SECRET'),
-        'sandbox'   => env('PAYPAL_SANDBOX', true),
-    ],
     'facebook'  => [
         'client_id'     => env('FACEBOOK_CLIENT_ID'),
         'client_secret' => env('FACEBOOK_CLIENT_SECRET'),

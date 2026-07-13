@@ -81,11 +81,12 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group mt-4">
-                                        <label class="form-check-label">
-                                            <input type="checkbox" name="is_current" value="1"
-                                                {{ old('is_current', $experience->is_current) ? 'checked' : '' }}>
-                                            @lang('Currently Working')
-                                        </label>
+                                    <label class="form-check-label">
+                                        <input type="hidden" name="is_current" value="0">
+                                        <input type="checkbox" name="is_current" value="1"
+                                            {{ old('is_current', $experience->is_current) ? 'checked' : '' }}>
+                                        @lang('Currently Working')
+                                    </label>
                                     </div>
                                 </div>
 
@@ -203,23 +204,24 @@
 
                         <div class="col-md-4">
                             <div class="form-group mt-4">
-                                <label class="form-check-label">
-                                    <input type="checkbox" name="is_current" value="1"
-                                        {{ old('is_current') ? 'checked' : '' }}>
-                                    @lang('Currently Working')
-                                </label>
+                                    <label class="form-check-label">
+                                        <input type="hidden" name="is_current" value="0">
+                                        <input type="checkbox" name="is_current" value="1"
+                                            {{ old('is_current') ? 'checked' : '' }}>
+                                        @lang('Currently Working')
+                                    </label>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="form-label">@lang('Responsibilities')</label>
-                                <textarea name="responsibilities" rows="3"
-                                    class="form-control {{ $errors->has('responsibilities') ? 'is-invalid' : '' }}" placeholder="@lang('Responsibilities')">{{ old('responsibilities') }}</textarea>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-label">@lang('Responsibilities')</label>
+                                    <textarea name="responsibilities" rows="3"
+                                        class="form-control {{ $errors->has('responsibilities') ? 'is-invalid' : '' }}" placeholder="@lang('Responsibilities')">{{ old('responsibilities') }}</textarea>
+                                </div>
                             </div>
-                        </div>
 
-                        {{-- JSON tag input (Area of Expertise) --}}
+                            {{-- JSON tag input (Area of Expertise) --}}
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="form-label">@lang('Area of Expertise')</label>
@@ -243,8 +245,8 @@
                                 let container = document.getElementById("expertise-container");
                                 let hiddenContainer = document.getElementById("expertise-hidden");
 
-                                // Load existing tags from DB (make sure your model casts 'area_of_expertise' as array)
-                                let existingTags = @json($experience->area_of_expertise ?? []);
+                                // Add form has no existing tags
+                                let existingTags = [];
 
                                 // Function to create a tag
                                 function addTag(value) {

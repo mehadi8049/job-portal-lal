@@ -36,6 +36,13 @@
                                             placeholder="e.g. Leadership, Communication, Creative thinking">{{old('special_skills',$category->special_skills)}}</textarea>
                                     </div>
 
+                                    @php
+                                        $preferred_locations_inside = old('preferred_locations_inside', $category->preferred_locations_inside ?? []);
+                                        if (!is_array($preferred_locations_inside)) $preferred_locations_inside = [];
+                                        $preferred_organization_types = old('preferred_organization_types', $category->preferred_organization_types ?? []);
+                                        if (!is_array($preferred_organization_types)) $preferred_organization_types = [];
+                                    @endphp
+
                                     <!-- Preferred Locations Inside Country -->
                                     <div class="col-md-12 mb-3">
                                         <label class="form-label">Preferred Locations (Inside Bangladesh)</label>
@@ -43,31 +50,13 @@
                                         <select name="preferred_locations_inside[]" class="form-control" multiple>
                                             @foreach ($cities as $city)
                                                 <option value="{{ $city->name }}"
-                                                    {{ in_array($city->name, old('preferred_locations_inside', $category->preferred_locations_inside)) ? 'selected' : '' }}>
+                                                    {{ in_array($city->name, $preferred_locations_inside) ? 'selected' : '' }}>
                                                     {{ $city->name }}</option>
                                             @endforeach
                                         </select>
 
                                         <small class="text-muted">Select multiple preferred work locations.</small>
                                     </div>
-
-                                    <!-- Preferred Locations Outside Country -->
-                                    {{-- <div class="col-md-12 mb-3">
-                                        <label class="form-label">Preferred Locations (Outside Bangladesh)</label>
-
-                                        <select name="preferred_locations_outside[]" class="form-control" multiple>
-                                            <option value="USA">USA</option>
-                                            <option value="UK">UK</option>
-                                            <option value="Canada">Canada</option>
-                                            <option value="Australia">Australia</option>
-                                            <option value="Malaysia">Malaysia</option>
-                                            <option value="Saudi Arabia">Saudi Arabia</option>
-                                            <option value="UAE">UAE</option>
-                                            <option value="Japan">Japan</option>
-                                        </select>
-
-                                        <small class="text-muted">Select multiple international locations.</small>
-                                    </div> --}}
 
                                     <!-- Preferred Organization Types -->
                                     <div class="col-md-12 mb-3">
@@ -76,7 +65,7 @@
                                         <select name="preferred_organization_types[]" class="form-control" multiple>
                                             @foreach ($industries as $industry)
                                                 <option value="{{ $industry->name }}"
-                                                    {{ in_array($industry->name, old('preferred_organization_types', $category->preferred_organization_types)) ? 'selected' : '' }}>
+                                                    {{ in_array($industry->name, $preferred_organization_types) ? 'selected' : '' }}>
                                                     {{ $industry->name }}</option>
                                             @endforeach
                                         </select>
@@ -113,7 +102,7 @@
                             <!-- Functional Area -->
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Functional Area</label>
-                                <input type="text" name="functional_area" {{old('functional_area')}} class="form-control"
+                                <input type="text" name="functional_area" value="{{old('functional_area')}}" class="form-control"
                                     placeholder="e.g. Web Development, Marketing">
                             </div>
 

@@ -67,55 +67,6 @@ export default (editor, config = {}) => {
       },
     });
 
-    // Init component PayPal button    
-    
-    const getProducts = function(){
-        
-        var products = [{"value":1,"name":"Product A"},{"value":2,"name":"Product B"},{"value":3,"name":"312312"},{"value":4,"name":"213"}];
-
-        if (window.config.url_get_products)
-        {
-            var url = window.config.url_get_products;
-            var res = new XMLHttpRequest();
-            res.open("GET", url, false);
-            res.send(null);
-
-            if (res.status == 200) {
-              products = JSON.parse(res.response);
-            }
-        }
-        
-        return products;
-    }
-    
-    // Define a new custom component
-    editor.Components.addType('paypal-button', {
-      isComponent: function(el) {
-          var result = '';
-          if(el.tagName == 'BUTTON' && el.className == 'builder-paypal-button' ){
-              result = {type: 'paypal-button'};
-          }
-          return result;
-      },
-      model: {
-        defaults: {
-          tagName: 'button',
-          attributes: { class: 'builder-paypal-button', type: 'button'},
-          productid: '',
-          traits: [
-            {
-              type: 'select',
-              name: 'productid',
-              label: 'Select a Product',
-              changeProp: 0,
-              options: getProducts(),
-            }
-          ],
-          //'script-props': ['productid'],
-        }
-      }
-    });
-    
     // Define a new custom component
     editor.Components.addType('stripe-button', {
       isComponent: function(el) {
