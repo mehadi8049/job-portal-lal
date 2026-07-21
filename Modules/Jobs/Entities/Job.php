@@ -109,6 +109,11 @@ class Job extends Model
         return $this->belongsTo('Modules\Jobs\Entities\CareerLevel','career_level_id');
     }
 
+    public function job_shift()
+    {
+        return $this->belongsTo('Modules\Jobs\Entities\JobShift','job_shift_id');
+    }
+
     public function tracklinks()
     {
         return $this->hasMany(Tracklink::class, 'target_id', 'id')->where('target_class', '=', Job::class);
