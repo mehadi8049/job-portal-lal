@@ -29,38 +29,42 @@ class ProfileController extends BaseApiController
         $user = $request->user();
 
         $request->validate([
-            'name'            => 'sometimes|string|max:255',
-            'father_name'     => 'sometimes|nullable|string|max:255',
-            'mother_name'     => 'sometimes|nullable|string|max:255',
-            'date_of_birth'   => 'sometimes|nullable|date',
-            'gender'          => 'sometimes|nullable|string|max:50',
-            'religion'        => 'sometimes|nullable|string|max:100',
-            'marital_status'  => 'sometimes|nullable|string|max:50',
-            'nationality'     => 'sometimes|nullable|string|max:100',
-            'national_id'     => 'sometimes|nullable|string|max:100',
-            'primary_mobile'  => 'sometimes|nullable|string|max:50',
-            'secondary_mobile' => 'sometimes|nullable|string|max:50',
-            'emergency_contact' => 'sometimes|nullable|string|max:50',
-            'blood_group'     => 'sometimes|nullable|string|max:10',
-            'present_address' => 'sometimes|nullable|string',
-            'parmanent_address' => 'sometimes|nullable|string',
-            'objective'       => 'sometimes|nullable|string',
-            'present_salary'  => 'sometimes|nullable|numeric',
-            'expected_salary' => 'sometimes|nullable|numeric',
-            'job_level'       => 'sometimes|nullable|string|max:100',
-            'job_nature'      => 'sometimes|nullable|string|max:100',
-            'career_summary'  => 'sometimes|nullable|string',
+            'name'               => 'sometimes|string|max:255',
+            'father_name'        => 'sometimes|nullable|string|max:255',
+            'mother_name'        => 'sometimes|nullable|string|max:255',
+            'date_of_birth'      => 'sometimes|nullable|date',
+            'gender'             => 'sometimes|nullable|string|max:50',
+            'religion'           => 'sometimes|nullable|string|max:100',
+            'marital_status'     => 'sometimes|nullable|string|max:50',
+            'nationality'        => 'sometimes|nullable|string|max:100',
+            'national_id'        => 'sometimes|nullable|string|max:100',
+            'passport_number'    => 'sometimes|nullable|string|max:100',
+            'passport_issue_date' => 'sometimes|nullable|date',
+            'primary_mobile'     => 'sometimes|nullable|string|max:50',
+            'secondary_mobile'   => 'sometimes|nullable|string|max:50',
+            'emergency_contact'  => 'sometimes|nullable|string|max:50',
+            'alternate_email'    => 'sometimes|nullable|email|max:255',
+            'blood_group'        => 'sometimes|nullable|string|max:10',
+            'height_meters'      => 'sometimes|nullable|numeric',
+            'weight_kg'          => 'sometimes|nullable|numeric',
+            'present_address'    => 'sometimes|nullable|string',
+            'parmanent_address'  => 'sometimes|nullable|string',
+            'objective'          => 'sometimes|nullable|string',
+            'present_salary'     => 'sometimes|nullable|numeric',
+            'expected_salary'    => 'sometimes|nullable|numeric',
+            'job_level'          => 'sometimes|nullable|string|max:100',
+            'job_nature'         => 'sometimes|nullable|string|max:100',
+            'career_summary'     => 'sometimes|nullable|string',
             'special_qualification' => 'sometimes|nullable|string',
-            'keywords'        => 'sometimes|nullable|array',
-            'password'        => 'sometimes|nullable|string|min:6|confirmed',
+            'keywords'           => 'sometimes|nullable|array',
+            'password'           => 'sometimes|nullable|string|min:6|confirmed',
         ]);
 
         $data = $request->except('password', 'password_confirmation');
-        dd($data);
+
         if ($request->filled('password')) {
             $data['password'] = Hash::make($request->password);
         }
-
 
         $user->update($data);
 

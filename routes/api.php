@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 // Public auth routes
 Route::post('/auth/register', 'Api\AuthController@register');
 Route::post('/auth/login', 'Api\AuthController@login');
+Route::post('/auth/forgot-password', 'Api\AuthController@forgotPassword');
+Route::post('/auth/reset-password', 'Api\AuthController@resetPassword');
 
 // Authenticated auth routes
 Route::middleware('auth:sanctum')->group(function () {

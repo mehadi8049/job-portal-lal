@@ -42,4 +42,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/languages/{id}', 'Api\LanguageProficiencyController@show');
     Route::put('/languages/{id}', 'Api\LanguageProficiencyController@update');
     Route::delete('/languages/{id}', 'Api\LanguageProficiencyController@destroy');
+
+    // CV Download
+    Route::get('/cv/download', 'Api\CvController@download');
 });

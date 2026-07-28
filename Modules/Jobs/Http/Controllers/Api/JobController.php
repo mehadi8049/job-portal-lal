@@ -5,11 +5,13 @@ namespace Modules\Jobs\Http\Controllers\Api;
 use App\Http\Controllers\Api\BaseApiController;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Modules\Jobs\Entities\CareerLevel;
 use Modules\Jobs\Entities\DegreeLevel;
 use Modules\Jobs\Entities\FunctionalArea;
 use Modules\Jobs\Entities\Gender;
 use Modules\Jobs\Entities\Job;
+use Modules\Jobs\Entities\JobApplicant;
 use Modules\Jobs\Entities\JobExperience;
 use Modules\Jobs\Entities\JobShift;
 use Modules\Jobs\Entities\JobType;
@@ -126,5 +128,48 @@ class JobController extends BaseApiController
             'genders'          => Gender::active()->get(['id', 'name']),
             'ownership_types'  => OwnershipType::active()->orderBy('is_default', 'desc')->get(['id', 'name']),
         ]);
+    }
+
+    public function apply(Request $request, $id): JsonResponse
+    {
+        $job = Job::active()->findOrFail($id);
+
+        $validator = Validator::make($request->all(), [
+            'fullname'    => 'required|string|max:191',
+            'email'       => 'required|email|max:191',
+            'description' => 'nullable|string|max:255',
+            'resume_link' => 'nullable|url|max:191',
+            'resume_pdf'  => 'nullable|file|mimes:pdf|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation failed.',
+                'errors'  => $validator->errors(),
+            ], 422);
+        }
+
+        $data = $validator->validated();
+
+        if (!isset($data['resume_link']) && !$request->hasFile('resume_pdf')) {
+            return $this->error('Please provide a resume (link or PDF file).', 422);
+        }
+
+        $data['job_id'] = $job->id;
+        $data['company_id'] = $job->company_id;
+
+        if ($request->hasFile('resume_pdf')) {
+            $file = $request->file('resume_pdf');
+            $rel_path = 'storage/resume_cvs_apply';
+            $path_folder = public_path($rel_path);
+            $file_name = 'resume_' . strtotime('now') . '.' . $file->getClientOriginalExtension();
+            $file->move($path_folder, $file_name);
+            $data['resume_pdf'] = $file_name;
+        }
+
+        JobApplicant::create($data);
+
+        return $this->success(null, 'Application submitted successfully.', 201);
     }
 }
