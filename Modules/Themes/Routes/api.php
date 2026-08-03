@@ -1,2 +1,6 @@
 <?php
-// API routes for Themes module
+
+use Illuminate\Support\Facades\Route;
+
+// Public landing page API
+Route::get('/landing', 'Api\LandingController@index');
