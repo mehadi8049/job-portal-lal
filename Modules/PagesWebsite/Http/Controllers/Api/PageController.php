@@ -26,7 +26,7 @@ class PageController extends BaseApiController
 
     public function termsAndConditions(): JsonResponse
     {
-        $page = PageWebsite::active()->where('slug', 'terms-and-conditions')->first();
+        $page = PageWebsite::active()->where('slug', 'terms-conditions')->first();
 
         if (!$page) {
             return $this->error('Terms and conditions page not found.', 404);
