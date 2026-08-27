@@ -27,6 +27,10 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('passw
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider')->name('login.social');
 Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback')->name('login.callback');
 
+// Account deletion request (public, no auth required)
+Route::get('account-deletion', 'AccountDeletionController@showForm')->name('account.deletion.form');
+Route::post('account-deletion', 'AccountDeletionController@submitRequest')->name('account.deletion.submit');
+
 
 
 Route::middleware('auth')->group(function () {
